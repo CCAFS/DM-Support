@@ -1,0 +1,96 @@
+/*------------------------------------------------------------------
+
+Data Management Support Stylesheet
+Project:	Data Management Support Pack
+
+[Table of contents]
+
++ Content / #dm-content
+	- Left column / #side-left
+		- Top column / #side-top
+			- Role section / #side-role
+			- When section  / #side-when
+		- Bottom column / #side-bot 
+	- Right column / #side-right
+		
+-------------------------------------------------------------------*/
+
+
+
+#dm-content{
+	/*background: url(../images/backgroundTemplate.png);*/
+	min-height: 460px;
+} 
+#dm-content h3{
+	margin: 0px;
+	
+	font-size: 27px;
+	padding-left: 6px;
+	color: #222222;
+}
+#side-left{
+	float: left;
+}
+#side-right{
+	float: left;
+	width: 240px;
+	height: 450px;
+}
+
+#side-top{
+    height: 140px;  
+}
+
+#side-bot{
+	 
+}
+
+#side-role{
+	float: left; 
+	width: 245px;
+	height: 140px;
+}
+#side-when{
+	float: right;
+	width: 445px;
+	height: 140px;
+}
+
+.when > label > div{
+	font-size: 14px;
+	font-weight: 400;
+	padding: 15px 4px;
+	float: left;
+	color: #FFF;
+	background: #A5A8A8;
+	width: 131px;
+	text-align: center;
+} 
+.what > label > div{
+	font-size: 13px;
+	font-weight: 400;
+	padding: 14px 10px;
+	float: left;
+	color: #FFF;
+	background: #47939C;
+	width: 218px;
+	text-align: left;
+} 
+.input_hidden {
+    position: absolute;
+    left: -9999px;
+}
+
+.selected {
+    opacity: 0.4
+} 
+#dm-content label {
+    display: inline-block;
+    cursor: pointer;
+} 
+#dm-content label:hover {
+	top: 0px;
+	position: relative;
+    background-color: #efefef;
+} 
+ 
