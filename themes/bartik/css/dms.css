@@ -21,6 +21,8 @@ Project:	Data Management Support Pack
 	/*background: url(../images/backgroundTemplate.png);*/
 	min-height: 460px;
 } 
+
+
 #dm-content h3{
 	margin: 0px;
 	
@@ -28,6 +30,13 @@ Project:	Data Management Support Pack
 	padding-left: 6px;
 	color: #222222;
 }
+#dm-content h2{ 
+	font-size: 26px;
+	color: #416a30;
+	font-weight: 300;
+}
+
+
 #side-left{
 	float: left;
 }
@@ -56,10 +65,20 @@ Project:	Data Management Support Pack
 	height: 140px;
 }
 
+#side-role > label {
+    width: 74px;
+	
+    font-size: 12px;
+    font-weight: 300;
+    text-align: center;
+    vertical-align: top;
+    color: #222;
+} 
+
 .when > label > div{
 	font-size: 14px;
 	font-weight: 400;
-	padding: 15px 4px;
+	padding: 14px 4px;
 	float: left;
 	color: #FFF;
 	background: #A5A8A8;
@@ -82,15 +101,83 @@ Project:	Data Management Support Pack
 }
 
 .selected {
-    opacity: 0.4
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50);
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
 } 
 #dm-content label {
     display: inline-block;
     cursor: pointer;
 } 
 #dm-content label:hover {
-	top: 0px;
+	top: 1px;
+	left: 1px;
 	position: relative;
     background-color: #efefef;
-} 
- 
+}  
+
+ #step1-icons {
+	padding: 34px;
+	margin: 0px 25px 25px 25px;
+	width: 535px;
+	height: 100px;
+	background: #F1F1F1;
+}
+
+#step1-icons img{
+	margin-left: 55px;
+}
+
+ #step2 {
+ 	display: none;
+	
+}
+
+#guidelines { 
+	margin: 0px 25px 25px 0px; 
+	
+}
+#guidelines ul {
+	padding: 0px;
+	margin: 0px; 
+	
+}
+
+#guidelines ul li {
+	padding: 3px;
+	margin: 0px 0px 3px 0px; 
+	background: #F1F1F1;
+	list-style: none;
+}
+
+.level {
+	float: right;
+	border-radius: 8px;
+	padding: 0px 7px;
+	font-size: 13px;
+	text-align: center;
+	width: 95px
+	
+}
+
+.Very {
+    background-color: #c0504d;
+	 
+    color: #fff;
+}
+.Important {
+	background-color: #da9694;
+    color: #fff;
+}
+.Useful {
+	background-color: #e6b8b7;
+    color: #fff;
+	
+}
+.Optional{
+	background-color: #fff;
+    color: #222;
+}
+		
