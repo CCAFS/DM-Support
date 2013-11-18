@@ -19,7 +19,7 @@ Project:	Data Management Support Pack
 
 #dm-content{
 	/*background: url(../images/backgroundTemplate.png);*/
-	min-height: 460px;
+	min-height: 510px;
 } 
 
 
@@ -135,7 +135,13 @@ Project:	Data Management Support Pack
 	
 }
 
+#result {
+	font-size: 12px;
+}
+
 #guidelines { 
+	color: #666;
+	font-size: 13px;
 	margin: 0px 25px 25px 0px; 
 	
 }

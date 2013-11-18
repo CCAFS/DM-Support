@@ -5,7 +5,7 @@ jQuery(document).ready(function ($) {
 	});
 
 	var role,when,what;
-
+	var themepath = '../themes/bartik/';
 	// Step 1
  	$("input:radio").change(function(){ 
  		if (verify()==3){
@@ -13,12 +13,32 @@ jQuery(document).ready(function ($) {
 			$("#step2").css("display", "block");
 
 			var Data = getData(); console.log(Data);
+			if(role == 1) role='Principal Investigator';
+			if(role == 2) role='Researcher';
+			if(role == 3) role='Data Manager';
+
+			if(when == 1) when='Decisions while designing';
+			if(when == 2) when='Management of research processes';
+			if(when == 3) when='Delivery of research products';
+
+			if(what == 0) what='Data Management Strategy';
+			if(what == 1) what='Research Protocols';
+			if(what == 2) what='Data Management Policies & Plans';
+			if(what == 3) what='Budgeting & Planning ';
+			if(what == 4) what='Data Ownership';
+			if(what == 5) what='Data & Document Storage';
+			if(what == 6) what='Archiving & Sharing';
+			if(what == 7) what='CCAFS Data Portals';
+			if(what == 8) what='Data Quality & Organisation'; 
+
 			var results = 'Result: <b>Role</b> '+role+', <b>When</b> '+when+', <b>What</b> '+what; 
 				
 			var content = '<ul>';
 			Data.forEach(function(entry) { 
+				var icon = themepath+'images/guide.png';
+				if (entry.type == 2) icon = themepath+'images/video.png';
 				content += "<li>";
-				content += entry.name;
+				content += "<img src='"+icon+"'>"+entry.name;
 				content += "<span class='level "+entry.importance_level+"'>"+entry.importance_level+"</span>";
 				content += "</li>";	 
             });
@@ -36,7 +56,7 @@ jQuery(document).ready(function ($) {
 			    $.ajax({
 			       'async': false,
 			       'global': false,
-			       'url': '../themes/bartik/json.php',
+			       'url': themepath+'json.php',
 			       'type': "GET",
   				   'data': { r : role,
   				   			 s : when,

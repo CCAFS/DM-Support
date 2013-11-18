@@ -51,6 +51,8 @@
    </div>
    <div id="side-right" class="what">
      <h3>What</h3> 
+     <input type="radio" name="what" id="0" value="0"/>
+	  <label for="0"> <div>0. Data Management Strategy </div></label> 
      <input type="radio" name="what" id="1" value="1"/>
 	  <label for="1"> <div>1. Research Protocols </div></label> 
 	 <input type="radio" name="what" id="2" value="2"/>
