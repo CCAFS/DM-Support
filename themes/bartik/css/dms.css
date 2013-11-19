@@ -100,37 +100,42 @@ Project:	Data Management Support Pack
     left: -9999px;
 }
 
-.selected {
+.selected,input:disabled{
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 	filter: alpha(opacity=50);
 	-moz-opacity:0.5;
 	-khtml-opacity: 0.5;
 	opacity: 0.5;
 } 
+
 #dm-content label {
     display: inline-block;
     cursor: pointer;
 } 
 #dm-content label:hover {
-	top: 1px;
-	left: 1px;
+	
 	position: relative;
     background-color: #efefef;
 }  
 
- #step1-icons {
+#step1-icons, #step3-form,#step4-form  {
 	padding: 34px;
 	margin: 0px 25px 25px 25px;
 	width: 535px;
 	height: 100px;
 	background: #F1F1F1;
 }
+#step3-form, #step4-form {
+	padding: 14px; 
+	width: 585px;
+	height: auto; 
+}
 
 #step1-icons img{
 	margin-left: 55px;
 }
 
- #step2 {
+ #step2, #step3, #step4, #step5 { 
  	display: none;
 	
 }
@@ -168,6 +173,12 @@ Project:	Data Management Support Pack
 	
 }
 
+.left{
+	float: left;
+}
+.right {
+	float: right;
+}
 .Very {
     background-color: #c0504d;
 	 
@@ -186,4 +197,85 @@ Project:	Data Management Support Pack
 	background-color: #fff;
     color: #222;
 }
-		
+
+input[type=checkbox].css-checkbox {
+	display:none;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+	padding-left:31px;
+	height: 18px; 
+	line-height: 14px;
+	background-repeat:no-repeat;
+	background-position: 0 1px;
+	font-size:13px;
+	font-weight: 500;
+	vertical-align:middle;
+	cursor:pointer;
+
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+	background-position: 0 -16px;
+}
+label.css-label {
+	background-image:url(../images/csscheckbox.png); 
+	
+}	
+
+input[type=checkbox].css-checkbox-regions {
+	display:none;
+}
+
+input[type=checkbox].css-checkbox-regions + label.css-label-regions {
+	padding-left:31px;
+	height: 21px; 
+	line-height: 14px;
+	background-repeat:no-repeat;
+	background-position: 0 1px;
+	font-size:13px;
+	font-weight: 500;
+	vertical-align:middle;
+	cursor:pointer;
+
+}
+
+input[type=checkbox].css-checkbox-regions:checked + label.css-label-regions {
+	background-position: 0 -21px;
+}
+label.css-label-regions {
+	background-image:url(../images/csscheckbox2.png); 
+	
+}
+
+
+a.download {
+	background: #2BA6CB;
+	color: #FFF;
+	padding: 4px 8px;
+	text-decoration: none;
+	cursor: pointer;
+}
+a.downloadLink {
+	color: #6D6D6D;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#side-form1 {
+	margin: 4px;
+	width: 50%;
+	float: left;
+}
+#side-form2 {
+	margin: 4px;
+	width: 47%;
+	float: right;
+}
+#side-form3 {
+clear: both;
+}
+
+#step4 input[type="text"] {
+	padding: 0px;
+}

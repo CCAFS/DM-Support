@@ -8,7 +8,7 @@ $r = htmlentities($_GET["r"]);
 $s= htmlentities($_GET["s"]);
 $c= htmlentities($_GET["c"]);
 
-$sth = mysql_query("SELECT g.name,g.type,g.source, il.importance_level
+$sth = mysql_query("SELECT g.id,g.name,g.type,g.source, il.importance_level
 					FROM dms_importance_levels il
 					INNER JOIN dms_categories c ON il.category_id = c.id
 					INNER JOIN dms_stages s ON il.stage_id = s.id

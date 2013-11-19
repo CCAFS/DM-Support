@@ -5,6 +5,8 @@
 <link href="../<?php print_r($directory); ?>/css/dms.css" rel="stylesheet">
 <script src="../<?php print_r($directory); ?>/js/dms.js" type="text/javascript"></script>
 
+
+
  <div id="dm-content" class="content clearfix"<?php print $content_attributes; ?>>
    
    <div id="side-left">
@@ -46,29 +48,99 @@
       		<h2>Guidelines Recommended</h2>
       		<div id="result"></div>
       		<div id="guidelines"></div>
+      		<a class="download 1">Download documents</a>
+      		<span class="error" style="display: none;">Please check a file.</span>
+		</div> 
+		<div id="step3" >
+      		<h2>Terms and conditions</h2>
+      		<div id="step3-form" >
+	      		<p>Please fill the following form in order to be able to download the files. All form fields are required.</p>
+	      		Email: <input type="text" id="mail" name="mail" value="sebas932@gmail.com"/> <br>
+	      		<span class="error" style="display: none;">Please enter a valid email address.</span>
+	      		<br><a class="download 2">Download documents</a>
+ 			</div>
+ 		</div>
+ 		<div id="step4" >
+      		<h2>Terms and conditions</h2>
+      		<div id="step4-form" >
+      			<div id="side-form1">
+      				<p>First name <input class="right" type="text" id="first_name" name="first_name" value=""/></p>
+      				<p>Institute name: <input class="right" type="text" id="institute-name" name="institute-name" value=""/> </p>
+
+      				<h4>Region(s) where your institute is located: </h4><br>
+
+      				<input name='institute-regions' class='css-checkbox-regions' id='i1' type='checkbox'>
+      					<label for='i1' class='css-label-regions'>Africa</label><br>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i2' type='checkbox'>
+      					<label for='i2' class='css-label-regions'>Asia</label><br>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i3' type='checkbox'>
+      					<label for='i3' class='css-label-regions'>Australia and Oceania</label><br>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i4' type='checkbox'>
+      					<label for='i4' class='css-label-regions'>Central America and the Caribbean</label><br>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i5' type='checkbox'>
+      					<label for='i5' class='css-label-regions'>Middle East and North Africa</label><br>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i6' type='checkbox'>
+      					<label for='i6' class='css-label-regions'>North America</label><br>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i7' type='checkbox'>
+      					<label for='i7' class='css-label-regions'>South America</label><br>
+      			</div>
+      			<div id="side-form2">
+      				<p>Last name: <input type="text" id="last_name" name="last_name" value=""/> </p>
+      				<p></p>
+      				<br>
+      				<h4>Region(s) of your research interes: </h4><br>
+
+      				<input name='research-regions' class='css-checkbox-regions' id='l1' type='checkbox'>
+      					<label for='l1' class='css-label-regions'>Africa</label><br>
+      				<input name='research-regions' class='css-checkbox-regions' id='l2' type='checkbox'>
+      					<label for='l2' class='css-label-regions'>Asia</label><br>
+      				<input name='research-regions' class='css-checkbox-regions' id='l3' type='checkbox'>
+      					<label for='l3' class='css-label-regions'>Australia and Oceania</label><br>
+      				<input name='research-regions' class='css-checkbox-regions' id='l4' type='checkbox'>
+      					<label for='l4' class='css-label-regions'>Central America and the Caribbean</label><br>
+      				<input name='research-regions' class='css-checkbox-regions' id='l5' type='checkbox'>
+      					<label for='l5' class='css-label-regions'>Middle East and North Africa</label><br>
+      				<input name='research-regions' class='css-checkbox-regions' id='l6' type='checkbox'>
+      					<label for='l6' class='css-label-regions'>North America</label><br>
+      				<input name='research-regions' class='css-checkbox-regions' id='l7' type='checkbox'>
+      					<label for='l7' class='css-label-regions'>South America</label><br>
+      			</div>
+      			<div id="side-form3">
+      				Intended use of data: <br>
+      				<textarea id="use" name="use" cols="40" rows="5"></textarea>
+      				<input type="hidden" id="user-id" name="userId" value="">
+      			</div> 
+      			<br><a class="download 3">Download documents</a>
+ 			</div>
+ 		</div>
+ 		<div id="step5" >
+      		<h2>Download</h2>
+      		<div id="result"></div>
+      		<div id="guidelines"></div> 
+      		<br><a href="" class="download 4">See more documents</a>
 		</div> 
       </div>
    </div>
    <div id="side-right" class="what">
      <h3>What</h3> 
-     <input type="radio" name="what" id="0" value="0"/>
-	  <label for="0"> <div>0. Data Management Strategy </div></label> 
-     <input type="radio" name="what" id="1" value="1"/>
-	  <label for="1"> <div>1. Research Protocols </div></label> 
-	 <input type="radio" name="what" id="2" value="2"/>
-	  <label for="2"> <div>2. Data Management Policies & Plans</div></label> 
-	 <input type="radio" name="what" id="3" value="3"/>
-	  <label for="3"> <div>3. Budgeting & Planning </div></label> 
-	 <input type="radio" name="what" id="4" value="4"/>
-	  <label for="4"> <div>4. Data Ownership </div></label> 
-	 <input type="radio" name="what" id="5" value="5"/>
-	  <label for="5"> <div>5. Data & Document Storage </div></label> 
-	 <input type="radio" name="what" id="6" value="6"/>
-	  <label for="6"> <div>6. Archiving & Sharing </div></label> 
-	 <input type="radio" name="what" id="7" value="7"/>
-	  <label for="7"> <div>7. CCAFS Data Portals </div></label> 
-	 <input type="radio" name="what" id="8" value="8"/>
-	  <label for="8"> <div>8. Data Quality & Organisation </div></label>        
+     <input type="radio" name="what" id="c0" value="0"/>
+	  <label for="c0"> <div>0. Data Management Strategy </div></label> 
+     <input type="radio" name="what" id="c1" value="1"/>
+	  <label for="c1"> <div>1. Research Protocols </div></label> 
+	 <input type="radio" name="what" id="c2" value="2"/>
+	  <label for="c2"> <div>2. Data Management Policies & Plans</div></label> 
+	 <input type="radio" name="what" id="c3" value="3"/>
+	  <label for="c3"> <div>3. Budgeting & Planning </div></label> 
+	 <input type="radio" name="what" id="c4" value="4"/>
+	  <label for="c4"> <div>4. Data Ownership </div></label> 
+	 <input type="radio" name="what" id="c5" value="5"/>
+	  <label for="c5"> <div>5. Data & Document Storage </div></label> 
+	 <input type="radio" name="what" id="c6" value="6"/>
+	  <label for="c6"> <div>6. Archiving & Sharing </div></label> 
+	 <input type="radio" name="what" id="c7" value="7"/>
+	  <label for="c7"> <div>7. CCAFS Data Portals </div></label> 
+	 <input type="radio" name="what" id="c8" value="8"/>
+	  <label for="c8"> <div>8. Data Quality & Organisation </div></label>        
      
      
    </div>
