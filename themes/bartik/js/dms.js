@@ -4,7 +4,7 @@ jQuery(document).ready(function ($) {
 		$(this).addClass('selected').siblings().removeClass('selected');
 	});
 
-
+ 
 	var guideSelected;
 	var role,when,what;
 	var themePath = '../themes/bartik/';
