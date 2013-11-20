@@ -38,6 +38,7 @@ Project:	Data Management Support Pack
 
 
 #side-left{
+	width: 690px;
 	float: left;
 }
 #side-right{

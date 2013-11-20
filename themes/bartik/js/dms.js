@@ -1,14 +1,14 @@
+var themePath = '../themes/bartik/',
+	downloadPath = 'http://www.reading.ac.uk/ssc/resource-packs/dms/',
+	guideSelected,
+	role,when,what;
+
 jQuery(document).ready(function ($) { 
 	$('#dm-content input:radio').addClass('input_hidden');
 	$('#dm-content label').click(function() { 
 		$(this).addClass('selected').siblings().removeClass('selected');
-	});
+	});  
 
- 
-	var guideSelected;
-	var role,when,what;
-	var themePath = '../themes/bartik/';
-	var downloadPath = 'http://www.reading.ac.uk/ssc/resources/';
 	// Step 1 (Select the 3 options )
  	$("input:radio").change(function(){ 
  		if (verify()==3){
@@ -64,7 +64,7 @@ jQuery(document).ready(function ($) {
  		}
  		
 	});
-	// Step 3 (Terms and conditions)
+	// Step 3 (Terms and conditions) email contact
 
 	$( "a.download.1" ).click(function() {  
 		if($("input:checkbox[name=check]").is(":checked")) {
@@ -76,7 +76,7 @@ jQuery(document).ready(function ($) {
 		
 	});
 
-	// Step 4 (Terms and conditions)
+	// Step 4 (Terms and conditions) form contact
 	$( "a.download.2" ).click(function() {  
 		var email =$("input[name=mail]").val();
 		if( validateEmail(email)  ) { 
@@ -89,17 +89,21 @@ jQuery(document).ready(function ($) {
 		
 	});
 
-	// Step 5 (Download)
+	// Step 5 (Links for download)
 	$( "a.download.3" ).click(function() {  
 		setDownload();
 		$("#step4").css("display", "none"); $("#step5").css("display", "block"); 
 		var content = '<ul>';
 		guideSelected.forEach(function(entry) { 
-			var icon = themePath+'images/guide.png';
-			if (entry.type == 2) icon = themePath+'images/video.png';
+			var icon = themePath+'images/guide.png',
+				downloadLink = downloadPath+entry.source;
+			if (entry.type == 2) {
+				icon = themePath+'images/video.png';
+				downloadLink = entry.source;
+			}
 			content += "<li>";
 			content += "	<img src='"+icon+"'>"; 
-			content += "	<a class='downloadLink' target='_blank' href='"+downloadPath+entry.source+"' >"+entry.name;
+			content += "	<a class='downloadLink' target='_blank' href='"+downloadLink+"' >"+entry.name;
 			content += "	<img style='float:right' src='"+themePath+"images/dl.png'></a>";
 			content += "</li>";	 
 				 
@@ -209,11 +213,11 @@ jQuery(document).ready(function ($) {
     }
 
     function setDownload(){
-    		arrayInstituteRegions = new Array();
+    		arrayInstituteRegions = [];
             $("input[name^='institute-regions']:checked").each(function(index) {
                 arrayInstituteRegions[index] = $(this).val();
             });
-            arrayResearchRegions = new Array();
+            arrayResearchRegions = [];
             $("input[name^='research-regions']:checked").each(function(index) {
                 arrayResearchRegions[index] = $(this).val();
             });
@@ -230,8 +234,8 @@ jQuery(document).ready(function ($) {
                     lastName: $("#last_name").val(),
                     instituteName: $("#institute-name").val(),
                     instituteRegions: arrayInstituteRegions,
-                    researchRegions: arrayResearchRegions
-                    
+                    researchRegions: arrayResearchRegions,
+                    use: $("#use").val()
                 },
                 beforeSend: function(){
                     $("#submit-user-info").attr("disabled", "disabled");

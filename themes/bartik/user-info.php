@@ -26,36 +26,40 @@ function addUserInfo() {
     $instituteName = isset($_POST["instituteName"]) ? $_POST["instituteName"] : null;
     $instituteRegions = isset($_POST["instituteRegions"]) ? $_POST["instituteRegions"] : null;
     $researchRegions = isset($_POST["researchRegions"]) ? $_POST["researchRegions"] : null;
-    
+    $use = isset($_POST["use"]) ? $_POST["use"] : null;
+
     if (!is_null($email) && !is_null($firstName) && !is_null($lastName) && !is_null($instituteName)
-            && !is_null($instituteRegions) && !is_null($researchRegions)) {
+            && !is_null($instituteRegions) && !is_null($researchRegions) && !is_null($use)) {
         if ($userId < 0) {
             // is a new user?
             // Adding user to the database.
             $query = "INSERT INTO dms_person (first_name, last_name, registered, email)
                 VALUES ('$firstName', '$lastName', now(), '$email')";
             if (mysql_query($query)) {
-                // figure out what's his id.
-                $query = "SELECT id FROM dms_person WHERE email ='$email'";
-                $userId = mysql_query($query); // false in case id was not found.
+                // figure out what's his id. 
+                $query = mysql_query("SELECT id FROM dms_person WHERE email ='$email'"); // false in case id was not found.
+                $row  = mysql_fetch_assoc($query); 
+    			$userId = $row['id'];
                 if (!is_numeric($userId)) {
-                    echo "Error querying user id: " . $userId . " - " . $db->ErrorMsg();
+                    echo "Error querying user id: " . $userId . " - " . mysql_error();
                 }
             } else {
-                echo "Error inserting user: " . $db->ErrorMsg();
+                echo "Error inserting user: " . mysql_error();
             }
         }
         // Now is an existing user.
         // lets insert the download information.
 
-        /*
+       
         $query = "INSERT INTO dms_download (user_id, institute, intended_use, date)
                         VALUES ('$userId', '$instituteName', '$use', now())";
-        if ($db->Execute($query)) {
+        if (mysql_query($query)) {
             // figure out what was the download id inserted before.
             $query = "SELECT max(id) as id FROM dms_download
                              WHERE user_id = " . $userId;
-            $downloadId = $db->GetOne($query);
+            $downloadId = mysql_query($query);
+            $downloadId  = mysql_fetch_assoc($downloadId); 
+    		$downloadId = $downloadId['id'];
             if (is_numeric($downloadId)) {
                 // lets insert institute regions.
                 $query = "INSERT INTO dms_downloadinstitutelocation (download_id";
@@ -81,18 +85,21 @@ function addUserInfo() {
                     if (mysql_query($query)) {
                         echo $downloadId;
                     } else {
-                        echo "Error inserting research regions: " . $db->ErrorMsg();
+                        echo "Error inserting research regions: " . mysql_error();
                     }
                 } else {
-                    echo "Error inserting institute regions: " . $db->ErrorMsg();
+                    echo "Error inserting institute regions: " . mysql_error();
                 }
             } else {
-                echo "Error querying download id: " . $downloadId . " - " . $db->ErrorMsg();
+                echo "Error querying download id: " . $downloadId . " - " . mysql_error();
             }
         } else {
-            echo "Error inserting download information: " . $db->ErrorMsg();
+            echo "Error inserting download information: " . mysql_error();
         }
-		*/
+		/**/
+
+
+
     } else {
         echo "Invalid fields";
     }

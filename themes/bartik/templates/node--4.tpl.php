@@ -14,14 +14,14 @@
        <div id="side-role">
           <h3>Role</h3>
           
-		    <input type="radio" name="role" id="pi" value="1" />
-		     <label for="pi"><img src="../<?php print_r($directory); ?>/images/role_pi.png"><br>Principal Investigator </label> 
+		    <input type="radio" name="role" id="r1" value="1" />
+		     <label for="r1"><img src="../<?php print_r($directory); ?>/images/role_pi.png"><br>Principal Investigator </label> 
 		     
-		    <input type="radio" name="role" id="r" value="2" />
-		     <label for="r"><img src="../<?php print_r($directory); ?>/images/role_r.png"><br>Researcher</label>
+		    <input type="radio" name="role" id="r2" value="2" />
+		     <label for="r2"><img src="../<?php print_r($directory); ?>/images/role_r.png"><br>Researcher</label>
 		     
-		    <input type="radio" name="role" id="dm" value="3" />
-		     <label for="dm"><img src="../<?php print_r($directory); ?>/images/role_dm.png"><br>Data Manager </label>    
+		    <input type="radio" name="role" id="r2" value="3" />
+		     <label for="r2"><img src="../<?php print_r($directory); ?>/images/role_dm.png"><br>Data Manager </label>    
 		  	 
         </div> 
         <div id="side-when" class="when">
@@ -69,19 +69,19 @@
 
       				<h4>Region(s) where your institute is located: </h4><br>
 
-      				<input name='institute-regions' class='css-checkbox-regions' id='i1' type='checkbox'>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i1' value="africa" type='checkbox'>
       					<label for='i1' class='css-label-regions'>Africa</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i2' type='checkbox'>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i2' value="asia" type='checkbox'>
       					<label for='i2' class='css-label-regions'>Asia</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i3' type='checkbox'>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i3' value="oceania" type='checkbox'>
       					<label for='i3' class='css-label-regions'>Australia and Oceania</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i4' type='checkbox'>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i4' value="central_america_caribbean" type='checkbox'>
       					<label for='i4' class='css-label-regions'>Central America and the Caribbean</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i5' type='checkbox'>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i5' value="middle_east_north_africa" type='checkbox'>
       					<label for='i5' class='css-label-regions'>Middle East and North Africa</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i6' type='checkbox'>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i6' value="north_america" type='checkbox'>
       					<label for='i6' class='css-label-regions'>North America</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i7' type='checkbox'>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i7' value="south_america" type='checkbox'>
       					<label for='i7' class='css-label-regions'>South America</label><br>
       			</div>
       			<div id="side-form2">
@@ -90,19 +90,19 @@
       				<br>
       				<h4>Region(s) of your research interes: </h4><br>
 
-      				<input name='research-regions' class='css-checkbox-regions' id='l1' type='checkbox'>
+      				<input name='research-regions' class='css-checkbox-regions' id='l1' value="africa" type='checkbox'>
       					<label for='l1' class='css-label-regions'>Africa</label><br>
-      				<input name='research-regions' class='css-checkbox-regions' id='l2' type='checkbox'>
+      				<input name='research-regions' class='css-checkbox-regions' id='l2' value="asia" type='checkbox'>
       					<label for='l2' class='css-label-regions'>Asia</label><br>
-      				<input name='research-regions' class='css-checkbox-regions' id='l3' type='checkbox'>
+      				<input name='research-regions' class='css-checkbox-regions' id='l3' value="oceania" type='checkbox'>
       					<label for='l3' class='css-label-regions'>Australia and Oceania</label><br>
-      				<input name='research-regions' class='css-checkbox-regions' id='l4' type='checkbox'>
+      				<input name='research-regions' class='css-checkbox-regions' id='l4' value="central_america_caribbean" type='checkbox'>
       					<label for='l4' class='css-label-regions'>Central America and the Caribbean</label><br>
-      				<input name='research-regions' class='css-checkbox-regions' id='l5' type='checkbox'>
+      				<input name='research-regions' class='css-checkbox-regions' id='l5' value="middle_east_north_africa" type='checkbox'>
       					<label for='l5' class='css-label-regions'>Middle East and North Africa</label><br>
-      				<input name='research-regions' class='css-checkbox-regions' id='l6' type='checkbox'>
+      				<input name='research-regions' class='css-checkbox-regions' id='l6' value="north_america" type='checkbox'>
       					<label for='l6' class='css-label-regions'>North America</label><br>
-      				<input name='research-regions' class='css-checkbox-regions' id='l7' type='checkbox'>
+      				<input name='research-regions' class='css-checkbox-regions' id='l7' value="south_america"  type='checkbox'>
       					<label for='l7' class='css-label-regions'>South America</label><br>
       			</div>
       			<div id="side-form3">
