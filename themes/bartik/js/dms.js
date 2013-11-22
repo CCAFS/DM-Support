@@ -90,27 +90,34 @@ jQuery(document).ready(function ($) {
 	});
 
 	// Step 5 (Links for download)
-	$( "a.download.3" ).click(function() {  
-		setDownload();
-		$("#step4").css("display", "none"); $("#step5").css("display", "block"); 
-		var content = '<ul>';
-		guideSelected.forEach(function(entry) { 
-			var icon = themePath+'images/guide.png',
-				downloadLink = downloadPath+entry.source;
-			if (entry.type == 2) {
-				icon = themePath+'images/video.png';
-				downloadLink = entry.source;
-			}
-			content += "<li>";
-			content += "	<img src='"+icon+"'>"; 
-			content += "	<a class='downloadLink' target='_blank' href='"+downloadLink+"' >"+entry.name;
-			content += "	<img style='float:right' src='"+themePath+"images/dl.png'></a>";
-			content += "</li>";	 
-				 
-        });
-        content += '</ul>';
-        
-        $( "#step5 #guidelines" ).html(content); 
+	$( "a.download.3" ).click(function() { 
+		var verifiedText = verifyFields(); 
+		if (verifiedText.length) {
+			$("#step4-form .error").html('Please fill out the information in the following fields :<br>'+verifiedText); 
+        	$("#step4-form .error").css("display", "block");
+        }else {
+        	setDownload();
+			$("#step4").css("display", "none"); $("#step5").css("display", "block"); 
+			var content = '<ul>';
+			guideSelected.forEach(function(entry) { 
+				var icon = themePath+'images/guide.png',
+					downloadLink = downloadPath+entry.source;
+				if (entry.type == 2) {
+					icon = themePath+'images/video.png';
+					downloadLink = entry.source;
+				}
+				content += "<li>";
+				content += "	<img src='"+icon+"'>"; 
+				content += "	<a class='downloadLink' target='_blank' href='"+downloadLink+"' >"+entry.name;
+				content += "	<img style='float:right' src='"+themePath+"images/dl.png'></a>";
+				content += "</li>";	   
+	        });
+	        content += '</ul>';
+	        
+	        $( "#step5 #guidelines" ).html(content); 
+        }
+		
+		
 	});
 
 	// --------------------//
@@ -156,6 +163,54 @@ jQuery(document).ready(function ($) {
 		}
 	 	return count
 	}
+	function verifyFields(){ 
+		var verified = '';
+        // Validate first name.
+        if($("#first_name").is(":visible") && $("#first_name").val() == "") {
+            verified += '* First name <br>';
+            $("#first_name").css("background-color", "#FF9999");
+        } else {
+            $("#first_name").css("background-color", "");
+        }
+        // Validate last name.
+        if($("#last_name").is(":visible") && $("#last_name").val() == "") {
+            verified += '* Last name <br>';
+            $("#last_name").css("background-color", "#FF9999");
+        } else {
+            $("#last_name").css("background-color", "");
+        }
+        // Validate institute name.
+        if($("#institute-name").val() == "") {
+            verified += '* Institute name <br>';
+            $("#institute-name").css("background-color", "#FF9999");
+        } else {
+            $("#institute-name").css("background-color", "");
+        }
+        // Validate institute locations.
+        if($("input[name^='institute-regions']:checked").length == 0) {
+            verified += '* Region(s) where your institute is located <br>';
+            $(".institute-regions .group-label").css("color", "red");
+        } else {
+            $(".institute-regions .group-label").css("color", "");
+        }
+        // Validate research locations.
+        if($("input[name^='research-regions']:checked").length == 0) {
+            verified += '* Region(s) of your research interes <br>';
+            $(".research-regions .group-label").css("color", "red");
+        } else {
+            $(".research-regions .group-label").css("color", "");
+        }
+        // Validate intended use.
+        if($("#use").val() == "") {
+            verified += '* Intended use of data <br>';
+            $("#use").css("background-color", "#FF9999");
+        } else {
+            $("#use").css("background-color", "");
+        }
+        return verified;
+
+	}
+
 	function validateEmail(emailField) {
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
         if(emailField == "" || !emailReg.test(emailField)) {

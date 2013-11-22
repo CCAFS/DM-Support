@@ -55,7 +55,7 @@
       		<h2>Terms and conditions</h2>
       		<div id="step3-form" >
 	      		<p>Please fill the following form in order to be able to download the files. All form fields are required.</p>
-	      		Email: <input type="text" id="mail" name="mail" value="sebas932@gmail.com"/> <br>
+	      		Email: <input type="text" id="mail" name="mail" value=""/> <br>
 	      		<span class="error" style="display: none;">Please enter a valid email address.</span>
 	      		<br><a class="download 2">Download documents</a>
  			</div>
@@ -114,6 +114,7 @@
       				<textarea id="use" name="use" cols="40" rows="5"></textarea>
       				<input type="hidden" id="user-id" name="userId" value="">
       			</div> 
+            <span class="error" style="display: none;"></span>
       			<br><a class="download 3">Download documents</a>
  			</div>
  		</div>
