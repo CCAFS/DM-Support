@@ -2,8 +2,8 @@
 
 
 ?>
-<link href="../<?php print_r($directory); ?>/css/dms.css" rel="stylesheet">
-<script src="../<?php print_r($directory); ?>/js/dms.js" type="text/javascript"></script>
+<link href="./<?php print_r($directory); ?>/css/dms.css" rel="stylesheet">
+<script src="./<?php print_r($directory); ?>/js/dms.js" type="text/javascript"></script>
 
 
 
@@ -15,13 +15,13 @@
           <h3>Role</h3>
           
 		    <input type="radio" name="role" id="r1" value="1" />
-		     <label for="r1"><img src="../<?php print_r($directory); ?>/images/role_pi.png"><br>Principal Investigator </label> 
+		     <label for="r1"><img src="./<?php print_r($directory); ?>/images/role_pi.png"><br>Principal Investigator </label> 
 		     
 		    <input type="radio" name="role" id="r2" value="2" />
-		     <label for="r2"><img src="../<?php print_r($directory); ?>/images/role_r.png"><br>Researcher</label>
+		     <label for="r2"><img src="./<?php print_r($directory); ?>/images/role_r.png"><br>Researcher</label>
 		     
 		    <input type="radio" name="role" id="r2" value="3" />
-		     <label for="r2"><img src="../<?php print_r($directory); ?>/images/role_dm.png"><br>Data Manager </label>    
+		     <label for="r2"><img src="./<?php print_r($directory); ?>/images/role_dm.png"><br>Data Manager </label>    
 		  	 
         </div> 
         <div id="side-when" class="when">
@@ -39,9 +39,9 @@
       	<div id="step1" >
       		<h2>Select the 3 options</h2>
       		<div id="step1-icons" >
-      		<img id="icon-role" src="../<?php print_r($directory); ?>/images/role-checked.png">
-      		<img id="icon-when" src="../<?php print_r($directory); ?>/images/when-checked.png">
-      		<img id="icon-what" src="../<?php print_r($directory); ?>/images/what-checked.png">
+      		<img id="icon-role" src="./<?php print_r($directory); ?>/images/role-checked.png">
+      		<img id="icon-when" src="./<?php print_r($directory); ?>/images/when-checked.png">
+      		<img id="icon-what" src="./<?php print_r($directory); ?>/images/what-checked.png">
  			</div>
  		</div>
       	<div id="step2" >
@@ -83,6 +83,8 @@
       					<label for='i6' class='css-label-regions'>North America</label><br>
       				<input name='institute-regions' class='css-checkbox-regions' id='i7' value="south_america" type='checkbox'>
       					<label for='i7' class='css-label-regions'>South America</label><br>
+      				<input name='institute-regions' class='css-checkbox-regions' id='i8' value="europe" type='checkbox'>
+      					<label for='i8' class='css-label-regions'>Europe</label><br>	
       			</div>
       			<div id="side-form2">
       				<p>Last name: <input type="text" id="last_name" name="last_name" value=""/> </p>
@@ -104,6 +106,8 @@
       					<label for='l6' class='css-label-regions'>North America</label><br>
       				<input name='research-regions' class='css-checkbox-regions' id='l7' value="south_america"  type='checkbox'>
       					<label for='l7' class='css-label-regions'>South America</label><br>
+      				<input name='research-regions' class='css-checkbox-regions' id='l8' value="europe"  type='checkbox'>
+      					<label for='l8' class='css-label-regions'>Europe</label><br>	
       			</div>
       			<div id="side-form3">
       				Intended use of data: <br>

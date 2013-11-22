@@ -108,7 +108,37 @@ function addUserInfo() {
 function getUserInfo() { 
     $email = $_POST["email"];
     if (isset($email) && $email != "") {
-        $query = mysql_query("SELECT * FROM dms_person WHERE email ='".$email."' "); 
+        $query = mysql_query("
+        SELECT
+        -- Person
+        dp.id, dp.first_name, dp.last_name, dp.registered, dp.email,
+        -- Download
+        dd.institute, dd.date,
+        -- Institute Locations
+        ddi.africa as i_africa,
+        ddi.asia as i_asia,
+        ddi.oceania as i_oceania,
+        ddi.central_america_caribbean as i_central_america_caribbean,
+        ddi.europe as i_europe,
+        ddi.middle_east_north_africa as i_middle_east_north_africa,
+        ddi.north_america as i_north_america,
+        ddi.south_america as i_south_america,
+        -- Research Locations
+        ddr.africa as r_africa,
+        ddr.asia as r_asia,
+        ddr.oceania as r_oceania,
+        ddr.central_america_caribbean as r_central_america_caribbean,
+        ddr.europe as r_europe,
+        ddr.middle_east_north_africa as r_middle_east_north_africa,
+        ddr.north_america as r_north_america,
+        ddr.south_america as r_south_america
+        FROM dms_person dp, dms_download dd, dms_downloadresearchlocation ddr, dms_downloadinstitutelocation ddi
+        WHERE dp.email = '$email'
+        AND dp.id = dd.user_id
+        AND dd.id = ddr.download_id
+        AND dd.id = ddi.download_id
+        ORDER BY dd.id DESC limit 1;
+        "); 
 		$user = array();
 		while($res = mysql_fetch_assoc($query)) {
 		    $user[] = $res; 

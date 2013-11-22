@@ -51,7 +51,7 @@
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
   <?php print $scripts; ?>
-  <script src="../<?php print_r($directory); ?>/js/modernizr-1.0.min.js" type="text/javascript"></script>
+  <script src="./<?php print_r($directory); ?>/js/modernizr-1.0.min.js" type="text/javascript"></script>
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
   <div id="skip-link">
