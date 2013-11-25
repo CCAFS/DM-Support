@@ -251,6 +251,8 @@ label.css-label-regions {
 
 
 a.download {
+	position: relative;
+	top: -8px;
 	background: #2BA6CB;
 	color: #FFF;
 	padding: 4px 8px;
@@ -280,3 +282,27 @@ clear: both;
 #step4 input[type="text"] {
 	padding: 0px;
 }
+
+/* these styles are for the demo, but are not required for the plugin */
+		.zoom {
+			display:inline-block;
+			position: relative;
+		}
+		
+		/* magnifying glass icon */
+		.zoom:after {
+			content:'';
+			display:block; 
+			width:33px; 
+			height:33px; 
+			position:absolute; 
+			top:0;
+			right:0;
+		
+		}
+
+		.zoom img {
+			display: block;
+		}
+
+		.zoom img::selection { background-color: transparent; }

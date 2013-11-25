@@ -2,8 +2,13 @@
 
 
 ?>
+
 <link href="./<?php print_r($directory); ?>/css/dms.css" rel="stylesheet">
 <script src="./<?php print_r($directory); ?>/js/dms.js" type="text/javascript"></script>
+<link rel="stylesheet" href="./<?php print_r($directory); ?>/libs/colorbox-master/example2/colorbox.css" />
+<script src="./<?php print_r($directory); ?>/libs/colorbox-master/jquery.colorbox.js"></script>
+
+<script src="./<?php print_r($directory); ?>/libs/zoom-master/jquery.zoom.js"></script>
 
 
 
@@ -48,8 +53,20 @@
       		<h2>Guidelines Recommended</h2>
       		<div id="result"></div>
       		<div id="guidelines"></div>
-      		<a class="download 1">Download documents</a>
-      		<span class="error" style="display: none;">Please check a file.</span>
+
+          <span class="error" style="display: none;">Please check a file.</span>
+          <div style="height:27px;">
+            <a class="icon-flow" href="./<?php print_r($directory); ?>/images/full_diagram.png">
+              <img id="icon-flow" src="./<?php print_r($directory); ?>/images/flow.png">
+            </a>
+            <a class="icon-table" href="./<?php print_r($directory); ?>/images/table-c.png">
+              <img id="icon-table" src="./<?php print_r($directory); ?>/images/table.png">
+            </a>
+        		<a class="download 1">Download documents</a>
+      		</div>
+         
+  
+          
 		</div> 
 		<div id="step3" >
       		<h2>Terms and conditions</h2>

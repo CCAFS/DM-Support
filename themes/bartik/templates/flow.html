@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src='../libs/elevatezoom-master/jquery.elevatezoom.js'></script>
+</head>
+<body>
+
+<img id="zoom_01" src='../images/full_diagram_500x439.png' data-zoom-image="../images/full_diagram.png"/>
+
+
+<script>
+jQuery(document).ready(function ($) { 
+    $('#zoom_01').elevateZoom({
+	    zoomType: "inner",
+		cursor: "crosshair",
+		zoomWindowFadeIn: 500,
+		zoomWindowFadeOut: 750
+   	}); 
+});   	
+</script>
+</body>
+</html>

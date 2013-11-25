@@ -4,6 +4,10 @@ var themePath = './themes/bartik/',
 	role,when,what;
 
 jQuery(document).ready(function ($) { 
+	
+	$('a.icon-flow').colorbox({width:'90%'});
+	$('a.icon-table').colorbox({width:'90%'});
+
 	$('#dm-content input:radio').addClass('input_hidden');
 	$('#dm-content label').click(function() { 
 		$(this).addClass('selected').siblings().removeClass('selected');
@@ -39,12 +43,18 @@ jQuery(document).ready(function ($) {
 			var c = 0;	
 			var content = '<ul>';
 			Data.forEach(function(entry) { 
-				var icon = themePath+'images/guide.png';
-				if (entry.type == 2) icon = themePath+'images/video.png';
+				var typeText,icon;
+				if (entry.type == 2){
+					typeText = '(Video)';
+					icon = themePath+'images/video.png';
+				} else{
+					icon = themePath+'images/guide.png';
+					typeText = '';
+				}
 				content += "<li>";
 				content += "	<img src='"+icon+"'>";
 				content += "	<input name='check' class='css-checkbox' id='"+c+"' type='checkbox'>";
-				content += "	<label for='"+c+"' class='css-label'>"+entry.name+"</label>";
+				content += "	<label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>";
 				content += "	<span class='level "+entry.importance_level+"'>"+entry.importance_level+"</span>";
 				content += "</li>";	 
 				c++;
