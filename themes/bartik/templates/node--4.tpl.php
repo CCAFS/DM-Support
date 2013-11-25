@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="./<?php print_r($directory); ?>/libs/colorbox-master/example2/colorbox.css" />
 <script src="./<?php print_r($directory); ?>/libs/colorbox-master/jquery.colorbox.js"></script>
 
-<script src="./<?php print_r($directory); ?>/libs/zoom-master/jquery.zoom.js"></script>
 
 
 
@@ -81,32 +80,16 @@
       		<h2>Terms and conditions</h2>
       		<div id="step4-form" >
       			<div id="side-form1">
-      				<p>First name <input class="right" type="text" id="first_name" name="first_name" value=""/></p>
-      				<p>Institute name: <input class="right" type="text" id="institute-name" name="institute-name" value=""/> </p>
+      				<div class="left"><label for='first_name'>First name</label> <input type="text" id="first_name" name="first_name" value=""/> </div>
+              <div class="right"><label for='last_name'>Last name:</label> <input type="text" id="last_name" name="last_name" value=""/> </div>
+      				<div class="left" style="clear: both;"><label for='institute-name'>Institute name:</label> <input type="text" id="institute-name" name="institute-name" value=""/> </div>
 
-      				<h4>Region(s) where your institute is located: </h4><br>
-
-      				<input name='institute-regions' class='css-checkbox-regions' id='i1' value="africa" type='checkbox'>
-      					<label for='i1' class='css-label-regions'>Africa</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i2' value="asia" type='checkbox'>
-      					<label for='i2' class='css-label-regions'>Asia</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i3' value="oceania" type='checkbox'>
-      					<label for='i3' class='css-label-regions'>Australia and Oceania</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i4' value="central_america_caribbean" type='checkbox'>
-      					<label for='i4' class='css-label-regions'>Central America and the Caribbean</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i5' value="middle_east_north_africa" type='checkbox'>
-      					<label for='i5' class='css-label-regions'>Middle East and North Africa</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i6' value="north_america" type='checkbox'>
-      					<label for='i6' class='css-label-regions'>North America</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i7' value="south_america" type='checkbox'>
-      					<label for='i7' class='css-label-regions'>South America</label><br>
-      				<input name='institute-regions' class='css-checkbox-regions' id='i8' value="europe" type='checkbox'>
-      					<label for='i8' class='css-label-regions'>Europe</label><br>	
+      				
       			</div>
       			<div id="side-form2">
-      				<p>Last name: <input type="text" id="last_name" name="last_name" value=""/> </p>
-      				<p></p>
-      				<br>
+      				
+      				
+      				<div class="left">
       				<h4>Region(s) of your research interes: </h4><br>
 
       				<input name='research-regions' class='css-checkbox-regions' id='l1' value="africa" type='checkbox'>
@@ -125,6 +108,27 @@
       					<label for='l7' class='css-label-regions'>South America</label><br>
       				<input name='research-regions' class='css-checkbox-regions' id='l8' value="europe"  type='checkbox'>
       					<label for='l8' class='css-label-regions'>Europe</label><br>	
+              </div>
+              <div class="right">
+              <h4>Region(s) where your institute is located: </h4><br>
+
+              <input name='institute-regions' class='css-checkbox-regions' id='i1' value="africa" type='checkbox'>
+                <label for='i1' class='css-label-regions'>Africa</label><br>
+              <input name='institute-regions' class='css-checkbox-regions' id='i2' value="asia" type='checkbox'>
+                <label for='i2' class='css-label-regions'>Asia</label><br>
+              <input name='institute-regions' class='css-checkbox-regions' id='i3' value="oceania" type='checkbox'>
+                <label for='i3' class='css-label-regions'>Australia and Oceania</label><br>
+              <input name='institute-regions' class='css-checkbox-regions' id='i4' value="central_america_caribbean" type='checkbox'>
+                <label for='i4' class='css-label-regions'>Central America and the Caribbean</label><br>
+              <input name='institute-regions' class='css-checkbox-regions' id='i5' value="middle_east_north_africa" type='checkbox'>
+                <label for='i5' class='css-label-regions'>Middle East and North Africa</label><br>
+              <input name='institute-regions' class='css-checkbox-regions' id='i6' value="north_america" type='checkbox'>
+                <label for='i6' class='css-label-regions'>North America</label><br>
+              <input name='institute-regions' class='css-checkbox-regions' id='i7' value="south_america" type='checkbox'>
+                <label for='i7' class='css-label-regions'>South America</label><br>
+              <input name='institute-regions' class='css-checkbox-regions' id='i8' value="europe" type='checkbox'>
+                <label for='i8' class='css-label-regions'>Europe</label><br>    
+              </div>  
       			</div>
       			<div id="side-form3">
       				Intended use of data: <br>
