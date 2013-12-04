@@ -151,7 +151,14 @@ jQuery(document).ready(function ($) {
 			       'dataType': "json",
 			       'success': function(data) {
 			          json = data;
-			       }
+			          $("#ajax-loader").css("display", "none"); 
+			       },
+			       beforeSend: function(){ 
+			       	$("#ajax-loader").css("display", "block"); 
+			       	console.log('asdasdasd')
+			       	
+                    
+                   }
 			    });
 			    return json;
 		 })();
