@@ -43,15 +43,17 @@
       	<div id="step1" >
       		<h2>Select the 3 options</h2>
       		<div id="step1-icons" >
-        		<img id="icon-role" src="./<?php print_r($directory); ?>/images/role-checked.png">
-        		<img id="icon-when" src="./<?php print_r($directory); ?>/images/when-checked.png">
-        		<img id="icon-what" src="./<?php print_r($directory); ?>/images/what-checked.png">
+        		<img id="icon-role" src="./<?php print_r($directory); ?>/images/role-checked.png"> 
+        		<img id="icon-when" src="./<?php print_r($directory); ?>/images/when-checked.png"> 
+        		<img id="icon-what" src="./<?php print_r($directory); ?>/images/what-checked.png"> 
+            <br>
+            <span>Choose a role</span> <span>Choose when</span> <span>Choose what</span>
  			    </div> 
           <a class="icon-flow" href="./<?php print_r($directory); ?>/images/full_diagram.png">
-            <img id="icon-flow" src="./<?php print_r($directory); ?>/images/flow.png">
+            <img id="icon-flow" src="./<?php print_r($directory); ?>/images/flow.png"> Flow
           </a>
           <a class="icon-table" href="./<?php print_r($directory); ?>/images/table-c.png">
-            <img id="icon-table" src="./<?php print_r($directory); ?>/images/table.png">
+            <img id="icon-table" src="./<?php print_r($directory); ?>/images/table.png"> Table
           </a>
  		    </div>
       	<div id="step2" >

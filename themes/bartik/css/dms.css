@@ -131,9 +131,15 @@ Project:	Data Management Support Pack
 	width: 585px;
 	height: auto; 
 }
-
+#step1 a:hover,a:visited,a:focus{
+	color: #FFF;
+	text-decoration: none;
+}
 #step1-icons img{
 	margin-left: 55px;
+}
+#step1-icons span{
+	margin-left: 58px;
 }
 
  #step2, #step3, #step4, #step5 { 
@@ -281,6 +287,14 @@ clear: both;
 
 #step4 input[type="text"] {
 	padding: 0px;
+}
+
+.icon-table, .icon-flow {
+	color: #FFF;
+	background: #2BA6CB;
+	padding: 4px 13px 7px 10px;
+	margin-right: 5px;
+	vertical-align: top;
 }
 
 /* these styles are for the demo, but are not required for the plugin */
