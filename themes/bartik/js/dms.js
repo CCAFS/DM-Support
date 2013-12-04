@@ -5,9 +5,7 @@ var themePath = './themes/bartik/',
 
 jQuery(document).ready(function ($) { 
 	
-	$('a.icon-flow').colorbox({width:'90%'});
-	$('a.icon-table').colorbox({width:'90%'});
-
+	$('a.icon-flow,a.icon-table').colorbox({width:'90%'}); 
 	$('#dm-content input:radio').addClass('input_hidden');
 	$('#dm-content label').click(function() { 
 		$(this).addClass('selected').siblings().removeClass('selected');
@@ -63,19 +61,19 @@ jQuery(document).ready(function ($) {
             $( "#step2 #result" ).html(results);
             $( "#step2 #guidelines" ).html(content); 
 
+            /* This event is when the Checkbox was Selected or Unselected
+              and fill a array guideSelected with new list selected */
            	$("input[name^='check']").change(function() {
            		guideSelected = new Array();
 	            $("input[name^='check']:checked").each(function(i) { 
 	                guideSelected[i] = Data[$(this).attr('id')];
-	            });
-	            
-		        
+	            });   
 		    });
  		}
  		
 	});
-	// Step 3 (Terms and conditions) email contact
 
+	// Step 3 (Terms and conditions) email contact
 	$( "a.download.1" ).click(function() {  
 		if($("input:checkbox[name=check]").is(":checked")) {
 			$("#step2").css("display", "none"); $("#step3").css("display", "block");
@@ -155,7 +153,7 @@ jQuery(document).ready(function ($) {
 			       },
 			       beforeSend: function(){ 
 			       	$("#ajax-loader").css("display", "block"); 
-			       	console.log('asdasdasd')
+
 			       	
                     
                    }

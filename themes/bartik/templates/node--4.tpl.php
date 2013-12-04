@@ -43,24 +43,24 @@
       	<div id="step1" >
       		<h2>Select the 3 options</h2>
       		<div id="step1-icons" >
-      		<img id="icon-role" src="./<?php print_r($directory); ?>/images/role-checked.png">
-      		<img id="icon-when" src="./<?php print_r($directory); ?>/images/when-checked.png">
-      		<img id="icon-what" src="./<?php print_r($directory); ?>/images/what-checked.png">
- 			</div>
- 		</div>
+        		<img id="icon-role" src="./<?php print_r($directory); ?>/images/role-checked.png">
+        		<img id="icon-when" src="./<?php print_r($directory); ?>/images/when-checked.png">
+        		<img id="icon-what" src="./<?php print_r($directory); ?>/images/what-checked.png">
+ 			    </div> 
+          <a class="icon-flow" href="./<?php print_r($directory); ?>/images/full_diagram.png">
+            <img id="icon-flow" src="./<?php print_r($directory); ?>/images/flow.png">
+          </a>
+          <a class="icon-table" href="./<?php print_r($directory); ?>/images/table-c.png">
+            <img id="icon-table" src="./<?php print_r($directory); ?>/images/table.png">
+          </a>
+ 		    </div>
       	<div id="step2" >
       		<h2>Guidelines Recommended</h2>
       		<div id="result"></div> 
       		<div id="guidelines"></div>
           <div id="ajax-loader" style="display:none"><img src="./<?php print_r($directory); ?>/images/loader.gif"></div>
           <span class="error" style="display: none;">Please check a file.</span>
-          <div style="height:27px;">
-            <a class="icon-flow" href="./<?php print_r($directory); ?>/images/full_diagram.png">
-              <img id="icon-flow" src="./<?php print_r($directory); ?>/images/flow.png">
-            </a>
-            <a class="icon-table" href="./<?php print_r($directory); ?>/images/table-c.png">
-              <img id="icon-table" src="./<?php print_r($directory); ?>/images/table.png">
-            </a>
+          <div style="height:27px;"> 
         		<a class="download 1">Download documents</a>
       		</div>
          
