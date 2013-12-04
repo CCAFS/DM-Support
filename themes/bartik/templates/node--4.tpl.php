@@ -50,10 +50,10 @@
             <span>Choose a role</span> <span>Choose when</span> <span>Choose what</span>
  			    </div> 
           <a class="icon-flow" href="./<?php print_r($directory); ?>/images/full_diagram.png">
-            <img id="icon-flow" src="./<?php print_r($directory); ?>/images/flow.png"> Flow
+              Flow
           </a>
           <a class="icon-table" href="./<?php print_r($directory); ?>/images/table-c.png">
-            <img id="icon-table" src="./<?php print_r($directory); ?>/images/table.png"> Table
+              Table
           </a>
  		    </div>
       	<div id="step2" >

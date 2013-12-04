@@ -258,7 +258,6 @@ label.css-label-regions {
 
 a.download {
 	position: relative;
-	top: -8px;
 	background: #2BA6CB;
 	color: #FFF;
 	padding: 4px 8px;
@@ -291,10 +290,16 @@ clear: both;
 
 .icon-table, .icon-flow {
 	color: #FFF;
-	background: #2BA6CB;
-	padding: 4px 13px 7px 10px;
+	padding: 4px 13px 6px 32px;
 	margin-right: 5px;
 	vertical-align: top;
+}
+
+.icon-table {
+	background: url(../images/table.png) no-repeat #2BA6CB;
+}
+.icon-flow {
+	background: url(../images/flow.png) no-repeat #2BA6CB;
 }
 
 /* these styles are for the demo, but are not required for the plugin */
