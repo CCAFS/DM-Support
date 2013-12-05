@@ -16,10 +16,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dms_categories`
+-- Estructura de tabla para la tabla `dmsp_categories`
 --
 
-CREATE TABLE IF NOT EXISTS `dms_categories` (
+CREATE TABLE IF NOT EXISTS `dmsp_categories` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -28,26 +28,26 @@ CREATE TABLE IF NOT EXISTS `dms_categories` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dms_download`
+-- Estructura de tabla para la tabla `dmsp_download`
 --
 
-CREATE TABLE IF NOT EXISTS `dms_download` (
+CREATE TABLE IF NOT EXISTS `dmsp_download` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `institute` longtext NOT NULL,
   `intended_use` longtext NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `dms_download_fbfc09f1` (`user_id`)
+  KEY `dmsp_download_fbfc09f1` (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15223 ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dms_downloadinstitutelocation`
+-- Estructura de tabla para la tabla `dmsp_downloadinstitutelocation`
 --
 
-CREATE TABLE IF NOT EXISTS `dms_downloadinstitutelocation` (
+CREATE TABLE IF NOT EXISTS `dmsp_downloadinstitutelocation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `download_id` int(11) NOT NULL,
   `africa` tinyint(1) NOT NULL DEFAULT '0',
@@ -59,16 +59,16 @@ CREATE TABLE IF NOT EXISTS `dms_downloadinstitutelocation` (
   `north_america` tinyint(1) NOT NULL DEFAULT '0',
   `south_america` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `dms_downloadinstitutelocation_30b991ec` (`download_id`)
+  KEY `dmsp_downloadinstitutelocation_30b991ec` (`download_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15205 ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dms_downloadresearchlocation`
+-- Estructura de tabla para la tabla `dmsp_downloadresearchlocation`
 --
 
-CREATE TABLE IF NOT EXISTS `dms_downloadresearchlocation` (
+CREATE TABLE IF NOT EXISTS `dmsp_downloadresearchlocation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `download_id` int(11) NOT NULL,
   `africa` tinyint(1) NOT NULL DEFAULT '0',
@@ -80,16 +80,16 @@ CREATE TABLE IF NOT EXISTS `dms_downloadresearchlocation` (
   `north_america` tinyint(1) NOT NULL DEFAULT '0',
   `south_america` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `dms_downloadresearchlocation_30b991ec` (`download_id`)
+  KEY `dmsp_downloadresearchlocation_30b991ec` (`download_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15205 ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dms_importance_levels`
+-- Estructura de tabla para la tabla `dmsp_importance_levels`
 --
 
-CREATE TABLE IF NOT EXISTS `dms_importance_levels` (
+CREATE TABLE IF NOT EXISTS `dmsp_importance_levels` (
   `id_importance_level` int(11) NOT NULL,
   `importance_level` enum('Very important','Important','Useful','Optional') DEFAULT NULL,
   `guideline_id` int(11) NOT NULL,
@@ -97,19 +97,19 @@ CREATE TABLE IF NOT EXISTS `dms_importance_levels` (
   `stage_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id_importance_level`),
-  KEY `fk_DMS_importance_level_DMS_guidelines_idx` (`guideline_id`),
-  KEY `fk_DMS_importance_level_DMS_what1_idx` (`category_id`),
-  KEY `fk_DMS_importance_level_DMS_when1_idx` (`stage_id`),
-  KEY `fk_DMS_importance_level_DMS_role1_idx` (`role_id`)
+  KEY `fk_dmsp_importance_level_dmsp_guidelines_idx` (`guideline_id`),
+  KEY `fk_dmsp_importance_level_dmsp_what1_idx` (`category_id`),
+  KEY `fk_dmsp_importance_level_dmsp_when1_idx` (`stage_id`),
+  KEY `fk_dmsp_importance_level_dmsp_role1_idx` (`role_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dms_person`
+-- Estructura de tabla para la tabla `dmsp_person`
 --
 
-CREATE TABLE IF NOT EXISTS `dms_person` (
+CREATE TABLE IF NOT EXISTS `dmsp_person` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(250) NOT NULL,
   `last_name` varchar(250) NOT NULL,
@@ -121,10 +121,10 @@ CREATE TABLE IF NOT EXISTS `dms_person` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dms_roles`
+-- Estructura de tabla para la tabla `dmsp_roles`
 --
 
-CREATE TABLE IF NOT EXISTS `dms_roles` (
+CREATE TABLE IF NOT EXISTS `dmsp_roles` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -133,10 +133,10 @@ CREATE TABLE IF NOT EXISTS `dms_roles` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dms_stages`
+-- Estructura de tabla para la tabla `dmsp_stages`
 --
 
-CREATE TABLE IF NOT EXISTS `dms_stages` (
+CREATE TABLE IF NOT EXISTS `dmsp_stages` (
   `id` int(11) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -163,10 +163,10 @@ SET time_zone = "+00:00";
 --
 
 --
--- Volcado de datos para la tabla `dms_categories`
+-- Volcado de datos para la tabla `dmsp_categories`
 --
 
-INSERT INTO `dms_categories` (`id`, `name`) VALUES
+INSERT INTO `dmsp_categories` (`id`, `name`) VALUES
 (1, 'Research Protocols'),
 (2, 'Data Management Policies & Plans'),
 (3, 'Budgeting & Planning'),
@@ -178,10 +178,10 @@ INSERT INTO `dms_categories` (`id`, `name`) VALUES
 (0, 'Data Management Strategy');
 
 --
--- Volcado de datos para la tabla `dms_importance_levels`
+-- Volcado de datos para la tabla `dmsp_importance_levels`
 --
 
-INSERT INTO `dms_importance_levels` (`id_importance_level`, `importance_level`, `guideline_id`, `category_id`, `stage_id`, `role_id`) VALUES
+INSERT INTO `dmsp_importance_levels` (`id_importance_level`, `importance_level`, `guideline_id`, `category_id`, `stage_id`, `role_id`) VALUES
 (1, 'Very important', 1, 0, 1, 1),
 (2, 'Important', 1, 0, 1, 2),
 (3, 'Very important', 1, 0, 1, 3),
@@ -726,22 +726,97 @@ INSERT INTO `dms_importance_levels` (`id_importance_level`, `importance_level`, 
 
 
 --
--- Volcado de datos para la tabla `dms_roles`
+-- Volcado de datos para la tabla `dmsp_roles`
 --
 
-INSERT INTO `dms_roles` (`id`, `name`) VALUES
+INSERT INTO `dmsp_roles` (`id`, `name`) VALUES
 (1, 'Principal Investigator'),
 (2, 'Researcher'),
 (3, 'Data Manager');
 
 --
--- Volcado de datos para la tabla `dms_stages`
+-- Volcado de datos para la tabla `dmsp_stages`
 --
 
-INSERT INTO `dms_stages` (`id`, `name`) VALUES
+INSERT INTO `dmsp_stages` (`id`, `name`) VALUES
 (1, 'Decisions while designing'),
 (2, 'Management of research processes'),
 (3, 'Delivery of research products');
+
+
+CREATE TABLE IF NOT EXISTS `dmsp_guidelines` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
+  `source` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `dms_guidelines`
+--
+
+INSERT INTO `dmsp_guidelines` (`id`, `name`, `type`, `source`) VALUES
+(1, 'CCAFS Data Management Strategy', 1, '00-data_management_strategy/CCAFS%20-%20DataManagementStrategy.pdf'),
+(2, 'Writing Research Protocols  a statistical perspective', 1, '01-research_protocols/Writing Research Protocols - a statistical perspective.pdf'),
+(3, 'Preparation of Research Protocols  Good Practice Case Study', 1, '01-research_protocols/GPCS7 - Preparation of Research Protocols.pdf'),
+(4, 'What is a Research Protocol, and how to use one ', 1, '01-research_protocols/Video Transcript - What is a Research Protocol, and how to use one.pdf'),
+(5, 'What is a Research Protocol, and how to use one', 2, 'http://youtu.be/UgsUgzwAg9A '),
+(6, 'Details of what a Research Protocol should contain', 1, '01-research_protocols/Video Transcript - Details of what a Research Protocol Should Contain.pdf'),
+(7, 'Details of what a Research Protocol should contain', 2, 'http://youtu.be/vR30qdBSp7k'),
+(8, 'Creating a Data Management Plan', 1, '02-data_management_policies_and_plans/Creating a Data Management Plan.pdf'),
+(9, 'Data Management Plan', 1, '02-data_management_policies_and_plans/Video Transcript - Data Management Plan.pdf'),
+(10, 'Data Management Plan', 2, 'http://youtu.be/xgCDlaD6ans'),
+(11, 'Example Data Management Activity Plan', 1, '02-data_management_policies_and_plans/Example DM Activity Plan.pdf'),
+(12, 'Example Consent Form', 1, '02-data_management_policies_and_plans/Example Consent form.pdf'),
+(13, 'Budgeting & Planning for Data Management', 1, '03-budgeting_and_planning/Budgeting and planning for data management.pdf'),
+(14, 'ToR Data Support Staff', 1, '03-budgeting_and_planning/ToR Data Support Staff.pdf'),
+(15, 'Budgeting & Planning', 1, '03-budgeting_and_planning/Video Transcript - Budgeting & Planning.pdf'),
+(16, 'Budgeting & Planning', 2, 'http://youtu.be/2-q59QRDURw'),
+(17, 'Data Ownership and Authorship', 1, '04-data_ownership/Data Ownership and Authorship.pdf'),
+(18, 'Template  Data Ownership Agreement', 1, '04-data_ownership/Template - Data Ownership Agreement.pdf'),
+(19, 'CCAFS Data Ownership & Sharing Agreement', 1, '04-data_ownership/CCAFS Data Ownership and Sharing Agreement 2011.pdf'),
+(20, 'Data Ownership & Authorship', 1, '04-data_ownership/Video Transcript - Data Ownership & Authorship.pdf'),
+(22, 'Data Ownership & Authorship', 2, 'http://youtu.be/0EAq5kW-HW8'),
+(23, 'Creating and Using a DDS', 1, '05-data_and_document_storage/Creating and Using a DDS.pdf'),
+(24, 'DDS Introduction', 1, '05-data_and_document_storage/Video Transcript - DDS Introduction.pdf'),
+(25, 'DDS Introduction', 2, 'http://youtu.be/I5l0oTnu3Uk'),
+(26, 'DDS Organisation', 1, '05-data_and_document_storage/Video Transcript - DDS Organisation.pdf'),
+(27, 'DDS Organisation', 2, 'http://youtu.be/xUxVmEUbHSw '),
+(28, 'DDS Ownership', 1, '05-data_and_document_storage/Video Transcript - DDS Ownership.pdf'),
+(29, 'DDS Ownership', 2, 'http://youtu.be/Kh67A04rwXs'),
+(30, 'Introduction to Dropbox', 1, '05-data_and_document_storage/Video Transcript - Introduction to Dropbox.pdf'),
+(31, 'Introduction to Dropbox', 2, 'http://youtu.be/aXmCjiMrdhU'),
+(32, 'Archiving & Sharing Data', 1, '06-archiving_and_sharing/Archiving & Sharing Data.pdf'),
+(33, 'Data and Documents to Submit for Archiving a checklist', 1, '06-archiving_and_sharing/Archiving & Sharing Data.pdf'),
+(34, 'MetaData', 1, '06-archiving_and_sharing/MetaData.pdf'),
+(35, 'Archiving & Sharing', 1, '06-archiving_and_sharing/Video Transcript - Archiving & Sharing.pdf'),
+(36, 'Archiving & Sharing', 2, 'http://youtu.be/DbXljxn1Mv4'),
+(37, 'Metadata', 1, '06-archiving_and_sharing/Video Transcript - Metadata.pdf'),
+(38, 'Metadata', 2, 'http://youtu.be/t6dH0glp3RI'),
+(39, 'CCAFS HBS Questionnaire', 1, '06-archiving_and_sharing/CCAFS HBS Questionnaire (English) 20110809.pdf'),
+(40, 'CCAFS HHS Code Book', 1, '06-archiving_and_sharing/CCAFS HBS Code Book 20130617.pdf'),
+(41, 'CCAFS Training Manual for Field Supervisors', 1, '06-archiving_and_sharing/CCAFS Training Manual for Field Supervisors-English-20101126.pdf'),
+(42, 'Portals for CCAFS Outputs', 1, '07-ccafs_data_portals/Portals for CCAFS outputs.pdf'),
+(43, 'AgTrials Summary', 1, '07-ccafs_data_portals/AgTrials Summary.pdf '),
+(44, 'CCAFS Climate Summary', 1, '07-ccafs_data_portals/CCAFS-Climate-Summary.pdf'),
+(45, 'DSpace Introduction', 1, '07-ccafs_data_portals/Dspace Introduction.pdf '),
+(46, 'Introduction to Dataverse', 1, '07-ccafs_data_portals/Video Transcript - Introduction to Dataverse.pdf'),
+(47, 'Introduction to Dataverse', 2, 'http://youtu.be/7_Elpmntb1g'),
+(48, 'Creating a Dataverse', 1, '07-ccafs_data_portals/Video Transcript - Creating a Dataverse.pdf'),
+(49, 'Creating a Dataverse', 2, 'http://youtu.be/ooecTsMkevk '),
+(50, 'Dataverse Study Catalogue', 1, '07-ccafs_data_portals/Dataverse Study Catalogue.pdf'),
+(51, 'CCAFS Dataverse', 1, '07-ccafs_data_portals/Video Transcript - CCAFS Dataverse.pdf'),
+(52, 'CCAFS Dataverse', 2, 'http://youtu.be/ARdZdPKuF1Y'),
+(53, 'Data Quality Assurance', 1, '08-data_quality_and_organisation/Data Quality Assurance.pdf'),
+(54, 'Guidance for handling different types of Data', 1, '08-data_quality_and_organisation/Guidance for handling different types of Data.pdf'),
+(55, 'Transition from Raw to Primary Data', 1, '08-data_quality_and_organisation/Transition from Raw to Primary Data.pdf'),
+(56, 'Data Quality Assurance', 1, '08-data_quality_and_organisation/Video Transcript - Data Quality Checking.pdf'),
+(57, 'Data Quality Assurance', 2, 'http://youtu.be/qP81El4tDMA'),
+(58, 'Guidance for handling different types of data', 1, '08-data_quality_and_organisation/Video Transcript - Guidance for handling different types of Data.pdf'),
+(59, 'Guidance for handling different types of data', 2, 'http://youtu.be/DSlFKxcw30w'),
+(60, 'Transition from Raw to Primary Data', 1, '08-data_quality_and_organisation/Video Transcript - Transition from Raw to Primary Data.pdf'),
+(61, 'Transition from Raw to Primary Data', 2, 'http://youtu.be/dnAuhU2zJ20');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
