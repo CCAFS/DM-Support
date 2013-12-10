@@ -60,6 +60,7 @@ jQuery(document).ready(function ($) {
             content += '</ul>';
             $( "#step2 #result" ).html(results);
             $( "#step2 #guidelines" ).html(content); 
+            $("#ajax-loader").css("display", "none"); 
 
             /* This event is when the Checkbox was Selected or Unselected
               and fill a array guideSelected with new list selected */
@@ -123,6 +124,7 @@ jQuery(document).ready(function ($) {
 	        content += '</ul>';
 	        
 	        $( "#step5 #guidelines" ).html(content); 
+	        $("#ajax-loader").css("display", "none"); 
         }
 		
 		
@@ -148,14 +150,10 @@ jQuery(document).ready(function ($) {
   				   			 c : what },
 			       'dataType': "json",
 			       'success': function(data) {
-			          json = data;
-			          $("#ajax-loader").css("display", "none"); 
+			          json = data; 
 			       },
 			       beforeSend: function(){ 
-			       	$("#ajax-loader").css("display", "block"); 
-
-			       	
-                    
+			       	$("#ajax-loader").css("display", "block");  
                    }
 			    });
 			    return json;
@@ -265,10 +263,12 @@ jQuery(document).ready(function ($) {
             },
             beforeSend: function(){
                 $("#user-id").val("-1");
+                $("#ajax-loader").css("display", "block"); 
             },
             success: function(data) {
+            	
                 data=data[0];
-                if(data.email == null) { 
+                if(data.email == null) {  
                 } else {  
                 	$("#user-id").val(data.id);
                     $("#first_name").attr("disabled", "disabled");
@@ -295,10 +295,10 @@ jQuery(document).ready(function ($) {
                     if(data.r_middle_east_north_africa == 1) $("#l5").attr('checked', true);
                     if(data.r_north_america == 1) $("#l6").attr('checked', true);
                     if(data.r_south_america == 1) $("#l7").attr('checked', true);
-
+                    
          
                 }
-               
+               	$("#ajax-loader").css("display", "none");
 
             }
         });
@@ -330,12 +330,10 @@ jQuery(document).ready(function ($) {
                     use: $("#use").val()
                 },
                 beforeSend: function(){
-                    $("#submit-user-info").attr("disabled", "disabled");
-                    $(".submit-button #ajax-loader").show();
-                    $(".submit-button #message").text("Saving...");
+                    $("#ajax-loader").css("display", "block"); 
                 },
                 success: function(downloadId) {
-                    
+                    $("#ajax-loader").css("display", "none"); 
                 }
             });
     }

@@ -325,3 +325,9 @@ clear: both;
 		}
 
 		.zoom img::selection { background-color: transparent; }
+
+#ajax-loader {
+	display: block;
+	float: right;
+	padding-right: 35px;
+}		

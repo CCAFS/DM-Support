@@ -57,10 +57,10 @@
           </a>
  		    </div>
       	<div id="step2" >
-      		<h2>Guidelines Recommended</h2>
+      		<h2>Guidelines Recommended<div id="ajax-loader"><img src="./<?php print_r($directory); ?>/images/loader20.gif"></div></h2>
       		<div id="result"></div> 
       		<div id="guidelines"></div>
-          <div id="ajax-loader" style="display:none"><img src="./<?php print_r($directory); ?>/images/loader.gif"></div>
+          
           <span class="error" style="display: none;">Please check a file.</span>
           <div style="height:27px;"> 
         		<a class="download 1">Download documents</a>
