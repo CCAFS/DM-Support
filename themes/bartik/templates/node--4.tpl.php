@@ -24,8 +24,8 @@
 		    <input type="radio" name="role" id="r2" value="2" />
 		     <label for="r2"><img src="./<?php print_r($directory); ?>/images/role_r.png"><br>Researcher</label>
 		     
-		    <input type="radio" name="role" id="r2" value="3" />
-		     <label for="r2"><img src="./<?php print_r($directory); ?>/images/role_dm.png"><br>Data Manager </label>    
+		    <input type="radio" name="role" id="r3" value="3" />
+		     <label for="r3"><img src="./<?php print_r($directory); ?>/images/role_dm.png"><br>Data Manager </label>    
 		  	 
         </div> 
         <div id="side-when" class="when">
