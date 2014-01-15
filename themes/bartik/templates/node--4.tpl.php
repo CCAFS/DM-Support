@@ -1,18 +1,19 @@
-<?php
 
-
-?>
 
 <link href="./<?php print_r($directory); ?>/css/dms.css" rel="stylesheet">
 <script src="./<?php print_r($directory); ?>/js/dms.js" type="text/javascript"></script>
+<!-- A lightweight customizable lightbox plugin for jQuery -->
 <link rel="stylesheet" href="./<?php print_r($directory); ?>/libs/colorbox-master/example2/colorbox.css" />
 <script src="./<?php print_r($directory); ?>/libs/colorbox-master/jquery.colorbox.js"></script>
+<!-- A jQuery plugin that creates hover tooltips -->
+<link rel="stylesheet" href="./<?php print_r($directory); ?>/libs/powertip-1.2.0/css/jquery.powertip.min.css" />
+<script src="./<?php print_r($directory); ?>/libs/powertip-1.2.0/jquery.powertip.min.js"></script>
 
 
 
 
  <div id="dm-content" class="content clearfix"<?php print $content_attributes; ?>>
-   
+   <div id="search-input"> <span id="search-icon"></span> <input type="text" id="search" name="search" value=""/> </div> 
    <div id="side-left">
       <div id="side-top">
        <div id="side-role">
@@ -40,49 +41,53 @@
         </div>   
       </div>
       <div id="side-bot"> 
+        <div id="search-content" style="display:none" >
+            <h2>Search results ...</h2> 
+            <div id="search-results"></div>
+            <span class="error" style="display: none;">Please check a file.</span>
+            <a class="download 1">Download chosen documents</a><a href="" class="download 4">Go Back</a>
+        </div>
       	<div id="step1" >
-      		<h2>Select the 3 options</h2>
-      		<div id="step1-icons" >
+      		<h2>Select each of the 3 options</h2> 
+          <div id="step1-icons" >
         		<img id="icon-role" src="./<?php print_r($directory); ?>/images/role-checked.png"> 
         		<img id="icon-when" src="./<?php print_r($directory); ?>/images/when-checked.png"> 
         		<img id="icon-what" src="./<?php print_r($directory); ?>/images/what-checked.png"> 
             <br>
             <span>Choose a role</span> <span>Choose when</span> <span>Choose what</span>
  			    </div> 
-          <a class="icon-flow" href="./<?php print_r($directory); ?>/images/full_diagram.png">
-              Flow
+          <a target="_blank" title="Visualize your role in data management" id="icon-flow" class="icon-flow" href="./<?php print_r($directory); ?>/images/full_diagram.png">
+              Design Map 
           </a>
-          <a class="icon-table" href="./<?php print_r($directory); ?>/images/table-c.png">
-              Table
+          <a target="_blank" title="Prioritize relevant guidelines for effective data management by role and timing" id="icon-table" class="icon-table" href="./<?php print_r($directory); ?>/images/table-c.png">
+              Prioritization Matrix 
           </a>
  		    </div>
+
       	<div id="step2" >
       		<h2>Guidelines Recommended<div id="ajax-loader"><img src="./<?php print_r($directory); ?>/images/loader20.gif"></div></h2>
       		<div id="result"></div> 
       		<div id="guidelines"></div>
           
           <span class="error" style="display: none;">Please check a file.</span>
-          <div style="height:27px;"> 
-        		<a class="download 1">Download documents</a>
-      		</div>
-         
-  
-          
-		</div> 
-		<div id="step3" >
+          <div style="margin-top: 7px;height: 39px;"> 
+        		<a class="download 1">Download chosen documents</a><a class="download 5">Download full package</a>
+      		</div>   
+		    </div> 
+		    <div id="step3" >
       		<h2>Terms and conditions</h2>
       		<div id="step3-form" >
 	      		<p>Please fill the following form in order to be able to download the files. All form fields are required.</p>
 	      		Email: <input type="text" id="mail" name="mail" value=""/> <br>
 	      		<span class="error" style="display: none;">Please enter a valid email address.</span>
-	      		<br><a class="download 2">Download documents</a>
- 			</div>
- 		</div>
- 		<div id="step4" >
+	      		<br><a class="download 2">Download documents</a><a href="" class="download 4">Go Back</a>
+ 			    </div>
+ 		    </div>
+        <div id="step4" >
       		<h2>Terms and conditions</h2>
       		<div id="step4-form" >
       			<div id="side-form1">
-      				<div class="left"><label for='first_name'>First name</label> <input type="text" id="first_name" name="first_name" value=""/> </div>
+      				<div class="left"><label for='first_name'>First name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" id="first_name" name="first_name" value=""/> </div>
               <div class="right"><label for='last_name'>Last name:</label> <input type="text" id="last_name" name="last_name" value=""/> </div>
       				<div class="left" style="clear: both;"><label for='institute-name'>Institute name:</label> <input type="text" id="institute-name" name="institute-name" value=""/> </div>
 
@@ -92,7 +97,7 @@
       				
       				
       				<div class="left">
-      				<h4>Region(s) of your research interes: </h4><br>
+      				<h4>Region(s) of your research interes: </h4> 
 
       				<input name='research-regions' class='css-checkbox-regions' id='l1' value="africa" type='checkbox'>
       					<label for='l1' class='css-label-regions'>Africa</label><br>
@@ -112,7 +117,7 @@
       					<label for='l8' class='css-label-regions'>Europe</label><br>	
               </div>
               <div class="right">
-              <h4>Region(s) where your institute is located: </h4><br>
+              <h4>Region(s) where your institute is located: </h4> 
 
               <input name='institute-regions' class='css-checkbox-regions' id='i1' value="africa" type='checkbox'>
                 <label for='i1' class='css-label-regions'>Africa</label><br>
@@ -134,12 +139,12 @@
       			</div>
       			<div id="side-form3">
       				Intended use of data: <br>
-      				<textarea id="use" name="use" cols="40" rows="5"></textarea>
+      				<textarea id="use" name="use" cols="70" rows="3"></textarea>
       				<input type="hidden" id="user-id" name="userId" value="">
       			</div> 
             <span class="error" style="display: none;"></span>
       			<br><a class="download 3">Download documents</a>
- 			</div>
+ 			  </div>
  		</div>
  		<div id="step5" >
       		<h2>Download</h2>
@@ -164,7 +169,7 @@
 	 <input type="radio" name="what" id="c5" value="5"/>
 	  <label for="c5"> <div>5. Data & Document Storage </div></label> 
 	 <input type="radio" name="what" id="c6" value="6"/>
-	  <label for="c6"> <div>6. Archiving & Sharing </div></label> 
+	  <label for="c6"> <div>6. Metadata, Archiving & Sharing </div></label> 
 	 <input type="radio" name="what" id="c7" value="7"/>
 	  <label for="c7"> <div>7. CCAFS Data Portals </div></label> 
 	 <input type="radio" name="what" id="c8" value="8"/>

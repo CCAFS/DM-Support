@@ -1,89 +1,98 @@
 var themePath = './themes/bartik/',
 	downloadPath = 'http://www.reading.ac.uk/ssc/resource-packs/dms/',
+    currentStep = 1,
 	guideSelected,
-	role,when,what;
-
+	role,when,what,
+    roleText,whenText,whatText;
 jQuery(document).ready(function ($) { 
 	
-	$('a.icon-flow,a.icon-table').colorbox({width:'90%'}); 
 	$('#dm-content input:radio').addClass('input_hidden');
-	$('#dm-content label').click(function() { 
-		$(this).addClass('selected').siblings().removeClass('selected');
-	});  
+    $('#dm-content label').click(function() { 
+        $(this).addClass('selected').siblings().removeClass('selected');
+    });  
+    $('#icon-flow,#icon-table').powerTip({
+        followMouse: true
+    });
+    
 
 	// Step 1 (Select the 3 options )
- 	$("input:radio").change(function(){ 
- 		if (verify()==3){
- 			$("#step1").css("display", "none");
-			$("#step2").css("display", "block");
+ 	$("input:radio").change(radioChangeEvent);
 
-			// Step 2 (Guidelines Recommended)
-			var Data = getData(); //console.log(Data);
-			if(role == 1) role='Principal Investigator';
-			if(role == 2) role='Researcher';
-			if(role == 3) role='Data Manager';
+    // ================================================================// 
+    //                            Key Events                           //
+    // ================================================================// 
 
-			if(when == 1) when='Decisions while designing';
-			if(when == 2) when='Management of research processes';
-			if(when == 3) when='Delivery of research products';
+    //Event when input search was typed
+    $( "#search" ).keyup(function() {
+      if(($("#search").val()).length > 1) {
+           allDisable();  
+           var c = 0;
+           content = ""; 
+           content += '<ul>';
+           getDataKeyword().forEach(function(entry) { 
+                var typeText,icon;
+                if (entry.type == 2){
+                    typeText = '(Video)';
+                    icon = themePath+'images/video.png';
+                } else{
+                    icon = themePath+'images/guide.png';
+                    typeText = '';
+                }
+                content += "<li>";
+                content += "    <img src='"+icon+"'>";
+                content += "    <input name='check-search' class='css-checkbox' id='"+c+"' type='checkbox'>";
+                content += "    <label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>"; 
+                content += "</li>";  
+                c++;
+            }); 
+           if(getDataKeyword().length <1)content += "Results not found";
+           content += '</ul>'; 
+            $("#search-results").html(content);
 
-			if(what == 0) what='Data Management Strategy';
-			if(what == 1) what='Research Protocols';
-			if(what == 2) what='Data Management Policies & Plans';
-			if(what == 3) what='Budgeting & Planning ';
-			if(what == 4) what='Data Ownership';
-			if(what == 5) what='Data & Document Storage';
-			if(what == 6) what='Archiving & Sharing';
-			if(what == 7) what='CCAFS Data Portals';
-			if(what == 8) what='Data Quality & Organisation'; 
+            $("#search-content").css("display", "block");
 
-			var results = 'Result: <b>Role</b> '+role+', <b>When</b> '+when+', <b>What</b> '+what; 
-			var c = 0;	
-			var content = '<ul>';
-			Data.forEach(function(entry) { 
-				var typeText,icon;
-				if (entry.type == 2){
-					typeText = '(Video)';
-					icon = themePath+'images/video.png';
-				} else{
-					icon = themePath+'images/guide.png';
-					typeText = '';
-				}
-				content += "<li>";
-				content += "	<img src='"+icon+"'>";
-				content += "	<input name='check' class='css-checkbox' id='"+c+"' type='checkbox'>";
-				content += "	<label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>";
-				content += "	<span class='level "+entry.importance_level+"'>"+entry.importance_level+"</span>";
-				content += "</li>";	 
-				c++;
-            });
-            content += '</ul>';
-            $( "#step2 #result" ).html(results);
-            $( "#step2 #guidelines" ).html(content); 
-            $("#ajax-loader").css("display", "none"); 
+            if(currentStep==1)$("#step1").css("display", "none");
+            if(currentStep==2)$("#step2").css("display", "none"); 
+            loaderStop();
+            updateGuideSelected("check-search");
+        } else{
+            allEnable(); 
+            if(currentStep==1)$("#step1").css("display", "block");
+            if(currentStep==2)$("#step2").css("display", "block");  
+            $("#search-content").css("display", "none");
+            $("#search-results").html("");
+        }
+    });
 
-            /* This event is when the Checkbox was Selected or Unselected
-              and fill a array guideSelected with new list selected */
-           	$("input[name^='check']").change(function() {
-           		guideSelected = new Array();
-	            $("input[name^='check']:checked").each(function(i) { 
-	                guideSelected[i] = Data[$(this).attr('id')];
-	            });   
-		    });
- 		}
- 		
-	});
+    // ================================================================// 
+    //                           Clic Events                           //
+    // ================================================================//  
 
 	// Step 3 (Terms and conditions) email contact
 	$( "a.download.1" ).click(function() {  
-		if($("input:checkbox[name=check]").is(":checked")) {
-			$("#step2").css("display", "none"); $("#step3").css("display", "block");
-			allDisable(); 
+		if($("input:checkbox[name=check]").is(":checked") || $("input:checkbox[name=check-search]").is(":checked")) {
+			$("#step2").css("display", "none"); $("#search-content").css("display", "none");$("#step3").css("display", "block");
+			$("#search").attr("disabled", "disabled");
+            allDisable(); 
 		} else { 
             $("#step2 .error").css("display", "block");
         }
 		
 	});
+
+    $( "a.download.5" ).click(function() {   
+        guideSelected = new Array(); 
+        guideSelected[0] = {
+                            id: "4", 
+                            name: "Data Management Support [Full package]", 
+                            type: "1", 
+                            source: "asdf.pdf", 
+                            importance_level: "Optional"
+                        }
+        $("#step2").css("display", "none"); $("#step3").css("display", "block");
+        $("#search").attr("disabled", "disabled");
+        allDisable(); 
+    });
 
 	// Step 4 (Terms and conditions) form contact
 	$( "a.download.2" ).click(function() {  
@@ -124,15 +133,23 @@ jQuery(document).ready(function ($) {
 	        content += '</ul>';
 	        
 	        $( "#step5 #guidelines" ).html(content); 
-	        $("#ajax-loader").css("display", "none"); 
+	        loaderStop();
+            
         }
 		
 		
 	});
 
-	// --------------------//
-	//  General Functions  //
-	// --------------------//
+    // ================================================================// 
+	//                           General Functions                     //
+    // ================================================================// 
+
+    function loaderStop() {
+      $("#ajax-loader").css("display", "none"); 
+    }
+    function loaderStart() {
+      $("#ajax-loader").css("display", "block"); 
+    }
 
  	function getData(){
  		role = $('input[name=role]:checked', '#side-role').val();
@@ -144,8 +161,9 @@ jQuery(document).ready(function ($) {
 			       'async': false,
 			       'global': false,
 			       'url': themePath+'json.php',
-			       'type': "GET",
-  				   'data': { r : role,
+			       'type': "POST",
+  				   'data': { context : "guidelines-lvl",
+                             r : role,
   				   			 s : when,
   				   			 c : what },
 			       'dataType': "json",
@@ -160,6 +178,29 @@ jQuery(document).ready(function ($) {
 		 })();
 		return Data; 	
  	}
+    function getDataKeyword(){ 
+        Data = (function() {
+                var json = null;
+                $.ajax({
+                   'async': false,
+                   'global': false,
+                   'url': themePath+'json.php',
+                   'type': "POST",
+                   'data': { context: "guidelines-search",
+                             q : $("#search").val() },
+                   'dataType': "json",
+                   'success': function(data) {
+                      json = data; 
+                   },
+                   beforeSend: function(){ 
+                    loaderStart();
+                   }
+                });
+                return json;
+         })();
+        return Data;     
+    }
+
 	function verify(){
 		var count = 0;
 		if($("input:radio[name=role]").is(":checked")){
@@ -235,23 +276,50 @@ jQuery(document).ready(function ($) {
 	function allDisable() {
 		 
 		$('#dm-content label').unbind('click'); 
-        $("input[name=role]").each(function(i) {
-            $(this).attr('disabled', 'disabled');
+        $("input[name=role]").each(function(i) { 
+            $(this).attr('disabled', true);
             var label = $("label[for='"+$(this).attr('id')+"']");
             label.addClass('selected');
         });
-        $("input[name=when]").each(function(i) {
-            $(this).attr('disabled', 'disabled');
+        $("input[name=when]").each(function(i) { 
+            $(this).attr('disabled', true);
             var label = $("label[for='"+$(this).attr('id')+"']");
             label.addClass('selected');
 
         });
-        $("input[name=what]").each(function(i) {
-            $(this).attr('disabled', 'disabled');
+        $("input[name=what]").each(function(i) { 
+            $(this).attr('disabled', true);
             var label = $("label[for='"+$(this).attr('id')+"']");
             label.addClass('selected');
         });
      }
+     function allEnable() {
+
+        $('#dm-content label').bind('click', radioChangeEvent); 
+        $('#dm-content input:radio').addClass('input_hidden');
+        $('#dm-content label').click(function() { 
+            $(this).addClass('selected').siblings().removeClass('selected');
+        }); 
+
+        $("input[name=role]").each(function(i) { 
+            $(this).attr('disabled', false);
+            var label = $("label[for='"+$(this).attr('id')+"']");
+            label.removeClass( "selected" );
+        });
+        $("input[name=when]").each(function(i) {
+            $(this).attr('disabled', false); 
+            var label = $("label[for='"+$(this).attr('id')+"']");
+            label.removeClass( "selected" );
+
+        });
+        $("input[name=what]").each(function(i) {
+            $(this).attr('disabled', false); 
+            var label = $("label[for='"+$(this).attr('id')+"']");
+            label.removeClass( "selected" );
+        });
+        updateSelects();
+     }
+
      function loadUser(email) {
         $.ajax({
             type: "POST",
@@ -263,7 +331,7 @@ jQuery(document).ready(function ($) {
             },
             beforeSend: function(){
                 $("#user-id").val("-1");
-                $("#ajax-loader").css("display", "block"); 
+                loaderStart();
             },
             success: function(data) {
             	
@@ -298,7 +366,7 @@ jQuery(document).ready(function ($) {
                     
          
                 }
-               	$("#ajax-loader").css("display", "none");
+               	loaderStop();
 
             }
         });
@@ -330,12 +398,87 @@ jQuery(document).ready(function ($) {
                     use: $("#use").val()
                 },
                 beforeSend: function(){
-                    $("#ajax-loader").css("display", "block"); 
+                    loaderStart();
                 },
                 success: function(downloadId) {
-                    $("#ajax-loader").css("display", "none"); 
+                    loaderStop();
                 }
             });
+    }
+
+    function radioChangeEvent(){ 
+        if (verify()==3){ 
+            $("#step1").css("display", "none"); $("#step2").css("display", "block"); 
+            // Step 2 (Guidelines Recommended)
+            currentStep = 2;
+
+
+
+            var Data = getData(); //console.log(Data); 
+            updateSelects();
+
+            results = 'Result: <b>Role</b> '+roleText+', <b>When</b> '+whenText+', <b>What</b> '+whatText;  
+            var c = 0;  
+            var content = '<ul>'; 
+            // print data for each document of filter, 
+            Data.forEach(function(entry) { 
+                var typeText,icon;
+                if (entry.type == 2){
+                    typeText = '(Video)';
+                    icon = themePath+'images/video.png';
+                } else{
+                    icon = themePath+'images/guide.png';
+                    typeText = '';
+                }
+                content += "<li>";
+                content += "    <img src='"+icon+"'>";
+                content += "    <input name='check' class='css-checkbox' id='"+c+"' type='checkbox'>";
+                content += "    <label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>";
+                content += "    <span class='level "+entry.importance_level+"'>"+entry.importance_level+"</span>";
+                content += "</li>";  
+                c++;
+            });
+            content += '</ul>';
+            $( "#step2 #result" ).html(results);
+            $( "#step2 #guidelines" ).html(content); 
+            //loaderStop();
+            window.setTimeout(loaderStop,50);
+            updateGuideSelected("check");
+            
+            
+        }
+        
+    }
+    /* This event is when the Checkbox was Selected or Unselected
+       and fill a array guideSelected with new list selected      */
+    function updateGuideSelected(name){  
+        $("input[name^='"+name+"']").change(function() {
+                guideSelected = new Array();
+                $("input[name^='"+name+"']:checked").each(function(i) { 
+                    guideSelected[i] = Data[$(this).attr('id')];
+                });   
+                console.log(guideSelected);
+            });
+    }
+
+    function updateSelects(){
+            if(role == 1) {roleText='Principal Investigator';            $("label[for=r1]").addClass("selected");}
+            if(role == 2) {roleText='Researcher';                        $("label[for=r2]").addClass("selected");}
+            if(role == 3) {roleText='Data Manager';                      $("label[for=r3]").addClass("selected");}
+
+            if(when == 1) {whenText='Decisions while designing';         $("label[for=dwd]").addClass("selected");}
+            if(when == 2) {whenText='Management of research processes';  $("label[for=mrp]").addClass("selected");}
+            if(when == 3) {whenText='Delivery of research products';     $("label[for=drp]").addClass("selected");}
+
+            if(what == 0) {whatText='Data Management Strategy';          $("label[for=c0]").addClass("selected");}
+            if(what == 1) {whatText='Research Protocols';                $("label[for=c1]").addClass("selected");}
+            if(what == 2) {whatText='Data Management Policies & Plans';  $("label[for=c2]").addClass("selected");}
+            if(what == 3) {whatText='Budgeting & Planning ';             $("label[for=c3]").addClass("selected");}
+            if(what == 4) {whatText='Data Ownership';                    $("label[for=c4]").addClass("selected");}
+            if(what == 5) {whatText='Data & Document Storage';           $("label[for=c5]").addClass("selected");}
+            if(what == 6) {whatText='Metadata, Archiving & Sharing';     $("label[for=c6]").addClass("selected");}
+            if(what == 7) {whatText='CCAFS Data Portals';                $("label[for=c7]").addClass("selected");}
+            if(what == 8) {whatText='Data Quality & Organisation';       $("label[for=c8]").addClass("selected");}
     }
 
 });

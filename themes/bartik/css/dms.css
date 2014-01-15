@@ -86,15 +86,22 @@ Project:	Data Management Support Pack
 	width: 131px;
 	text-align: center;
 } 
+.when label div:hover{
+	background: #969696; 
+} 
+
 .what > label > div{
 	font-size: 13px;
 	font-weight: 400;
-	padding: 14px 10px;
+	padding: 12px 10px;
 	float: left;
 	color: #FFF;
 	background: #47939C;
 	width: 218px;
 	text-align: left;
+} 
+.what label div:hover{
+	background: #3C818A; 
 } 
 .input_hidden {
     position: absolute;
@@ -116,7 +123,7 @@ Project:	Data Management Support Pack
 #dm-content label:hover {
 	
 	position: relative;
-    background-color: #efefef;
+    
 }  
 
 #step1-icons, #step3-form,#step4-form  {
@@ -142,7 +149,7 @@ Project:	Data Management Support Pack
 	margin-left: 58px;
 }
 
- #step2, #step3, #step4, #step5 { 
+ #step1-2,#step2, #step3, #step4, #step5 { 
  	display: none;
 	
 }
@@ -151,10 +158,10 @@ Project:	Data Management Support Pack
 	font-size: 12px;
 }
 
-#guidelines { 
+#guidelines,#search-content { 
 	color: #666;
 	font-size: 13px;
-	margin: 0px 25px 25px 0px; 
+	margin: 0px 25px 15px 0px; 
 	
 }
 #guidelines ul {
@@ -164,20 +171,48 @@ Project:	Data Management Support Pack
 }
 
 #guidelines ul li {
-	padding: 3px;
+	padding: 1px;
 	margin: 0px 0px 3px 0px; 
 	background: #F1F1F1;
 	list-style: none;
+}
+#guidelines ul li:hover {
+	background: #ECECEC;
+}
+#search-content  ul {
+	padding: 0px;
+	margin: 0px; 
+	
+}
+
+#search-content  ul li {
+	padding: 1px;
+	margin: 0px 0px 2px 0px; 
+	background: #F1F1F1;
+	list-style: none;
+}
+#search-results {
+	margin-bottom: 20px;
+}
+#search-input {
+	float: right;
+}
+#search-icon {
+	background: url(../images/search.png) no-repeat #2BA6CB;
+	color: #FFF;
+	padding: 1px 4px 3px 27px;
 }
 
 .level {
 	float: right;
 	border-radius: 8px;
-	padding: 0px 7px;
-	font-size: 13px;
+	padding: 0px 5px;
+	font-size: 12px;
 	text-align: center;
 	width: 95px
 	
+;
+	margin: 3px;
 }
 
 .left{
@@ -203,6 +238,11 @@ Project:	Data Management Support Pack
 .Optional{
 	background-color: #fff;
     color: #222;
+}
+
+.error{
+	font-size: 13px;
+	line-height: 13px;
 }
 
 input[type=checkbox].css-checkbox {
@@ -236,7 +276,7 @@ input[type=checkbox].css-checkbox-regions {
 
 input[type=checkbox].css-checkbox-regions + label.css-label-regions {
 	padding-left:31px;
-	height: 21px; 
+	height: 20px; 
 	line-height: 14px;
 	background-repeat:no-repeat;
 	background-position: 0 1px;
@@ -263,7 +303,13 @@ a.download {
 	padding: 4px 8px;
 	text-decoration: none;
 	cursor: pointer;
+	margin-right: 5px;
 }
+
+a.download:hover {
+	background: #2898B9;
+}
+
 a.downloadLink {
 	color: #6D6D6D;
 	text-decoration: none;
@@ -276,7 +322,7 @@ a.downloadLink {
 	float: left;
 }
 #side-form2 {
-	margin: 4px;
+	margin: 0px 0px 10px 0px;
 	width: 100%;
 	float: right;
 }
@@ -331,3 +377,10 @@ clear: both;
 	float: right;
 	padding-right: 35px;
 }		
+
+#search{
+	margin-right: 25px;
+	height: 11px;
+	width: 289px;
+	font-size: 12px;
+}

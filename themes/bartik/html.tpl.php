@@ -51,6 +51,11 @@
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
   <?php print $scripts; ?>
+  <script type="text/javascript" src="./<?php print_r($directory); ?>/libs/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript">
+    var $jq = jQuery.noConflict();
+  </script>
+  
   <script src="./<?php print_r($directory); ?>/js/modernizr-1.0.min.js" type="text/javascript"></script>
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
