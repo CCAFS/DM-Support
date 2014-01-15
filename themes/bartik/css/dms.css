@@ -373,7 +373,7 @@ clear: both;
 		.zoom img::selection { background-color: transparent; }
 
 #ajax-loader {
-	display: block;
+	display: none;
 	float: right;
 	padding-right: 35px;
 }		
