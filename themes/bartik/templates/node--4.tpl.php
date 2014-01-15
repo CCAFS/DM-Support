@@ -42,7 +42,7 @@
       </div>
       <div id="side-bot"> 
         <div id="search-content" style="display:none" >
-            <h2>Search results ...</h2> 
+            <h2>Search results ...<div id="ajax-loader"><img src="./<?php print_r($directory); ?>/images/loader20.gif"></div></h2> 
             <div id="search-results"></div>
             <span class="error" style="display: none;">Please check a file.</span>
             <a class="download 1">Download chosen documents</a><a href="" class="download 4">Go Back</a>

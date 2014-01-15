@@ -52,9 +52,9 @@ jQuery(document).ready(function ($) {
             $("#search-content").css("display", "block");
 
             if(currentStep==1)$("#step1").css("display", "none");
-            if(currentStep==2)$("#step2").css("display", "none"); 
-            loaderStop();
+            if(currentStep==2)$("#step2").css("display", "none");  
             updateGuideSelected("check-search");
+            loaderStop();
         } else{
             allEnable(); 
             if(currentStep==1)$("#step1").css("display", "block");
@@ -441,8 +441,8 @@ jQuery(document).ready(function ($) {
             content += '</ul>';
             $( "#step2 #result" ).html(results);
             $( "#step2 #guidelines" ).html(content); 
-            //loaderStop();
-            window.setTimeout(loaderStop,50);
+            loaderStop();
+            //window.setTimeout(loaderStop,50);
             updateGuideSelected("check");
             
             
