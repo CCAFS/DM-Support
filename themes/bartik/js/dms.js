@@ -79,7 +79,7 @@ jQuery(document).ready(function ($) {
         }
 		
 	});
-
+    /*
     $( "a.download.5" ).click(function() {   
         guideSelected = new Array(); 
         guideSelected[0] = {
@@ -93,7 +93,7 @@ jQuery(document).ready(function ($) {
         $("#search").attr("disabled", "disabled");
         allDisable(); 
     });
-
+    */
 	// Step 4 (Terms and conditions) form contact
 	$( "a.download.2" ).click(function() {  
 		var email =$("input[name=mail]").val();
