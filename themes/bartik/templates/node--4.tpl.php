@@ -45,7 +45,7 @@
             <h2>Search results ...<div id="ajax-loader"><img src="./<?php print_r($directory); ?>/images/loader20.gif"></div></h2> 
             <div id="search-results"></div>
             <span class="error" style="display: none;">Please check a file.</span>
-            <a class="download 1">Download chosen documents</a><a href="" class="download 4">Go Back</a>
+            <a id="searches-type" class="download 1">Download chosen documents</a><a href="" class="download 4">Go Back</a>
         </div>
       	<div id="step1" >
       		<h2>Select each of the 3 options</h2> 
@@ -71,13 +71,13 @@
           
           <span class="error" style="display: none;">Please check a file.</span>
           <div style="margin-top: 7px;height: 39px;"> 
-        		<a class="download 1">Download chosen documents</a><a class="download 5 disable">Download full package</a>
+        		<a id="filtered-type" class="download 1">Download chosen documents</a><a class="download 5 disable">Download full package</a>
       		</div>   
 		    </div> 
 		    <div id="step3" >
       		<h2>Terms and conditions</h2>
       		<div id="step3-form" >
-	      		<p>Please fill the following form in order to be able to download the files. All form fields are required.</p>
+	      		<p>To continue downloading your files, please first fill in your email and then some basic information. This information will be used by CCAFS solely for impact assessment and CGIAR and Center level reporting purposes. Filling it in will greatly help us to track the use of the portal and keep improving it. This portal provides data to a very large community of users and improving its usability and efficiency is a key aspect we work on continuously. However, you may click on <a id="skip-form" href="#">skip</a> to download links directly. </p>
 	      		Email: <input type="text" id="mail" name="mail" value=""/> <br>
 	      		<span class="error" style="display: none;">Please enter a valid email address.</span>
 	      		<br><a class="download 2">Download documents</a><a href="" class="download 4">Go Back</a>

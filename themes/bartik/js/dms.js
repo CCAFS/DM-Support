@@ -2,6 +2,7 @@ var themePath = './themes/bartik/',
 	downloadPath = 'http://www.reading.ac.uk/ssc/resource-packs/dms/',
     currentStep = 1,
 	guideSelected,
+    filterType,
 	role,when,what,
     roleText,whenText,whatText;
 jQuery(document).ready(function ($) { 
@@ -70,6 +71,7 @@ jQuery(document).ready(function ($) {
 
 	// Step 3 (Terms and conditions) email contact
 	$( "a.download.1" ).click(function() {  
+        filterType = $(this).attr("id");
 		if($("input:checkbox[name=check]").is(":checked") || $("input:checkbox[name=check-search]").is(":checked")) {
 			$("#step2").css("display", "none"); $("#search-content").css("display", "none");$("#step3").css("display", "block");
 			$("#search").attr("disabled", "disabled");
@@ -109,36 +111,60 @@ jQuery(document).ready(function ($) {
 
 	// Step 5 (Links for download)
 	$( "a.download.3" ).click(function() { 
-		var verifiedText = verifyFields(); 
-		if (verifiedText.length) {
-			$("#step4-form .error").html('Please fill out the information in the following fields :<br>'+verifiedText); 
+	var verifiedText = verifyFields(); 
+    	if (verifiedText.length) {
+    		$("#step4-form .error").html('Please fill out the information in the following fields :<br>'+verifiedText); 
         	$("#step4-form .error").css("display", "block");
         }else {
         	setDownload();
-			$("#step4").css("display", "none"); $("#step5").css("display", "block"); 
-			var content = '<ul>';
-			guideSelected.forEach(function(entry) { 
-				var icon = themePath+'images/guide.png',
-					downloadLink = downloadPath+entry.source;
-				if (entry.type == 2) {
-					icon = themePath+'images/video.png';
-					downloadLink = entry.source;
-				}
-				content += "<li>";
-				content += "	<img src='"+icon+"'>"; 
-				content += "	<a class='downloadLink' target='_blank' href='"+downloadLink+"' >"+entry.name;
-				content += "	<img style='float:right' src='"+themePath+"images/dl.png'></a>";
-				content += "</li>";	   
-	        });
-	        content += '</ul>';
-	        
-	        $( "#step5 #guidelines" ).html(content); 
-	        loaderStop();
+    		$("#step4").css("display", "none"); $("#step5").css("display", "block"); 
+    		var content = '<ul>';
+    		guideSelected.forEach(function(entry) { 
+    			var icon = themePath+'images/guide.png',
+    				downloadLink = downloadPath+entry.source;
+    			if (entry.type == 2) {
+    				icon = themePath+'images/video.png';
+    				downloadLink = entry.source;
+    			}
+    			content += "<li>";
+    			content += "	<img src='"+icon+"'>"; 
+    			content += "	<a class='downloadLink' target='_blank' href='"+downloadLink+"' >"+entry.name;
+    			content += "	<img style='float:right' src='"+themePath+"images/dl.png'></a>";
+    			content += "</li>";	   
+            });
+            content += '</ul>';
             
-        }
-		
-		
+            $( "#step5 #guidelines" ).html(content); 
+            loaderStop();
+            
+        } 	 	
 	});
+
+    // skip-form
+    $("#skip-form").on("click", function(event) { 
+        event.preventDefault(); 
+        console.log("skip-form");
+        $("#step3").css("display", "none"); $("#step5").css("display", "block"); 
+        var content = '<ul>';
+        guideSelected.forEach(function(entry) { 
+            var icon = themePath+'images/guide.png',
+                downloadLink = downloadPath+entry.source;
+            if (entry.type == 2) {
+                icon = themePath+'images/video.png';
+                downloadLink = entry.source;
+            }
+            content += "<li>";
+            content += "    <img src='"+icon+"'>"; 
+            content += "    <a class='downloadLink' target='_blank' href='"+downloadLink+"' >"+entry.name;
+            content += "    <img style='float:right' src='"+themePath+"images/dl.png'></a>";
+            content += "</li>";    
+        });
+        content += '</ul>';
+        
+        $( "#step5 #guidelines" ).html(content); 
+        loaderStop();
+
+    });    
 
     // ================================================================// 
 	//                           General Functions                     //
@@ -381,6 +407,10 @@ jQuery(document).ready(function ($) {
             $("input[name^='research-regions']:checked").each(function(index) {
                 arrayResearchRegions[index] = $(this).val();
             });
+            arrayguideSelected = [];
+            guideSelected.forEach(function(entry,index,array) { 
+                arrayguideSelected[index] = entry.id
+            });
 
             $.ajax({
                 type: "POST",
@@ -395,7 +425,9 @@ jQuery(document).ready(function ($) {
                     instituteName: $("#institute-name").val(),
                     instituteRegions: arrayInstituteRegions,
                     researchRegions: arrayResearchRegions,
-                    use: $("#use").val()
+                    use: $("#use").val(),
+                    ftype: filterType,
+                    guideSelected: arrayguideSelected
                 },
                 beforeSend: function(){
                     loaderStart();

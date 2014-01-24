@@ -28,6 +28,8 @@ function addUserInfo() {
     $instituteRegions = isset($_POST["instituteRegions"]) ? $_POST["instituteRegions"] : null;
     $researchRegions = isset($_POST["researchRegions"]) ? $_POST["researchRegions"] : null;
     $use = isset($_POST["use"]) ? $_POST["use"] : null;
+    $ftype = isset($_POST["ftype"]) ? $_POST["ftype"] : null;
+    $guideSelected = isset($_POST["guideSelected"]) ? $_POST["guideSelected"] : null;
 
     if (!is_null($email) && !is_null($firstName) && !is_null($lastName) && !is_null($instituteName)
             && !is_null($instituteRegions) && !is_null($researchRegions) && !is_null($use)) {
@@ -52,8 +54,8 @@ function addUserInfo() {
         // lets insert the download information.
 
        
-        $query = "INSERT INTO ".$PREFIX."download (user_id, institute, intended_use, date)
-                        VALUES ('$userId', '$instituteName', '$use', now())";
+        $query = "INSERT INTO ".$PREFIX."download (user_id, institute, intended_use,filter_type, date)
+                        VALUES ('$userId', '$instituteName', '$use','$ftype', now())";
         if (mysql_query($query)) {
             // figure out what was the download id inserted before.
             $query = "SELECT max(id) as id FROM ".$PREFIX."download
@@ -62,6 +64,13 @@ function addUserInfo() {
             $downloadId  = mysql_fetch_assoc($downloadId); 
     		$downloadId = $downloadId['id'];
             if (is_numeric($downloadId)) {
+                // Guidelines downloaded
+                foreach ($guideSelected as $guide) {
+                    $query = "INSERT INTO ".$PREFIX."guidelines_downloaded (download_id,guideline_id)
+                        VALUES ('$downloadId', '$guide')";
+                    mysql_query($query);
+                }
+
                 // lets insert institute regions.
                 $query = "INSERT INTO ".$PREFIX."downloadinstitutelocation (download_id";
                 foreach ($instituteRegions as $region) {
@@ -88,6 +97,7 @@ function addUserInfo() {
                     } else {
                         echo "Error inserting research regions: " . mysql_error();
                     }
+
                 } else {
                     echo "Error inserting institute regions: " . mysql_error();
                 }

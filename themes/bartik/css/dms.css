@@ -384,7 +384,9 @@ clear: both;
 	width: 289px;
 	font-size: 12px;
 }
-
+#skip-form {
+	color: #001379;
+}
 .disable{ 
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; 
 	filter: alpha(opacity=30); 
@@ -392,3 +394,4 @@ clear: both;
 	-khtml-opacity: 0.3; 
 	opacity: 0.3;
 }
+
