@@ -172,11 +172,13 @@ jQuery(document).ready(function ($) {
     // ================================================================// 
 
     function loaderStop() {
-      $("#ajax-loader").hide(); 
+      $("#ajax-loader").fadeOut(500);
     }
     function loaderStart() {
       $("#ajax-loader").show(); 
     }
+
+    // ----- Ajax Functions ----- //
 
  	function getData(){
  		role = $('input[name=role]:checked', '#side-role').val();
@@ -198,7 +200,7 @@ jQuery(document).ready(function ($) {
 			          json = data; 
 			       },
 			       beforeSend: function(){ 
-			       	$("#ajax-loader").css("display", "block");  
+			       	loaderStart(); 
                    }
 			    });
 			    return json;
@@ -227,6 +229,99 @@ jQuery(document).ready(function ($) {
          })();
         return Data;     
     }
+
+    function loadUser(email) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: themePath+"user-info.php",
+            data: {
+                context: "user-info",
+                email: email
+            },
+            beforeSend: function(){
+                $("#user-id").val("-1");
+                loaderStart();
+            },
+            success: function(data) {
+                
+                data=data[0];
+                if(data.email == null) {  
+                } else {  
+                    $("#user-id").val(data.id);
+                    $("#first_name").attr("disabled", "disabled");
+                    $("#first_name").val(data.first_name); 
+                    $("#last_name").attr("disabled", "disabled");
+                    $("#last_name").val(data.last_name); 
+                    $("#institute-name").val(data.institute); 
+
+                    // Institute Locations
+                    if(data.i_africa == 1) $("#i1").attr('checked', true);
+                    if(data.i_asia == 1) $("#i2").attr('checked', true);
+                    if(data.i_oceania == 1) $("#i3").attr('checked', true);
+                    if(data.i_central_america_caribbean == 1) $("#i4").attr('checked', true);
+                    if(data.i_europe == 1) $("#i8").attr('checked', true);
+                    if(data.i_middle_east_north_africa == 1) $("#i5").attr('checked', true);
+                    if(data.i_north_america == 1) $("#i6").attr('checked', true);
+                    if(data.i_south_america == 1) $("#i7").attr('checked', true);
+                    // Research Locations
+                    if(data.r_africa == 1) $("#l1").attr('checked', true);
+                    if(data.r_asia == 1) $("#l2").attr('checked', true);
+                    if(data.r_oceania == 1) $("#l3").attr('checked', true);
+                    if(data.r_central_america_caribbean == 1) $("#l4").attr('checked', true);
+                    if(data.r_europe == 1) $("#l8").attr('checked', true);
+                    if(data.r_middle_east_north_africa == 1) $("#l5").attr('checked', true);
+                    if(data.r_north_america == 1) $("#l6").attr('checked', true);
+                    if(data.r_south_america == 1) $("#l7").attr('checked', true);
+                    
+         
+                }
+                loaderStop();
+
+            }
+        });
+    }
+
+    function setDownload(){
+            arrayInstituteRegions = [];
+            $("input[name^='institute-regions']:checked").each(function(index) {
+                arrayInstituteRegions[index] = $(this).val();
+            });
+            arrayResearchRegions = [];
+            $("input[name^='research-regions']:checked").each(function(index) {
+                arrayResearchRegions[index] = $(this).val();
+            });
+            arrayguideSelected = [];
+            guideSelected.forEach(function(entry,index,array) { 
+                arrayguideSelected[index] = entry.id
+            });
+
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                url: themePath+"user-info.php",
+                data: {
+                    context: "submit-user",
+                    userId: $("#user-id").val(),
+                    email: $("#mail").val(),
+                    firstName: $("#first_name").val(),
+                    lastName: $("#last_name").val(),
+                    instituteName: $("#institute-name").val(),
+                    instituteRegions: arrayInstituteRegions,
+                    researchRegions: arrayResearchRegions,
+                    use: $("#use").val(),
+                    ftype: filterType,
+                    guideSelected: arrayguideSelected
+                },
+                beforeSend: function(){
+                    loaderStart();
+                },
+                success: function(downloadId) {
+                    loaderStop();
+                }
+            });
+    }
+    // ----- END Ajax Functions ----- //
 
 	function verify(){
 		var count = 0;
@@ -345,99 +440,7 @@ jQuery(document).ready(function ($) {
             label.removeClass( "selected" );
         });
         updateSelects();
-     }
-
-     function loadUser(email) {
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: themePath+"user-info.php",
-            data: {
-                context: "user-info",
-                email: email
-            },
-            beforeSend: function(){
-                $("#user-id").val("-1");
-                loaderStart();
-            },
-            success: function(data) {
-            	
-                data=data[0];
-                if(data.email == null) {  
-                } else {  
-                	$("#user-id").val(data.id);
-                    $("#first_name").attr("disabled", "disabled");
-                    $("#first_name").val(data.first_name); 
-                    $("#last_name").attr("disabled", "disabled");
-                    $("#last_name").val(data.last_name); 
-                    $("#institute-name").val(data.institute); 
-
-                    // Institute Locations
-                    if(data.i_africa == 1) $("#i1").attr('checked', true);
-                    if(data.i_asia == 1) $("#i2").attr('checked', true);
-                    if(data.i_oceania == 1) $("#i3").attr('checked', true);
-                    if(data.i_central_america_caribbean == 1) $("#i4").attr('checked', true);
-                    if(data.i_europe == 1) $("#i8").attr('checked', true);
-                    if(data.i_middle_east_north_africa == 1) $("#i5").attr('checked', true);
-                    if(data.i_north_america == 1) $("#i6").attr('checked', true);
-                    if(data.i_south_america == 1) $("#i7").attr('checked', true);
-                	// Research Locations
-                    if(data.r_africa == 1) $("#l1").attr('checked', true);
-                    if(data.r_asia == 1) $("#l2").attr('checked', true);
-                    if(data.r_oceania == 1) $("#l3").attr('checked', true);
-                    if(data.r_central_america_caribbean == 1) $("#l4").attr('checked', true);
-                    if(data.r_europe == 1) $("#l8").attr('checked', true);
-                    if(data.r_middle_east_north_africa == 1) $("#l5").attr('checked', true);
-                    if(data.r_north_america == 1) $("#l6").attr('checked', true);
-                    if(data.r_south_america == 1) $("#l7").attr('checked', true);
-                    
-         
-                }
-               	loaderStop();
-
-            }
-        });
-    }
-
-    function setDownload(){
-    		arrayInstituteRegions = [];
-            $("input[name^='institute-regions']:checked").each(function(index) {
-                arrayInstituteRegions[index] = $(this).val();
-            });
-            arrayResearchRegions = [];
-            $("input[name^='research-regions']:checked").each(function(index) {
-                arrayResearchRegions[index] = $(this).val();
-            });
-            arrayguideSelected = [];
-            guideSelected.forEach(function(entry,index,array) { 
-                arrayguideSelected[index] = entry.id
-            });
-
-            $.ajax({
-                type: "POST",
-                dataType: "text",
-                url: themePath+"user-info.php",
-                data: {
-                    context: "submit-user",
-                    userId: $("#user-id").val(),
-                    email: $("#mail").val(),
-                    firstName: $("#first_name").val(),
-                    lastName: $("#last_name").val(),
-                    instituteName: $("#institute-name").val(),
-                    instituteRegions: arrayInstituteRegions,
-                    researchRegions: arrayResearchRegions,
-                    use: $("#use").val(),
-                    ftype: filterType,
-                    guideSelected: arrayguideSelected
-                },
-                beforeSend: function(){
-                    loaderStart();
-                },
-                success: function(downloadId) {
-                    loaderStop();
-                }
-            });
-    }
+     }  
 
     function radioChangeEvent(){ 
         if (verify()==3){ 
