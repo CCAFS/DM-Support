@@ -17,20 +17,21 @@ jQuery(document).ready(function ($) {
     
 
 	// Step 1 (Select the 3 options )
- 	$("input:radio").change(radioChangeEvent);
+ 	$("input:radio").click(radioChangeEvent);
 
     // ================================================================// 
     //                            Key Events                           //
     // ================================================================// 
 
     //Event when input search was typed
-    $( "#search" ).keyup(function() {
+    $( "#search" ).keyup(function() { 
       if(($("#search").val()).length > 1) {
            allDisable();  
            var c = 0;
            content = ""; 
            content += '<ul>';
-           getDataKeyword().forEach(function(entry) { 
+           var DataKeyword= getDataKeyword();
+           DataKeyword.forEach(function(entry) { 
                 var typeText,icon;
                 if (entry.type == 2){
                     typeText = '(Video)';
@@ -46,7 +47,7 @@ jQuery(document).ready(function ($) {
                 content += "</li>";  
                 c++;
             }); 
-           if(getDataKeyword().length <1)content += "Results not found";
+           if(DataKeyword.length <1)content += "Results not found";
            content += '</ul>'; 
             $("#search-results").html(content);
 
@@ -143,7 +144,7 @@ jQuery(document).ready(function ($) {
     // skip-form
     $("#skip-form").on("click", function(event) { 
         event.preventDefault(); 
-        console.log("skip-form");
+        //console.log("skip-form");
         $("#step3").css("display", "none"); $("#step5").css("display", "block"); 
         var content = '<ul>';
         guideSelected.forEach(function(entry) { 
@@ -171,10 +172,10 @@ jQuery(document).ready(function ($) {
     // ================================================================// 
 
     function loaderStop() {
-      $("#ajax-loader").css("display", "none"); 
+      $("#ajax-loader").hide(); 
     }
     function loaderStart() {
-      $("#ajax-loader").css("display", "block"); 
+      $("#ajax-loader").show(); 
     }
 
  	function getData(){
@@ -321,7 +322,7 @@ jQuery(document).ready(function ($) {
      }
      function allEnable() {
 
-        $('#dm-content label').bind('click', radioChangeEvent); 
+        $('#dm-content label').bind('click'); 
         $('#dm-content input:radio').addClass('input_hidden');
         $('#dm-content label').click(function() { 
             $(this).addClass('selected').siblings().removeClass('selected');
@@ -442,11 +443,8 @@ jQuery(document).ready(function ($) {
         if (verify()==3){ 
             $("#step1").css("display", "none"); $("#step2").css("display", "block"); 
             // Step 2 (Guidelines Recommended)
-            currentStep = 2;
-
-
-
-            var Data = getData(); //console.log(Data); 
+            currentStep = 2; 
+            var Data = getData(); //console.log("getData"); 
             updateSelects();
 
             results = 'Result: <b>Role</b> '+roleText+', <b>When</b> '+whenText+', <b>What</b> '+whatText;  
@@ -489,7 +487,7 @@ jQuery(document).ready(function ($) {
                 $("input[name^='"+name+"']:checked").each(function(i) { 
                     guideSelected[i] = Data[$(this).attr('id')];
                 });   
-                console.log(guideSelected);
+                //console.log(guideSelected);
             });
     }
 
