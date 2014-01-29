@@ -181,6 +181,7 @@ jQuery(document).ready(function ($) {
     // ----- Ajax Functions ----- //
 
  	function getData(){
+        loaderStart(); 
  		role = $('input[name=role]:checked', '#side-role').val();
  		when = $('input[name=when]:checked', '#side-when').val();
 		what = $('input[name=what]:checked', '#side-right').val();
@@ -200,7 +201,7 @@ jQuery(document).ready(function ($) {
 			          json = data; 
 			       },
 			       beforeSend: function(){ 
-			       	loaderStart(); 
+			       	
                    }
 			    });
 			    return json;
@@ -208,6 +209,7 @@ jQuery(document).ready(function ($) {
 		return Data; 	
  	}
     function getDataKeyword(){ 
+        loaderStart();
         Data = (function() {
                 var json = null;
                 $.ajax({
@@ -222,7 +224,7 @@ jQuery(document).ready(function ($) {
                       json = data; 
                    },
                    beforeSend: function(){ 
-                    loaderStart();
+                    
                    }
                 });
                 return json;
@@ -231,6 +233,7 @@ jQuery(document).ready(function ($) {
     }
 
     function loadUser(email) {
+        loaderStart();
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -241,7 +244,7 @@ jQuery(document).ready(function ($) {
             },
             beforeSend: function(){
                 $("#user-id").val("-1");
-                loaderStart();
+                
             },
             success: function(data) {
                 
@@ -283,43 +286,44 @@ jQuery(document).ready(function ($) {
     }
 
     function setDownload(){
-            arrayInstituteRegions = [];
-            $("input[name^='institute-regions']:checked").each(function(index) {
-                arrayInstituteRegions[index] = $(this).val();
-            });
-            arrayResearchRegions = [];
-            $("input[name^='research-regions']:checked").each(function(index) {
-                arrayResearchRegions[index] = $(this).val();
-            });
-            arrayguideSelected = [];
-            guideSelected.forEach(function(entry,index,array) { 
-                arrayguideSelected[index] = entry.id
-            });
+        loaderStart();
+        arrayInstituteRegions = [];
+        $("input[name^='institute-regions']:checked").each(function(index) {
+            arrayInstituteRegions[index] = $(this).val();
+        });
+        arrayResearchRegions = [];
+        $("input[name^='research-regions']:checked").each(function(index) {
+            arrayResearchRegions[index] = $(this).val();
+        });
+        arrayguideSelected = [];
+        guideSelected.forEach(function(entry,index,array) { 
+            arrayguideSelected[index] = entry.id
+        });
 
-            $.ajax({
-                type: "POST",
-                dataType: "text",
-                url: themePath+"user-info.php",
-                data: {
-                    context: "submit-user",
-                    userId: $("#user-id").val(),
-                    email: $("#mail").val(),
-                    firstName: $("#first_name").val(),
-                    lastName: $("#last_name").val(),
-                    instituteName: $("#institute-name").val(),
-                    instituteRegions: arrayInstituteRegions,
-                    researchRegions: arrayResearchRegions,
-                    use: $("#use").val(),
-                    ftype: filterType,
-                    guideSelected: arrayguideSelected
-                },
-                beforeSend: function(){
-                    loaderStart();
-                },
-                success: function(downloadId) {
-                    loaderStop();
-                }
-            });
+        $.ajax({
+            type: "POST",
+            dataType: "text",
+            url: themePath+"user-info.php",
+            data: {
+                context: "submit-user",
+                userId: $("#user-id").val(),
+                email: $("#mail").val(),
+                firstName: $("#first_name").val(),
+                lastName: $("#last_name").val(),
+                instituteName: $("#institute-name").val(),
+                instituteRegions: arrayInstituteRegions,
+                researchRegions: arrayResearchRegions,
+                use: $("#use").val(),
+                ftype: filterType,
+                guideSelected: arrayguideSelected
+            },
+            beforeSend: function(){
+                
+            },
+            success: function(downloadId) {
+                loaderStop();
+            }
+        });
     }
     // ----- END Ajax Functions ----- //
 
