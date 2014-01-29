@@ -1,8 +1,9 @@
 var themePath = './themes/bartik/',
 	downloadPath = 'http://www.reading.ac.uk/ssc/resource-packs/dms/',
-    currentStep = 1,
+    currentStep = 1, 
+    ls = localStorage,
 	guideSelected,
-    filterType,
+    filterType, 
 	role,when,what,
     roleText,whenText,whatText;
 jQuery(document).ready(function ($) { 
@@ -13,12 +14,7 @@ jQuery(document).ready(function ($) {
     });  
     $('#icon-flow,#icon-table').powerTip({
         followMouse: true
-    });
-    
-
-	// Step 1 (Select the 3 options )
- 	$("input:radio").click(radioChangeEvent);
-
+    }); 
     // ================================================================// 
     //                            Key Events                           //
     // ================================================================// 
@@ -53,15 +49,15 @@ jQuery(document).ready(function ($) {
 
             $("#search-content").css("display", "block");
 
-            if(currentStep==1)$("#step1").css("display", "none");
-            if(currentStep==2)$("#step2").css("display", "none");  
+            if(currentStep==1)$("#step1").hide();
+            if(currentStep==2)$("#step2").hide();
             updateGuideSelected("check-search");
             loaderStop();
         } else{
             allEnable(); 
-            if(currentStep==1)$("#step1").css("display", "block");
-            if(currentStep==2)$("#step2").css("display", "block");  
-            $("#search-content").css("display", "none");
+            if(currentStep==1)$("#step1").fadeIn(700);
+            if(currentStep==2)$("#step2").fadeIn(700);
+            $("#search-content").hide();
             $("#search-results").html("");
         }
     });
@@ -70,12 +66,16 @@ jQuery(document).ready(function ($) {
     //                           Clic Events                           //
     // ================================================================//  
 
+    // Step 1 (Select the 3 options )
+    $("input:radio").click(radioChangeEvent);
+
 	// Step 3 (Terms and conditions) email contact
 	$( "a.download.1" ).click(function() {  
         filterType = $(this).attr("id");
 		if($("input:checkbox[name=check]").is(":checked") || $("input:checkbox[name=check-search]").is(":checked")) {
 			$("#step2").css("display", "none"); $("#search-content").css("display", "none");$("#step3").css("display", "block");
 			$("#search").attr("disabled", "disabled");
+            $("input[name=mail]").val(localStorage.getItem('email'));
             allDisable(); 
 		} else { 
             $("#step2 .error").css("display", "block");
@@ -100,6 +100,7 @@ jQuery(document).ready(function ($) {
 	// Step 4 (Terms and conditions) form contact
 	$( "a.download.2" ).click(function() {  
 		var email =$("input[name=mail]").val();
+        ls.setItem('email', email);
 		if( validateEmail(email)  ) { 
 			loadUser(email);
             $("#step3").css("display", "none"); $("#step4").css("display", "block"); 
@@ -172,7 +173,7 @@ jQuery(document).ready(function ($) {
     // ================================================================// 
 
     function loaderStop() {
-      $("#ajax-loader").fadeOut(500);
+      $("#ajax-loader").fadeOut(150);
     }
     function loaderStart() {
       $("#ajax-loader").show(); 
@@ -181,7 +182,7 @@ jQuery(document).ready(function ($) {
     // ----- Ajax Functions ----- //
 
  	function getData(){
-        loaderStart(); 
+         
  		role = $('input[name=role]:checked', '#side-role').val();
  		when = $('input[name=when]:checked', '#side-when').val();
 		what = $('input[name=what]:checked', '#side-right').val();
@@ -199,9 +200,10 @@ jQuery(document).ready(function ($) {
 			       'dataType': "json",
 			       'success': function(data) {
 			          json = data; 
+                      loaderStop();
 			       },
 			       beforeSend: function(){ 
-			       	
+			       	loaderStart();
                    }
 			    });
 			    return json;
@@ -478,7 +480,7 @@ jQuery(document).ready(function ($) {
             content += '</ul>';
             $( "#step2 #result" ).html(results);
             $( "#step2 #guidelines" ).html(content); 
-            loaderStop();
+            
             //window.setTimeout(loaderStop,50);
             updateGuideSelected("check");
             
