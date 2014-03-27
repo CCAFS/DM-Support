@@ -82,21 +82,21 @@ jQuery(document).ready(function ($) {
         }
 		
 	});
-    /*
+    
     $( "a.download.5" ).click(function() {   
         guideSelected = new Array(); 
         guideSelected[0] = {
-                            id: "4", 
+                            id: 999, 
                             name: "Data Management Support [Full package]", 
-                            type: "1", 
-                            source: "asdf.pdf", 
+                            type: 3, 
+                            source: "http://www.reading.ac.uk/ssc/resources/ccafs_data_management_support_pack.pdf", 
                             importance_level: "Optional"
                         }
         $("#step2").css("display", "none"); $("#step3").css("display", "block");
         $("#search").attr("disabled", "disabled");
         allDisable(); 
     });
-    */
+    
 	// Step 4 (Terms and conditions) form contact
 	$( "a.download.2" ).click(function() {  
 		var email =$("input[name=mail]").val();
@@ -128,6 +128,9 @@ jQuery(document).ready(function ($) {
     				icon = themePath+'images/video.png';
     				downloadLink = entry.source;
     			}
+                if (entry.type == 3) { 
+                downloadLink = entry.source;
+            }
     			content += "<li>";
     			content += "	<img src='"+icon+"'>"; 
     			content += "	<a class='downloadLink' target='_blank' href='"+downloadLink+"' >"+entry.name;
@@ -155,6 +158,7 @@ jQuery(document).ready(function ($) {
                 icon = themePath+'images/video.png';
                 downloadLink = entry.source;
             }
+            
             content += "<li>";
             content += "    <img src='"+icon+"'>"; 
             content += "    <a class='downloadLink' target='_blank' href='"+downloadLink+"' >"+entry.name;

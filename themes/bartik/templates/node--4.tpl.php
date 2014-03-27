@@ -72,7 +72,7 @@
           
           <span class="error" style="display: none;">Please check a file.</span>
           <div style="margin-top: 7px;height: 39px;"> 
-        		<a id="filtered-type" class="download 1">Download chosen documents</a><a class="download 5 disable">Download full package</a>
+        		<a id="filtered-type" class="download 1">Download chosen documents</a><a class="download 5">Download full package</a>
       		</div>   
 		    </div> 
 		    <div id="step3" >
