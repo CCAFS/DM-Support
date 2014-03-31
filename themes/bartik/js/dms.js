@@ -539,7 +539,7 @@ jQuery(document).ready(function ($) {
     }
 
     function getWindowHeight(){
-        return Math.max($(document).height(), $(window).height());
+        return $("#block-system-main .content").height();
     }
 
 });
