@@ -7,6 +7,9 @@ var themePath = './themes/bartik/',
 	role,when,what,
     roleText,whenText,whatText;
 jQuery(document).ready(function ($) { 
+
+    // Set the attribute data-height in the body tag
+    $("body").attr("data-height", getWindowHeight());
 	
 	$('#dm-content input:radio').addClass('input_hidden');
     $('#dm-content label').click(function() { 
@@ -60,6 +63,9 @@ jQuery(document).ready(function ($) {
             $("#search-content").hide();
             $("#search-results").html("");
         }
+
+        // Update the attribute data-height in the body tag
+        $("body").attr("data-height", getWindowHeight());
     });
 
     // ================================================================// 
@@ -488,7 +494,8 @@ jQuery(document).ready(function ($) {
             //window.setTimeout(loaderStop,50);
             updateGuideSelected("check");
             
-            
+            // Update the attribute data-height in the body tag
+            $("body").attr("data-height", getWindowHeight());
         }
         
     }
@@ -522,6 +529,10 @@ jQuery(document).ready(function ($) {
             if(what == 6) {whatText='Metadata, Archiving & Sharing';     $("label[for=c6]").addClass("selected");}
             if(what == 7) {whatText='CCAFS Data Portals';                $("label[for=c7]").addClass("selected");}
             if(what == 8) {whatText='Data Quality & Organisation';       $("label[for=c8]").addClass("selected");}
+    }
+
+    function getWindowHeight(){
+        return Math.max($(document).height(), $(window).height());
     }
 
 });
