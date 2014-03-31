@@ -58,7 +58,7 @@
   
   <script src="./<?php print_r($directory); ?>/js/modernizr-1.0.min.js" type="text/javascript"></script>
 </head>
-<body class="<?php print $classes; ?>" <?php print $attributes;?>>
+<body data-height="1510" class="<?php print $classes; ?>" <?php print $attributes;?>>
   <div id="skip-link">
     <a href="#main-content" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
   </div>
