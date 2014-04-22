@@ -204,7 +204,7 @@ jQuery(document).ready(function ($) {
         return Data;    
     }
     function getDataKeyword(){ 
-        loaderStart();
+        var keyword = $("#search").val();
         Data = (function() {
                 var json = null;
                 $.ajax({
@@ -213,13 +213,14 @@ jQuery(document).ready(function ($) {
                    'url': themePath+'json.php',
                    'type': "POST",
                    'data': { context: "guidelines-search",
-                             q : $("#search").val() },
+                             q : keyword },
                    'dataType': "json",
                    'success': function(data) {
                       json = data; 
                    },
                    beforeSend: function(){ 
-                    
+                      loaderStart();
+                      ga('send', 'event', 'Search', 'search', keyword);
                    }
                 });
                 return json;
