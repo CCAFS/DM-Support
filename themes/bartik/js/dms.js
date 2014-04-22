@@ -71,8 +71,7 @@ jQuery(document).ready(function ($) {
             $("#search-results").html("");
         }
 
-        // Update the attribute data-height in the body tag
-        $("body").attr("data-height", getWindowHeight());
+        updateDataHeight();
     });
 
     // ================================================================// 
@@ -90,6 +89,7 @@ jQuery(document).ready(function ($) {
 			$("#search").attr("disabled", "disabled");
             $("input[name=mail]").val(localStorage.getItem('email'));
             allDisable(); 
+            updateDataHeight();
 		} else { 
             $("#step2 .error").css("display", "block");
         }
@@ -108,6 +108,7 @@ jQuery(document).ready(function ($) {
         $("#step2").css("display", "none"); $("#step3").css("display", "block");
         $("#search").attr("disabled", "disabled");
         allDisable(); 
+        updateDataHeight();
     });
     
 	// Step 4 (Terms and conditions) form contact
@@ -117,7 +118,7 @@ jQuery(document).ready(function ($) {
 		if( validateEmail(email)  ) { 
 			loadUser(email);
             $("#step3").css("display", "none"); $("#step4").css("display", "block"); 
-            
+            updateDataHeight();
         } else { 
             $("#step3-form .error").css("display", "block");
         }
@@ -154,7 +155,7 @@ jQuery(document).ready(function ($) {
             
             $( "#step5 #guidelines" ).html(content); 
             loaderStop();
-            
+            updateDataHeight();
         } 	 	
 	});
 
@@ -182,7 +183,7 @@ jQuery(document).ready(function ($) {
         
         $( "#step5 #guidelines" ).html(content); 
         loaderStop();
-
+        updateDataHeight();
     });    
 
     // ================================================================// 
@@ -501,8 +502,7 @@ jQuery(document).ready(function ($) {
             //window.setTimeout(loaderStop,50);
             updateGuideSelected("check");
             
-            // Update the attribute data-height in the body tag
-            $("body").attr("data-height", getWindowHeight());
+            updateDataHeight();
         }
         
     }
@@ -540,6 +540,11 @@ jQuery(document).ready(function ($) {
 
     function getWindowHeight(){
         return $("#block-system-main .content").height();
+    }
+
+    function updateDataHeight(){
+        // Update the attribute data-height in the body tag
+        $("body").attr("data-height", getWindowHeight());
     }
 
 });
