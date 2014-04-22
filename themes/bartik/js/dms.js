@@ -109,6 +109,7 @@ jQuery(document).ready(function ($) {
     		$("#step4").css("display", "none"); $("#step5").css("display", "block"); 
     		var content = '<ul>';
     		guideSelected.forEach(function(entry) { 
+                ga('send', 'event', 'Guidelines', 'downloaded', entry.name);
     			var icon = themePath+'images/guide.png',
     				downloadLink = downloadPath+entry.source;
     			if (entry.type == 2) {
@@ -139,6 +140,7 @@ jQuery(document).ready(function ($) {
         $("#step3").css("display", "none"); $("#step5").css("display", "block"); 
         var content = '<ul>';
         guideSelected.forEach(function(entry) { 
+            ga('send', 'event', 'Guidelines', 'downloaded', entry.name);
             var icon = themePath+'images/guide.png',
                 downloadLink = downloadPath+entry.source;
             if (entry.type == 2) {
@@ -314,7 +316,7 @@ jQuery(document).ready(function ($) {
                 guideSelected: arrayguideSelected
             },
             beforeSend: function(){
-                
+                ga('send', 'event', 'Users', 'download', $("#mail").val()); 
             },
             success: function(downloadId) {
             loaderStop();
@@ -454,7 +456,7 @@ jQuery(document).ready(function ($) {
             var c = 0;  
             var content = '<ul>'; 
             // print data for each document of filter, 
-            Data.forEach(function(entry) { 
+            Data.forEach(function(entry) {  
                 var typeText,icon;
                 if (entry.type == 2){
                     typeText = '(Video)';
