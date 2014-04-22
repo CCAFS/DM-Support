@@ -1,17 +1,3 @@
-
-
-<link href="./<?php print_r($directory); ?>/css/dms.css" rel="stylesheet">
-<script src="./<?php print_r($directory); ?>/js/dms.js" type="text/javascript"></script>
-<!-- A lightweight customizable lightbox plugin for jQuery -->
-<link rel="stylesheet" href="./<?php print_r($directory); ?>/libs/colorbox-master/example2/colorbox.css" />
-<script src="./<?php print_r($directory); ?>/libs/colorbox-master/jquery.colorbox.js"></script>
-<!-- A jQuery plugin that creates hover tooltips -->
-<link rel="stylesheet" href="./<?php print_r($directory); ?>/libs/powertip-1.2.0/css/jquery.powertip.min.css" />
-<script src="./<?php print_r($directory); ?>/libs/powertip-1.2.0/jquery.powertip.min.js"></script>
-
-
-
-
  <div id="dm-content" class="content clearfix"<?php print $content_attributes; ?>>
    <div id="search-input"> <span id="search-icon"></span> <input type="text" id="search" name="search" value=""/> </div> 
    <div id="side-left">
@@ -186,3 +172,12 @@
     ?>
  </div>
 
+<!-- A lightweight customizable lightbox plugin for jQuery -->
+<link rel="stylesheet" href="./<?php print_r($directory); ?>/libs/colorbox-master/example2/colorbox.css" />
+<script src="./<?php print_r($directory); ?>/libs/colorbox-master/jquery.colorbox.js"></script>
+<!-- A jQuery plugin that creates hover tooltips -->
+<link rel="stylesheet" href="./<?php print_r($directory); ?>/libs/powertip-1.2.0/css/jquery.powertip.min.css" />
+<script src="./<?php print_r($directory); ?>/libs/powertip-1.2.0/jquery.powertip.min.js"></script>
+
+<link href="./<?php print_r($directory); ?>/css/dms.css" rel="stylesheet">
+<script src="./<?php print_r($directory); ?>/js/dms.js" type="text/javascript"></script>

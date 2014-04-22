@@ -11,12 +11,12 @@ var themePath = './themes/bartik/',
     ls = localStorage,
 	guideSelected,
     filterType, 
+    timeoutID,
 	role,when,what,
     roleText,whenText,whatText;
 jQuery(document).ready(function ($) { 
 
-    // Set the attribute data-height in the body tag
-    $("body").attr("data-height", getWindowHeight());
+    updateDataHeight();
 	
 	$('#dm-content input:radio').addClass('input_hidden');
     $('#dm-content label').click(function() { 
@@ -32,46 +32,19 @@ jQuery(document).ready(function ($) {
     //Event when input search was typed
     $( "#search" ).keyup(function() { 
       if(($("#search").val()).length > 1) {
-           allDisable();  
-           var c = 0;
-           content = ""; 
-           content += '<ul>';
-           var DataKeyword= getDataKeyword();
-           DataKeyword.forEach(function(entry) { 
-                var typeText,icon;
-                if (entry.type == 2){
-                    typeText = '(Video)';
-                    icon = themePath+'images/video.png';
-                } else{
-                    icon = themePath+'images/guide.png';
-                    typeText = '';
-                }
-                content += "<li>";
-                content += "    <img src='"+icon+"'>";
-                content += "    <input name='check-search' class='css-checkbox' id='"+c+"' type='checkbox'>";
-                content += "    <label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>"; 
-                content += "</li>";  
-                c++;
-            }); 
-           if(DataKeyword.length <1)content += "Results not found";
-           content += '</ul>'; 
-            $("#search-results").html(content);
-
-            $("#search-content").css("display", "block");
-
-            if(currentStep==1)$("#step1").hide();
-            if(currentStep==2)$("#step2").hide();
-            updateGuideSelected("check-search");
-            loaderStop();
+            if(timeoutID) clearTimeout(timeoutID); 
+            // Start a timer that will search when finished
+            timeoutID = setTimeout(searchKeyword, 300);
         } else{
             allEnable(); 
             if(currentStep==1)$("#step1").fadeIn(700);
             if(currentStep==2)$("#step2").fadeIn(700);
             $("#search-content").hide();
             $("#search-results").html("");
+            updateDataHeight();
         }
 
-        updateDataHeight();
+        
     });
 
     // ================================================================// 
@@ -155,7 +128,7 @@ jQuery(document).ready(function ($) {
             
             $( "#step5 #guidelines" ).html(content); 
             loaderStop();
-            updateDataHeight();
+             
         } 	 	
 	});
 
@@ -183,15 +156,17 @@ jQuery(document).ready(function ($) {
         
         $( "#step5 #guidelines" ).html(content); 
         loaderStop();
-        updateDataHeight();
-    });    
+         
+    });     
+
 
     // ================================================================// 
-	//                           General Functions                     //
+    //                           General Functions                     //
     // ================================================================// 
 
     function loaderStop() {
-      $("#ajax-loader").fadeOut(150);
+        updateDataHeight();
+        $("#ajax-loader").fadeOut(150);
     }
     function loaderStart() {
       $("#ajax-loader").show(); 
@@ -199,35 +174,35 @@ jQuery(document).ready(function ($) {
 
     // ----- Ajax Functions ----- //
 
- 	function getData(){
+    function getData(){
          
- 		role = $('input[name=role]:checked', '#side-role').val();
- 		when = $('input[name=when]:checked', '#side-when').val();
-		what = $('input[name=what]:checked', '#side-right').val();
-		Data = (function() {
-			    var json = null;
-			    $.ajax({
-			       'async': false,
-			       'global': false,
-			       'url': themePath+'json.php',
-			       'type': "POST",
-  				   'data': { context : "guidelines-lvl",
+        role = $('input[name=role]:checked', '#side-role').val();
+        when = $('input[name=when]:checked', '#side-when').val();
+        what = $('input[name=what]:checked', '#side-right').val();
+        Data = (function() {
+                var json = null;
+                $.ajax({
+                   'async': false,
+                   'global': false,
+                   'url': themePath+'json.php',
+                   'type': "POST",
+                   'data': { context : "guidelines-lvl",
                              r : role,
-  				   			 s : when,
-  				   			 c : what },
-			       'dataType': "json",
-			       'success': function(data) {
-			          json = data; 
+                             s : when,
+                             c : what },
+                   'dataType': "json",
+                   'success': function(data) {
+                      json = data; 
                       loaderStop();
-			       },
-			       beforeSend: function(){ 
-			       	loaderStart();
+                   },
+                   beforeSend: function(){ 
+                    loaderStart();
                    }
-			    });
-			    return json;
-		 })();
-		return Data; 	
- 	}
+                });
+                return json;
+         })();
+        return Data;    
+    }
     function getDataKeyword(){ 
         loaderStart();
         Data = (function() {
@@ -341,30 +316,30 @@ jQuery(document).ready(function ($) {
                 
             },
             success: function(downloadId) {
-                loaderStop();
+            loaderStop();
             }
         });
     }
     // ----- END Ajax Functions ----- //
 
-	function verify(){
-		var count = 0;
-		if($("input:radio[name=role]").is(":checked")){
-			$("img#icon-role").addClass("selected");
-			count++; 
-		}
-	 	if($("input:radio[name=when]").is(":checked")){
-	 		$("img#icon-when").addClass("selected");
-			count++; 
-		}
-	 	if($("input:radio[name=what]").is(":checked")){
-	 		$("img#icon-what").addClass("selected");
-			count++; 
-		}
-	 	return count
-	}
-	function verifyFields(){ 
-		var verified = '';
+    function verify(){
+        var count = 0;
+        if($("input:radio[name=role]").is(":checked")){
+            $("img#icon-role").addClass("selected");
+            count++; 
+        }
+        if($("input:radio[name=when]").is(":checked")){
+            $("img#icon-when").addClass("selected");
+            count++; 
+        }
+        if($("input:radio[name=what]").is(":checked")){
+            $("img#icon-what").addClass("selected");
+            count++; 
+        }
+        return count
+    }
+    function verifyFields(){ 
+        var verified = '';
         // Validate first name.
         if($("#first_name").is(":visible") && $("#first_name").val() == "") {
             verified += '* First name <br>';
@@ -409,9 +384,9 @@ jQuery(document).ready(function ($) {
         }
         return verified;
 
-	}
+    }
 
-	function validateEmail(emailField) {
+    function validateEmail(emailField) {
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
         if(emailField == "" || !emailReg.test(emailField)) {
             return false; 
@@ -419,9 +394,9 @@ jQuery(document).ready(function ($) {
             return true; 
         }
     }
-	function allDisable() {
-		 
-		$('#dm-content label').unbind('click'); 
+    function allDisable() {
+         
+        $('#dm-content label').unbind('click'); 
         $("input[name=role]").each(function(i) { 
             $(this).attr('disabled', true);
             var label = $("label[for='"+$(this).attr('id')+"']");
@@ -506,6 +481,41 @@ jQuery(document).ready(function ($) {
         }
         
     }
+
+    function searchKeyword(){
+        allDisable();  
+        var c = 0;
+        content = ""; 
+        content += '<ul>';
+        var DataKeyword= getDataKeyword();
+        DataKeyword.forEach(function(entry) { 
+            var typeText,icon;
+            if (entry.type == 2){
+                typeText = '(Video)';
+                icon = themePath+'images/video.png';
+            } else{
+                icon = themePath+'images/guide.png';
+                typeText = '';
+            }
+            content += "<li>";
+            content += "    <img src='"+icon+"'>";
+            content += "    <input name='check-search' class='css-checkbox' id='"+c+"' type='checkbox'>";
+            content += "    <label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>"; 
+            content += "</li>";  
+            c++;
+        }); 
+       if(DataKeyword.length <1)content += "Results not found";
+       content += '</ul>'; 
+        $("#search-results").html(content);
+
+        $("#search-content").css("display", "block");
+
+        if(currentStep==1)$("#step1").hide();
+        if(currentStep==2)$("#step2").hide();
+        updateGuideSelected("check-search");
+        loaderStop();
+    }
+
     /* This event is when the Checkbox was Selected or Unselected
        and fill a array guideSelected with new list selected      */
     function updateGuideSelected(name){  
