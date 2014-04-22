@@ -316,7 +316,8 @@ jQuery(document).ready(function ($) {
                 guideSelected: arrayguideSelected
             },
             beforeSend: function(){
-                ga('send', 'event', 'Users', 'download', $("#mail").val()); 
+                ga('send', 'event', 'Users', 'download', $("#mail").val());
+                ga('send', 'event', 'Institute', 'download', $("#institute-name").val());
             },
             success: function(downloadId) {
             loaderStop();
@@ -450,9 +451,11 @@ jQuery(document).ready(function ($) {
             // Step 2 (Guidelines Recommended)
             currentStep = 2; 
             var Data = getData(); //console.log("getData"); 
-            updateSelects();
-
+            updateSelects();  
             results = 'Result: <b>Role</b> '+roleText+', <b>When</b> '+whenText+', <b>What</b> '+whatText;  
+            ga('send', 'event', 'Role', 'interested', roleText);
+            ga('send', 'event', 'When', 'interested', whenText);
+            ga('send', 'event', 'What', 'interested', whatText);
             var c = 0;  
             var content = '<ul>'; 
             // print data for each document of filter, 
