@@ -84,7 +84,7 @@
       				
       				
       				<div class="left">
-      				<h4>Region(s) of your research interes: </h4> 
+      				<h4>Region(s) of your research interest: </h4> 
 
       				<input name='research-regions' class='css-checkbox-regions' id='l1' value="africa" type='checkbox'>
       					<label for='l1' class='css-label-regions'>Africa</label><br>
