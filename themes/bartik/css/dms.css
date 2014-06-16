@@ -240,6 +240,14 @@ Project:	Data Management Support Pack
     color: #222;
 }
 
+a.preview{
+	color: #9E9E9E;
+	background: #FFF;
+	border-radius: 8px;
+	padding: 0 1em;
+	font-size: 0.9em;
+}
+
 .error{
 	font-size: 13px;
 	line-height: 13px;
@@ -293,6 +301,22 @@ input[type=checkbox].css-checkbox-regions:checked + label.css-label-regions {
 label.css-label-regions {
 	background-image:url(../images/csscheckbox2.png); 
 	
+}
+
+span.download {
+	position: relative;
+	background: #2BA6CB;
+	color: #FFF;
+	padding: 0px 5px;
+	text-decoration: none;
+	cursor: pointer;
+	margin: 2px;
+	height: 18px;
+	width: 85px;
+	font-size: 0.9em;
+}
+span.download img{
+	 vertical-align: middle
 }
 
 
@@ -395,3 +419,8 @@ clear: both;
 	opacity: 0.3;
 }
 
+/* Goolgle viewer CSS*/
+
+#openInViewerButtonIcon {
+	display: none !important;
+}

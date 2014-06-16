@@ -25,6 +25,7 @@ jQuery(document).ready(function ($) {
     $('#icon-flow,#icon-table').powerTip({
         followMouse: true
     }); 
+   
     // ================================================================// 
     //                            Key Events                           //
     // ================================================================// 
@@ -32,9 +33,9 @@ jQuery(document).ready(function ($) {
     //Event when input search was typed
     $( "#search" ).keyup(function() { 
       if(($("#search").val()).length > 1) {
-            if(timeoutID) clearTimeout(timeoutID); 
+            if(timeoutID) clearTimeout(timeoutID);  
             // Start a timer that will search when finished
-            timeoutID = setTimeout(searchKeyword, 300);
+            timeoutID = setTimeout(searchKeyword, 800);
         } else{
             allEnable(); 
             if(currentStep==1)$("#step1").fadeIn(700);
@@ -42,9 +43,7 @@ jQuery(document).ready(function ($) {
             $("#search-content").hide();
             $("#search-results").html("");
             updateDataHeight();
-        }
-
-        
+        } 
     });
 
     // ================================================================// 
@@ -52,13 +51,12 @@ jQuery(document).ready(function ($) {
     // ================================================================//  
 
     // Step 1 (Select the 3 options )
-    $("input:radio").click(radioChangeEvent);
-
+    $("input:radio").click(radioChangeEvent); 
 	// Step 3 (Terms and conditions) email contact
 	$( "a.download.1" ).click(function() {  
         filterType = $(this).attr("id");
-		if($("input:checkbox[name=check]").is(":checked") || $("input:checkbox[name=check-search]").is(":checked")) {
-			$("#step2").css("display", "none"); $("#search-content").css("display", "none");$("#step3").css("display", "block");
+		if($("input:checkbox[name=check]").is(":checked") || $("input:checkbox[name=check-search]").is(":checked")) { 
+            $("#step3").show().siblings().hide();
 			$("#search").attr("disabled", "disabled");
             $("input[name=mail]").val(localStorage.getItem('email'));
             allDisable(); 
@@ -77,8 +75,8 @@ jQuery(document).ready(function ($) {
                             type: 3, 
                             source: "http://www.reading.ac.uk/ssc/resources/ccafs_data_management_support_pack.pdf", 
                             importance_level: "Optional"
-                        }
-        $("#step2").css("display", "none"); $("#step3").css("display", "block");
+                        } 
+        $("#step3").show().siblings().hide();
         $("#search").attr("disabled", "disabled");
         allDisable(); 
         updateDataHeight();
@@ -89,8 +87,8 @@ jQuery(document).ready(function ($) {
 		var email =$("input[name=mail]").val();
         ls.setItem('email', email);
 		if( validateEmail(email)  ) { 
-			loadUser(email);
-            $("#step3").css("display", "none"); $("#step4").css("display", "block"); 
+			loadUser(email); 
+            $("#step4").show().siblings().hide(); 
             updateDataHeight();
         } else { 
             $("#step3-form .error").css("display", "block");
@@ -107,60 +105,21 @@ jQuery(document).ready(function ($) {
         }else {
         	setDownload();
     		$("#step4").css("display", "none"); $("#step5").css("display", "block"); 
-    		var content = '<ul>';
-    		guideSelected.forEach(function(entry) { 
-                ga('send', 'event', 'Guidelines', 'downloaded', entry.name);
-    			var icon = themePath+'images/guide.png',
-    				downloadLink = downloadPath+entry.source;
-    			if (entry.type == 2) {
-    				icon = themePath+'images/video.png';
-    				downloadLink = entry.source;
-    			}
-                if (entry.type == 3) { 
-                downloadLink = entry.source;
-            }
-    			content += "<li>";
-    			content += "	<img src='"+icon+"'>"; 
-    			content += "	<a class='downloadLink' target='_blank' href='"+downloadLink+"' >"+entry.name;
-    			content += "	<img style='float:right' src='"+themePath+"images/dl.png'></a>";
-    			content += "</li>";	   
-            });
-            content += '</ul>';
-            
-            $( "#step5 #guidelines" ).html(content); 
+    		printGuidelinesToDownload();
             loaderStop();
              
         } 	 	
 	});
 
-    // skip-form
+    // skip-form (Links for download)
     $("#skip-form").on("click", function(event) { 
         event.preventDefault(); 
-        //console.log("skip-form");
-        $("#step3").css("display", "none"); $("#step5").css("display", "block"); 
-        var content = '<ul>';
-        guideSelected.forEach(function(entry) { 
-            ga('send', 'event', 'Guidelines', 'downloaded', entry.name);
-            var icon = themePath+'images/guide.png',
-                downloadLink = downloadPath+entry.source;
-            if (entry.type == 2) {
-                icon = themePath+'images/video.png';
-                downloadLink = entry.source;
-            }
-            
-            content += "<li>";
-            content += "    <img src='"+icon+"'>"; 
-            content += "    <a class='downloadLink' target='_blank' href='"+downloadLink+"' >"+entry.name;
-            content += "    <img style='float:right' src='"+themePath+"images/dl.png'></a>";
-            content += "</li>";    
-        });
-        content += '</ul>';
-        
-        $( "#step5 #guidelines" ).html(content); 
+        //console.log("skip-form"); 
+        $("#step5").show().siblings().hide(); 
+        printGuidelinesToDownload();
         loaderStop();
          
-    });     
-
+    });   
 
     // ================================================================// 
     //                           General Functions                     //
@@ -205,8 +164,7 @@ jQuery(document).ready(function ($) {
          })();
         return Data;    
     }
-    function getDataKeyword(){ 
-        var keyword = $("#search").val();
+    function getDataKeyword(keyword){  
         Data = (function() {
                 var json = null;
                 $.ajax({
@@ -446,81 +404,103 @@ jQuery(document).ready(function ($) {
      }  
 
     function radioChangeEvent(){ 
-        if (verify()==3){ 
-            $("#step1").css("display", "none"); $("#step2").css("display", "block"); 
+        if (verify()==3){  
+            $("#step2").show().siblings().hide();
             // Step 2 (Guidelines Recommended)
             currentStep = 2; 
             var Data = getData(); //console.log("getData"); 
             updateSelects();  
             results = 'Result: <b>Role</b> '+roleText+', <b>When</b> '+whenText+', <b>What</b> '+whatText;  
+            $( "#step2 #result" ).html(results);
             ga('send', 'event', 'Role', 'interested', roleText);
             ga('send', 'event', 'When', 'interested', whenText);
             ga('send', 'event', 'What', 'interested', whatText);
-            var c = 0;  
-            var content = '<ul>'; 
-            // print data for each document of filter, 
-            Data.forEach(function(entry) {  
-                var typeText,icon;
-                if (entry.type == 2){
-                    typeText = '(Video)';
-                    icon = themePath+'images/video.png';
-                } else{
-                    icon = themePath+'images/guide.png';
-                    typeText = '';
-                }
-                content += "<li>";
-                content += "    <img src='"+icon+"'>";
-                content += "    <input name='check' class='css-checkbox' id='"+c+"' type='checkbox'>";
-                content += "    <label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>";
-                content += "    <span class='level "+entry.importance_level+"'>"+entry.importance_level+"</span>";
-                content += "</li>";  
-                c++;
-            });
-            content += '</ul>';
-            $( "#step2 #result" ).html(results);
-            $( "#step2 #guidelines" ).html(content); 
-            
+
+            content = printGuidelinesToPreview(Data,1); 
+            $( "#step2 #guidelines" ).html(content);  
+            $('.preview').colorbox({iframe:true, width:"80%", height:"80%"}); 
+
             //window.setTimeout(loaderStop,50);
             updateGuideSelected("check");
-            
             updateDataHeight();
-        }
-        
-    }
-
+        } 
+    } 
     function searchKeyword(){
         allDisable();  
-        var c = 0;
-        content = ""; 
-        content += '<ul>';
-        var DataKeyword= getDataKeyword();
-        DataKeyword.forEach(function(entry) { 
-            var typeText,icon;
-            if (entry.type == 2){
-                typeText = '(Video)';
-                icon = themePath+'images/video.png';
-            } else{
-                icon = themePath+'images/guide.png';
-                typeText = '';
-            }
-            content += "<li>";
-            content += "    <img src='"+icon+"'>";
-            content += "    <input name='check-search' class='css-checkbox' id='"+c+"' type='checkbox'>";
-            content += "    <label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>"; 
-            content += "</li>";  
-            c++;
-        }); 
-       if(DataKeyword.length <1)content += "Results not found";
-       content += '</ul>'; 
+        var keyword = $("#search").val();
+        var DataKeyword= getDataKeyword(keyword);
+
+        content = printGuidelinesToPreview(DataKeyword,2);  
         $("#search-results").html(content);
+        $('.preview').colorbox({iframe:true, width:"80%", height:"80%"}); 
 
         $("#search-content").css("display", "block");
-
         if(currentStep==1)$("#step1").hide();
         if(currentStep==2)$("#step2").hide();
         updateGuideSelected("check-search");
         loaderStop();
     }
+    function printGuidelinesToPreview(data,type){
+        var c = 0;
+        content = ""; 
+        content += '<ul>'; 
+        data.forEach(function(entry) {  
+            var typeText,icon; 
+            if (entry.type == 2){
+                typeText = '(Video)';
+                icon = themePath+'images/video.png';
+                downloadLink = "https://www.youtube.com/embed/"+youtube_parser(entry.source)+"?rel=0&wmode=transparent";
+            } else{
+                downloadLink = "http://docs.google.com/viewer?url="+downloadPath+encodeURIComponent(entry.source)+"&embedded=true";
+                icon = themePath+'images/guide.png';
+                typeText = '';
+            }
+            if (type == 1){
+                content += "<li>";
+                content += "    <img src='"+icon+"'>";
+                content += "    <input name='check' class='css-checkbox' id='"+c+"' type='checkbox'>";
+                content += "    <label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>";
+                content += "    <a class='preview' href='"+downloadLink+"'><strong>Preview</strong></a>";
+                content += "    <span class='level "+entry.importance_level+"'>"+entry.importance_level+"</span>";
+                content += "</li>";   
+            }
+            if (type == 2){
+                content += "<li>";
+                content += "    <img src='"+icon+"'>";
+                content += "    <input name='check-search' class='css-checkbox' id='"+c+"' type='checkbox'>";
+                content += "    <label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>";
+                content += "    <a class='preview' href='"+downloadLink+"'><strong>Preview</strong></a>";
+                content += "</li>";  
+            }
+            
+            c++;
+        });
+       if(data.length <1)content += "Results not found";
+       content += '</ul>';  
+       return content;
+    }
+
+    function printGuidelinesToDownload(){
+        var content = '<ul>';
+        guideSelected.forEach(function(entry) { 
+            ga('send', 'event', 'Guidelines', 'downloaded', entry.name);
+            var icon = themePath+'images/guide.png',
+                downloadText = ' Download',
+                downloadLink = themePath+'download.php?file='+downloadPath+encodeURIComponent(entry.source);
+            if (entry.type == 2) {
+                icon = themePath+'images/video.png';
+                downloadText = ' Watch';
+                downloadLink = entry.source;
+            }
+            content += "<li>";
+            content += "    <img src='"+icon+"'>"; 
+            content += "    <a class='downloadLink' href='"+downloadLink+"' >"+entry.name;
+            content += "    <span class='download' style='float:right'><img src='"+themePath+"images/dl.png'>"+downloadText+"</span></a>";
+            content += "</li>";
+        });
+        content += '</ul>';
+        $( "#step5 #guidelines" ).html(content); 
+    }   
 
     /* This event is when the Checkbox was Selected or Unselected
        and fill a array guideSelected with new list selected      */
@@ -564,3 +544,7 @@ jQuery(document).ready(function ($) {
     }
 
 });
+
+function youtube_parser(input){
+    return input.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=|\/sandalsResorts#\w\/\w\/.*\/))([^\/&]{10,12})/)[1]; 
+}
