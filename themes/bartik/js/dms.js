@@ -1,5 +1,5 @@
 /**
-*  This file is part of Data Management Support Pack.
+*  This file is part of Data Management Support Pack (DMSP).
 *
 *  DMSP is free software: you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
