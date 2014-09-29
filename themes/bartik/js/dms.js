@@ -472,9 +472,9 @@ jQuery(document).ready(function ($) {
             if (entry.type == 2){
                 typeText = '(Video)';
                 icon = themePath+'images/video.png';
-                downloadLink = "https://www.youtube.com/embed/"+youtube_parser(entry.source)+"?rel=0&wmode=transparent";
+                downloadLink = "https://www.youtube.com/embed/"+youtube_parser($.trim(entry.source))+"?rel=0&wmode=transparent";
             } else{
-                downloadLink = "http://docs.google.com/viewer?url="+downloadPath+encodeURIComponent(entry.source)+"&embedded=true";
+                downloadLink = "http://docs.google.com/viewer?url="+downloadPath+encodeURIComponent($.trim(entry.source))+"&embedded=true";
                 icon = themePath+'images/guide.png';
                 typeText = '';
             }
@@ -511,25 +511,28 @@ jQuery(document).ready(function ($) {
             ga('send', 'event', 'Guidelines', 'downloaded', entry.name);
             var icon = themePath+'images/guide.png',
                 downloadText = ' Download',
-                downloadLink = themePath+'download.php?file='+downloadPath+encodeURIComponent(entry.source);
+                className = '',
+                downloadLink = themePath+'download.php?file='+downloadPath+encodeURIComponent($.trim(entry.source));
             // Video    
             if (entry.type == 2) {
                 icon = themePath+'images/video.png';
                 downloadText = ' Watch';
-                downloadLink = entry.source;
+                className = ' preview-video';
+                downloadLink = "https://www.youtube.com/embed/"+youtube_parser($.trim(entry.source))+"?rel=0&wmode=transparent"; 
             }
             // Data Management Support [Full package]
             if (entry.type == 3) { 
-                downloadLink = themePath+'download.php?file='+encodeURIComponent(entry.source);
+                downloadLink = themePath+'download.php?file='+encodeURIComponent($.trim(entry.source));
             }
             content += "<li>";
             content += "    <img src='"+icon+"'>"; 
-            content += "    <a class='downloadLink' href='"+downloadLink+"' >"+entry.name;
+            content += "    <a class='downloadLink "+className+"' href='"+downloadLink+"' >"+entry.name;
             content += "    <span class='download' style='float:right'><img src='"+themePath+"images/dl.png'>"+downloadText+"</span></a>";
             content += "</li>";
         });
         content += '</ul>';
         $( "#step5 #guidelines" ).html(content); 
+        $('.preview-video').colorbox({iframe:true, width:"80%", height:"80%"}); 
     }   
 
     /* This event is when the Checkbox was Selected or Unselected
