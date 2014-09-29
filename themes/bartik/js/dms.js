@@ -478,6 +478,7 @@ jQuery(document).ready(function ($) {
                 icon = themePath+'images/guide.png';
                 typeText = '';
             }
+            //Filtered
             if (type == 1){
                 content += "<li>";
                 content += "    <img src='"+icon+"'>";
@@ -487,6 +488,7 @@ jQuery(document).ready(function ($) {
                 content += "    <span class='level "+entry.importance_level+"'>"+entry.importance_level+"</span>";
                 content += "</li>";   
             }
+            //Searched
             if (type == 2){
                 content += "<li>";
                 content += "    <img src='"+icon+"'>";
@@ -510,10 +512,15 @@ jQuery(document).ready(function ($) {
             var icon = themePath+'images/guide.png',
                 downloadText = ' Download',
                 downloadLink = themePath+'download.php?file='+downloadPath+encodeURIComponent(entry.source);
+            // Video    
             if (entry.type == 2) {
                 icon = themePath+'images/video.png';
                 downloadText = ' Watch';
                 downloadLink = entry.source;
+            }
+            // Data Management Support [Full package]
+            if (entry.type == 3) { 
+                downloadLink = themePath+'download.php?file='+encodeURIComponent(entry.source);
             }
             content += "<li>";
             content += "    <img src='"+icon+"'>"; 
