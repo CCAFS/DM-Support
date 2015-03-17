@@ -50,8 +50,8 @@
 
         </div>   
       </div>
-      <div id="side-bot"> 
-        <div id="ajax-loader"><img src="./<?php print_r($directory); ?>/images/loader20.gif"></div>
+      <div class="dmspLoader" style="display: none;"><img src="./<?php print_r($directory); ?>/images/loader20.gif"></div>
+      <div id="side-bot">  
         <div id="search-content" style="display:none" >
             <h2>Search results ...</h2> 
             <div id="search-results"></div>

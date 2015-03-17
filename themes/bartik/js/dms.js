@@ -149,11 +149,11 @@ jQuery(document).ready(function ($) {
     // ================================================================// 
 
     function loaderStop() {
+        $(".dmspLoader").removeClass("loading").fadeOut();
         updateDataHeight();
-        $("#ajax-loader").fadeOut(150);
     }
     function loaderStart() {
-      $("#ajax-loader").show(); 
+      $(".dmspLoader").addClass("loading").show();
     }
 
     // ----- Ajax Functions ----- //
@@ -176,11 +176,13 @@ jQuery(document).ready(function ($) {
                              c : what },
                    'dataType': "json",
                    'success': function(data) {
-                      json = data; 
+                      json = data;  
+                   },
+                   'complete': function(data) { 
                       loaderStop();
                    },
                    beforeSend: function(){ 
-                    loaderStart();
+                    //loaderStart();
                    }
                 });
                 return json;
@@ -202,7 +204,7 @@ jQuery(document).ready(function ($) {
                       json = data; 
                    },
                    beforeSend: function(){ 
-                      loaderStart();
+                      //loaderStart();
                       ga('send', 'event', 'Search', 'search', keyword);
                    }
                 });
@@ -212,7 +214,7 @@ jQuery(document).ready(function ($) {
     }
 
     function loadUser(email) {
-        loaderStart();
+        //loaderStart();
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -257,15 +259,17 @@ jQuery(document).ready(function ($) {
                     if(data.r_south_america == 1) $("#l7").attr('checked', true);
                     
          
-                }
-                loaderStop();
+                } 
 
+            },
+            'complete': function(data) { 
+                loaderStop();
             }
         });
     }
 
     function setDownload(){
-        loaderStart();
+        //loaderStart();
         arrayInstituteRegions = [];
         $("input[name^='institute-regions']:checked").each(function(index) {
             arrayInstituteRegions[index] = $(this).val();
@@ -300,9 +304,11 @@ jQuery(document).ready(function ($) {
                 ga('send', 'event', 'Users', 'download', $("#mail").val());
                 ga('send', 'event', 'Institute', 'download', $("#institute-name").val());
             },
-            success: function(downloadId) {
-            loaderStop();
-            }
+            success: function(downloadId) { 
+            },
+            'complete': function(data) { 
+                loaderStop();
+            },
         });
     }
     // ----- END Ajax Functions ----- //
@@ -426,9 +432,10 @@ jQuery(document).ready(function ($) {
         updateSelects();
      }  
 
-    function radioChangeEvent(){ 
-        if (verify()==3){  
-            $("#step2").show().siblings().hide();
+    function radioChangeEvent(){
+        if (verify()==3){
+            loaderStart(); 
+            $("#step2").fadeIn().siblings().hide();
             // Step 2 (Guidelines Recommended)
             currentStep = 2; 
             var Data = getData(); //console.log("getData"); 
@@ -440,8 +447,14 @@ jQuery(document).ready(function ($) {
             ga('send', 'event', 'What', 'interested', whatText);
 
             content = printGuidelinesToPreview(Data,1); 
-            $( "#step2 #guidelines" ).html(content);  
+            $( "#step2 #guidelines" ).html(content).hide().fadeIn(1000); 
+
+            //Link to preview document 
             $('.preview').colorbox({iframe:true, width:"80%", height:"80%"}); 
+            $(".preview").bind('click', function(){
+              var name = $(this).parent().find("label").html();
+              ga('send', 'event', 'Guidelines', 'preview', name);
+            });
 
             //window.setTimeout(loaderStop,50);
             updateGuideSelected("check");

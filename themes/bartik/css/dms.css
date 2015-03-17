@@ -414,10 +414,13 @@ clear: both;
 
 		.zoom img::selection { background-color: transparent; }
 
-#ajax-loader {
-	display: none;
+.dmspLoader {  
 	float: right;
 	padding-right: 35px;
+}
+
+.dmspLoader.loading{
+	display: block;
 }		
 
 #search{
