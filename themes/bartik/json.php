@@ -45,7 +45,7 @@ if($context == "guidelines-lvl"){
 	$rows = array(); 
 	foreach ($sth as $record) {
 	  $rows[] = $record;
-	} 
+	}  
 	print json_encode($rows); 
 
 }

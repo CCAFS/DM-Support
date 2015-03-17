@@ -29,19 +29,21 @@ if(document.domain.indexOf("ccafs.cgiar.org") != -1){
 }
 
 var themePath = './themes/bartik/',
-	downloadPath = 'http://www.reading.ac.uk/ssc/resource-packs/dms/',
+    downloadPath = 'http://www.reading.ac.uk/ssc/resource-packs/dms/',
     currentStep = 1, 
     ls = localStorage,
-	guideSelected,
+    dataLoaded,
+    guideSelected,
     filterType, 
     timeoutID,
-	role,when,what,
+    role,when,what,
     roleText,whenText,whatText;
+
 jQuery(document).ready(function ($) { 
 
     updateDataHeight();
-	
-	$('#dm-content input:radio').addClass('input_hidden');
+    
+    $('#dm-content input:radio').addClass('input_hidden');
     $('#dm-content label').click(function() { 
         $(this).addClass('selected').siblings().removeClass('selected');
     });  
@@ -75,20 +77,20 @@ jQuery(document).ready(function ($) {
 
     // Step 1 (Select the 3 options )
     $("input:radio").click(radioChangeEvent); 
-	// Step 3 (Terms and conditions) email contact
-	$( "a.download.1" ).click(function() {  
+    // Step 3 (Terms and conditions) email contact
+    $( "a.download.1" ).click(function() {  
         filterType = $(this).attr("id");
-		if($("input:checkbox[name=check]").is(":checked") || $("input:checkbox[name=check-search]").is(":checked")) { 
+        if($("input:checkbox[name=check]").is(":checked") || $("input:checkbox[name=check-search]").is(":checked")) { 
             $("#step3").show().siblings().hide();
-			$("#search").attr("disabled", "disabled");
+            $("#search").attr("disabled", "disabled");
             $("input[name=mail]").val(localStorage.getItem('email'));
             allDisable(); 
             updateDataHeight();
-		} else { 
+        } else { 
             $("#step2 .error").css("display", "block");
         }
-		
-	});
+        
+    });
     
     $( "a.download.5" ).click(function() {   
         guideSelected = new Array(); 
@@ -105,34 +107,34 @@ jQuery(document).ready(function ($) {
         updateDataHeight();
     });
     
-	// Step 4 (Terms and conditions) form contact
-	$( "a.download.2" ).click(function() {  
-		var email =$("input[name=mail]").val();
+    // Step 4 (Terms and conditions) form contact
+    $( "a.download.2" ).click(function() {  
+        var email =$("input[name=mail]").val();
         ls.setItem('email', email);
-		if( validateEmail(email)  ) { 
-			loadUser(email); 
+        if( validateEmail(email)  ) { 
+            loadUser(email); 
             $("#step4").show().siblings().hide(); 
             updateDataHeight();
         } else { 
             $("#step3-form .error").css("display", "block");
         }
-		
-	});
+        
+    });
 
-	// Step 5 (Links for download)
-	$( "a.download.3" ).click(function() { 
-	var verifiedText = verifyFields(); 
-    	if (verifiedText.length) {
-    		$("#step4-form .error").html('Please fill out the information in the following fields :<br>'+verifiedText); 
-        	$("#step4-form .error").css("display", "block");
+    // Step 5 (Links for download)
+    $( "a.download.3" ).click(function() { 
+    var verifiedText = verifyFields(); 
+        if (verifiedText.length) {
+            $("#step4-form .error").html('Please fill out the information in the following fields :<br>'+verifiedText); 
+            $("#step4-form .error").css("display", "block");
         }else {
-        	setDownload();
-    		$("#step4").css("display", "none"); $("#step5").css("display", "block"); 
-    		printGuidelinesToDownload();
+            setDownload();
+            $("#step4").css("display", "none"); $("#step5").css("display", "block"); 
+            printGuidelinesToDownload();
             loaderStop();
              
-        } 	 	
-	});
+        }       
+    });
 
     // skip-form (Links for download)
     $("#skip-form").on("click", function(event) { 
@@ -144,77 +146,19 @@ jQuery(document).ready(function ($) {
          
     });   
 
-    // ================================================================// 
-    //                           General Functions                     //
-    // ================================================================// 
+    // ==================================================================// 
+    //                           General Functions                       //
+    // ==================================================================// 
 
     function loaderStop() {
         $(".dmspLoader").removeClass("loading").fadeOut();
         updateDataHeight();
     }
     function loaderStart() {
-      $(".dmspLoader").addClass("loading").show();
-    }
-
-    // ----- Ajax Functions ----- //
-
-    function getData(){
-         
-        role = $('input[name=role]:checked', '#side-role').val();
-        when = $('input[name=when]:checked', '#side-when').val();
-        what = $('input[name=what]:checked', '#side-right').val();
-        Data = (function() {
-                var json = null;
-                $.ajax({
-                   'async': false,
-                   'global': false,
-                   'url': themePath+'json.php',
-                   'type': "POST",
-                   'data': { context : "guidelines-lvl",
-                             r : role,
-                             s : when,
-                             c : what },
-                   'dataType': "json",
-                   'success': function(data) {
-                      json = data;  
-                   },
-                   'complete': function(data) { 
-                      loaderStop();
-                   },
-                   beforeSend: function(){ 
-                    //loaderStart();
-                   }
-                });
-                return json;
-         })();
-        return Data;    
-    }
-    function getDataKeyword(keyword){  
-        Data = (function() {
-                var json = null;
-                $.ajax({
-                   'async': false,
-                   'global': false,
-                   'url': themePath+'json.php',
-                   'type': "POST",
-                   'data': { context: "guidelines-search",
-                             q : keyword },
-                   'dataType': "json",
-                   'success': function(data) {
-                      json = data; 
-                   },
-                   beforeSend: function(){ 
-                      //loaderStart();
-                      ga('send', 'event', 'Search', 'search', keyword);
-                   }
-                });
-                return json;
-         })();
-        return Data;     
-    }
+      $(".dmspLoader").addClass("loading").fadeIn();
+    } 
 
     function loadUser(email) {
-        //loaderStart();
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -256,9 +200,7 @@ jQuery(document).ready(function ($) {
                     if(data.r_europe == 1) $("#l8").attr('checked', true);
                     if(data.r_middle_east_north_africa == 1) $("#l5").attr('checked', true);
                     if(data.r_north_america == 1) $("#l6").attr('checked', true);
-                    if(data.r_south_america == 1) $("#l7").attr('checked', true);
-                    
-         
+                    if(data.r_south_america == 1) $("#l7").attr('checked', true);                         
                 } 
 
             },
@@ -269,7 +211,6 @@ jQuery(document).ready(function ($) {
     }
 
     function setDownload(){
-        //loaderStart();
         arrayInstituteRegions = [];
         $("input[name^='institute-regions']:checked").each(function(index) {
             arrayInstituteRegions[index] = $(this).val();
@@ -433,48 +374,85 @@ jQuery(document).ready(function ($) {
      }  
 
     function radioChangeEvent(){
-        if (verify()==3){
-            loaderStart(); 
-            $("#step2").fadeIn().siblings().hide();
+        if (verify()==3){ 
+            $("#step2").fadeIn().siblings().hide(); 
+
             // Step 2 (Guidelines Recommended)
-            currentStep = 2; 
-            var Data = getData(); //console.log("getData"); 
-            updateSelects();  
-            results = 'Result: <b>Role</b> '+roleText+', <b>When</b> '+whenText+', <b>What</b> '+whatText;  
-            $( "#step2 #result" ).html(results);
-            ga('send', 'event', 'Role', 'interested', roleText);
-            ga('send', 'event', 'When', 'interested', whenText);
-            ga('send', 'event', 'What', 'interested', whatText);
+            currentStep = 2;   
+            role = $('input[name=role]:checked', '#side-role').val();
+            when = $('input[name=when]:checked', '#side-when').val();
+            what = $('input[name=what]:checked', '#side-right').val();
+            
+            // Load guidelines and show depending of Role, When and What selected
+            $.ajax({ 
+               'url': themePath+'json.php',
+               'type': "POST",
+               'data': { context : "guidelines-lvl",
+                         r : role,
+                         s : when,
+                         c : what },
+               'dataType': "json",
+               beforeSend: function(){  
+                loaderStart(); 
+               },
+               'success': function(data) {
+                    dataLoaded= data;
+                    updateSelects();  
+                    results = 'Result: <b>Role</b> '+roleText+', <b>When</b> '+whenText+', <b>What</b> '+whatText;  
+                    $( "#step2 #result" ).html(results);
+                    //Google Analytics custom events
+                    ga('send', 'event', 'Role', 'interested', roleText);
+                    ga('send', 'event', 'When', 'interested', whenText);
+                    ga('send', 'event', 'What', 'interested', whatText);
 
-            content = printGuidelinesToPreview(Data,1); 
-            $( "#step2 #guidelines" ).html(content).hide().fadeIn(1000); 
+                    content = printGuidelinesToPreview(data,1); 
+                    $( "#step2 #guidelines" ).html(content).hide().fadeIn(); 
 
-            //Link to preview document 
-            $('.preview').colorbox({iframe:true, width:"80%", height:"80%"}); 
-            $(".preview").bind('click', function(){
-              var name = $(this).parent().find("label").html();
-              ga('send', 'event', 'Guidelines', 'preview', name);
-            });
-
-            //window.setTimeout(loaderStop,50);
-            updateGuideSelected("check");
-            updateDataHeight();
+                    //Set Colorbox to preview document 
+                    setColorbox($(".preview"));
+               },
+               'complete': function(data) {  
+                    updateGuideSelected("check");
+                    updateDataHeight();
+                    loaderStop();
+               }
+            });  
         } 
     } 
-    function searchKeyword(){
+    function searchKeyword(){  
         allDisable();  
         var keyword = $("#search").val();
-        var DataKeyword= getDataKeyword(keyword);
 
-        content = printGuidelinesToPreview(DataKeyword,2);  
-        $("#search-results").html(content);
-        $('.preview').colorbox({iframe:true, width:"80%", height:"80%"}); 
+        // Load guidelines and show depending on keyword typed
+        $.ajax({ 
+            'url': themePath+'json.php',
+            'type': "POST",
+            'data': { context: "guidelines-search",
+                     q : keyword },
+            'dataType': "json",
+            beforeSend: function(){  
+                loaderStart(); 
+            },
+            'success': function(data) {
+                dataLoaded= data;
+                content = printGuidelinesToPreview(data,2);  
+                $("#search-results").html(content);
 
-        $("#search-content").css("display", "block");
-        if(currentStep==1)$("#step1").hide();
-        if(currentStep==2)$("#step2").hide();
-        updateGuideSelected("check-search");
-        loaderStop();
+                //Set Colorbox to preview document 
+                setColorbox($(".preview"));
+
+                $("#search-content").css("display", "block");
+                if(currentStep==1)$("#step1").hide();
+                if(currentStep==2)$("#step2").hide();
+                updateGuideSelected("check-search");
+           },
+           complete: function(){
+                loaderStop();
+                //Google Analytics custom events
+                ga('send', 'event', 'Search', 'search', keyword);
+           }
+        });    
+        
     }
     function printGuidelinesToPreview(data,type){
         var c = 0;
@@ -544,8 +522,10 @@ jQuery(document).ready(function ($) {
             content += "</li>";
         });
         content += '</ul>';
-        $( "#step5 #guidelines" ).html(content); 
-        $('.preview-video').colorbox({iframe:true, width:"80%", height:"80%"}); 
+        $( "#step5 #guidelines" ).html(content);  
+
+        //Set Colorbox to preview document 
+        setColorbox($('.preview-video'));
     }   
 
     /* This event is when the Checkbox was Selected or Unselected
@@ -554,7 +534,7 @@ jQuery(document).ready(function ($) {
         $("input[name^='"+name+"']").change(function() {
                 guideSelected = new Array();
                 $("input[name^='"+name+"']:checked").each(function(i) { 
-                    guideSelected[i] = Data[$(this).attr('id')];
+                    guideSelected[i] = dataLoaded[$(this).attr('id')];
                 });   
                 //console.log(guideSelected);
             });
@@ -587,6 +567,15 @@ jQuery(document).ready(function ($) {
     function updateDataHeight(){
         // Update the attribute data-height in the body tag
         $("body").attr("data-height", getWindowHeight());
+    }
+
+    function setColorbox(element){
+        $(element).colorbox({iframe:true, width:"80%", height:"80%"}); 
+        $(element).bind('click', function(){
+            var name = $(this).parent().find("label").html();
+            //Google Analytics custom events
+            ga('send', 'event', 'Guidelines', 'preview', name);
+        }); 
     }
 
 });
