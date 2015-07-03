@@ -465,7 +465,7 @@ jQuery(document).ready(function ($) {
                 icon = themePath+'images/video.png';
                 downloadLink = "https://www.youtube.com/embed/"+youtube_parser($.trim(entry.source))+"?rel=0&wmode=transparent";
             } else{
-                downloadLink = "http://docs.google.com/viewer?url="+downloadPath+encodeURIComponent($.trim(entry.source))+"&embedded=true";
+                downloadLink = "https://docs.google.com/viewer?url="+downloadPath+encodeURIComponent($.trim(entry.source))+"&embedded=true";
                 icon = themePath+'images/guide.png';
                 typeText = '';
             }
