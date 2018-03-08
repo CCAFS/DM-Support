@@ -15,140 +15,140 @@
 *  along with DMSP.  If not, see <http://www.gnu.org/licenses/>.
 *
 * Copyright 2014 (C) Climate Change, Agriculture and Food Security (CCAFS)
-* 
+*
 * Created on : 20-12-2013
 * @author      Sebastian Amariles Garcia (CIAT/CCAFS)
 * @version     1.0
 */
 
 
-// If this document is in a subdomain of ccafs.cgiar.org change 
+// If this document is in a subdomain of ccafs.cgiar.org change
 // the value
 if(document.domain.indexOf("ccafs.cgiar.org") != -1){
     document.domain = 'ccafs.cgiar.org';
 }
 
 var themePath = './themes/bartik/',
-    downloadPath = './data/',
-    currentStep = 1, 
+    downloadPath = 'http://dmsp.ccafs.cgiar.org/data/',
+    currentStep = 1,
     ls = localStorage,
     dataLoaded,
     guideSelected,
-    filterType, 
+    filterType,
     timeoutID,
     role,when,what,
     roleText,whenText,whatText;
 
-jQuery(document).ready(function ($) { 
+jQuery(document).ready(function ($) {
 
     updateDataHeight();
-    
+
     $('#dm-content input:radio').addClass('input_hidden');
-    $('#dm-content label').click(function() { 
+    $('#dm-content label').click(function() {
         $(this).addClass('selected').siblings().removeClass('selected');
-    });  
+    });
     $('#icon-flow,#icon-table').powerTip({
         followMouse: true
-    }); 
-   
-    // ================================================================// 
+    });
+
+    // ================================================================//
     //                            Key Events                           //
-    // ================================================================// 
+    // ================================================================//
 
     //Event when input search was typed
-    $( "#search" ).keyup(function() { 
+    $( "#search" ).keyup(function() {
       if(($("#search").val()).length > 1) {
-            if(timeoutID) clearTimeout(timeoutID);  
+            if(timeoutID) clearTimeout(timeoutID);
             // Start a timer that will search when finished
             timeoutID = setTimeout(searchKeyword, 800);
         } else{
-            allEnable(); 
+            allEnable();
             if(currentStep==1)$("#step1").fadeIn(700);
             if(currentStep==2)$("#step2").fadeIn(700);
             $("#search-content").hide();
             $("#search-results").html("");
             updateDataHeight();
-        } 
+        }
     });
 
-    // ================================================================// 
+    // ================================================================//
     //                           Clic Events                           //
-    // ================================================================//  
+    // ================================================================//
 
     // Step 1 (Select the 3 options )
-    $("input:radio").click(radioChangeEvent); 
+    $("input:radio").click(radioChangeEvent);
     // Step 3 (Terms and conditions) email contact
-    $( "a.download.1" ).click(function() {  
+    $( "a.download.1" ).click(function() {
         filterType = $(this).attr("id");
-        if($("input:checkbox[name=check]").is(":checked") || $("input:checkbox[name=check-search]").is(":checked")) { 
+        if($("input:checkbox[name=check]").is(":checked") || $("input:checkbox[name=check-search]").is(":checked")) {
             $("#step3").show().siblings().hide();
             $("#search").attr("disabled", "disabled");
             $("input[name=mail]").val(localStorage.getItem('email'));
-            allDisable(); 
+            allDisable();
             updateDataHeight();
-        } else { 
+        } else {
             $("#step2 .error").css("display", "block");
         }
-        
+
     });
-    
-    $( "a.download.5" ).click(function() {   
-        guideSelected = new Array(); 
+
+    $( "a.download.5" ).click(function() {
+        guideSelected = new Array();
         guideSelected[0] = {
-                            id: 999, 
-                            name: "Data Management Support [Full package]", 
-                            type: 3, 
-                            source: "http://www.reading.ac.uk/ssc/resources/ccafs_data_management_support_pack.pdf", 
+                            id: 999,
+                            name: "Data Management Support [Full package]",
+                            type: 3,
+                            source: "http://www.reading.ac.uk/ssc/resources/ccafs_data_management_support_pack.pdf",
                             importance_level: "Optional"
-                        } 
+                        }
         $("#step3").show().siblings().hide();
         $("#search").attr("disabled", "disabled");
-        allDisable(); 
+        allDisable();
         updateDataHeight();
     });
-    
+
     // Step 4 (Terms and conditions) form contact
-    $( "a.download.2" ).click(function() {  
+    $( "a.download.2" ).click(function() {
         var email =$("input[name=mail]").val();
         ls.setItem('email', email);
-        if( validateEmail(email)  ) { 
-            loadUser(email); 
-            $("#step4").show().siblings().hide(); 
+        if( validateEmail(email)  ) {
+            loadUser(email);
+            $("#step4").show().siblings().hide();
             updateDataHeight();
-        } else { 
+        } else {
             $("#step3-form .error").css("display", "block");
         }
-        
+
     });
 
     // Step 5 (Links for download)
-    $( "a.download.3" ).click(function() { 
-    var verifiedText = verifyFields(); 
+    $( "a.download.3" ).click(function() {
+    var verifiedText = verifyFields();
         if (verifiedText.length) {
-            $("#step4-form .error").html('Please fill out the information in the following fields :<br>'+verifiedText); 
+            $("#step4-form .error").html('Please fill out the information in the following fields :<br>'+verifiedText);
             $("#step4-form .error").css("display", "block");
         }else {
             setDownload();
-            $("#step4").css("display", "none"); $("#step5").css("display", "block"); 
+            $("#step4").css("display", "none"); $("#step5").css("display", "block");
             printGuidelinesToDownload();
             loaderStop();
-             
-        }       
+
+        }
     });
 
     // skip-form (Links for download)
-    $("#skip-form").on("click", function(event) { 
-        event.preventDefault(); 
-        //console.log("skip-form"); 
-        $("#step5").show().siblings().hide(); 
+    $("#skip-form").on("click", function(event) {
+        event.preventDefault();
+        //console.log("skip-form");
+        $("#step5").show().siblings().hide();
         printGuidelinesToDownload();
         loaderStop();
-         
-    });   
 
-    // ==================================================================// 
+    });
+
+    // ==================================================================//
     //                           General Functions                       //
-    // ==================================================================// 
+    // ==================================================================//
 
     function loaderStop() {
         $(".dmspLoader").removeClass("loading").fadeOut();
@@ -156,7 +156,7 @@ jQuery(document).ready(function ($) {
     }
     function loaderStart() {
       $(".dmspLoader").addClass("loading").fadeIn();
-    } 
+    }
 
     function loadUser(email) {
         $.ajax({
@@ -169,19 +169,19 @@ jQuery(document).ready(function ($) {
             },
             beforeSend: function(){
                 $("#user-id").val("-1");
-                
+
             },
             success: function(data) {
-                
+
                 data=data[0];
-                if(data.email == null) {  
-                } else {  
+                if(data.email == null) {
+                } else {
                     $("#user-id").val(data.id);
                     $("#first_name").attr("disabled", "disabled");
-                    $("#first_name").val(data.first_name); 
+                    $("#first_name").val(data.first_name);
                     $("#last_name").attr("disabled", "disabled");
-                    $("#last_name").val(data.last_name); 
-                    $("#institute-name").val(data.institute); 
+                    $("#last_name").val(data.last_name);
+                    $("#institute-name").val(data.institute);
 
                     // Institute Locations
                     if(data.i_africa == 1) $("#i1").attr('checked', true);
@@ -200,11 +200,11 @@ jQuery(document).ready(function ($) {
                     if(data.r_europe == 1) $("#l8").attr('checked', true);
                     if(data.r_middle_east_north_africa == 1) $("#l5").attr('checked', true);
                     if(data.r_north_america == 1) $("#l6").attr('checked', true);
-                    if(data.r_south_america == 1) $("#l7").attr('checked', true);                         
-                } 
+                    if(data.r_south_america == 1) $("#l7").attr('checked', true);
+                }
 
             },
-            'complete': function(data) { 
+            'complete': function(data) {
                 loaderStop();
             }
         });
@@ -220,7 +220,7 @@ jQuery(document).ready(function ($) {
             arrayResearchRegions[index] = $(this).val();
         });
         arrayguideSelected = [];
-        guideSelected.forEach(function(entry,index,array) { 
+        guideSelected.forEach(function(entry,index,array) {
             arrayguideSelected[index] = entry.id
         });
 
@@ -245,9 +245,9 @@ jQuery(document).ready(function ($) {
                 ga('send', 'event', 'Users', 'download', $("#mail").val());
                 ga('send', 'event', 'Institute', 'download', $("#institute-name").val());
             },
-            success: function(downloadId) { 
+            success: function(downloadId) {
             },
-            'complete': function(data) { 
+            'complete': function(data) {
                 loaderStop();
             },
         });
@@ -258,19 +258,19 @@ jQuery(document).ready(function ($) {
         var count = 0;
         if($("input:radio[name=role]").is(":checked")){
             $("img#icon-role").addClass("selected");
-            count++; 
+            count++;
         }
         if($("input:radio[name=when]").is(":checked")){
             $("img#icon-when").addClass("selected");
-            count++; 
+            count++;
         }
         if($("input:radio[name=what]").is(":checked")){
             $("img#icon-what").addClass("selected");
-            count++; 
+            count++;
         }
         return count
     }
-    function verifyFields(){ 
+    function verifyFields(){
         var verified = '';
         // Validate first name.
         if($("#first_name").is(":visible") && $("#first_name").val() == "") {
@@ -321,26 +321,26 @@ jQuery(document).ready(function ($) {
     function validateEmail(emailField) {
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
         if(emailField == "" || !emailReg.test(emailField)) {
-            return false; 
+            return false;
         } else {
-            return true; 
+            return true;
         }
     }
     function allDisable() {
-         
-        $('#dm-content label').unbind('click'); 
-        $("input[name=role]").each(function(i) { 
+
+        $('#dm-content label').unbind('click');
+        $("input[name=role]").each(function(i) {
             $(this).attr('disabled', true);
             var label = $("label[for='"+$(this).attr('id')+"']");
             label.addClass('selected');
         });
-        $("input[name=when]").each(function(i) { 
+        $("input[name=when]").each(function(i) {
             $(this).attr('disabled', true);
             var label = $("label[for='"+$(this).attr('id')+"']");
             label.addClass('selected');
 
         });
-        $("input[name=what]").each(function(i) { 
+        $("input[name=what]").each(function(i) {
             $(this).attr('disabled', true);
             var label = $("label[for='"+$(this).attr('id')+"']");
             label.addClass('selected');
@@ -348,43 +348,43 @@ jQuery(document).ready(function ($) {
      }
      function allEnable() {
 
-        $('#dm-content label').bind('click'); 
+        $('#dm-content label').bind('click');
         $('#dm-content input:radio').addClass('input_hidden');
-        $('#dm-content label').click(function() { 
+        $('#dm-content label').click(function() {
             $(this).addClass('selected').siblings().removeClass('selected');
-        }); 
+        });
 
-        $("input[name=role]").each(function(i) { 
+        $("input[name=role]").each(function(i) {
             $(this).attr('disabled', false);
             var label = $("label[for='"+$(this).attr('id')+"']");
             label.removeClass( "selected" );
         });
         $("input[name=when]").each(function(i) {
-            $(this).attr('disabled', false); 
+            $(this).attr('disabled', false);
             var label = $("label[for='"+$(this).attr('id')+"']");
             label.removeClass( "selected" );
 
         });
         $("input[name=what]").each(function(i) {
-            $(this).attr('disabled', false); 
+            $(this).attr('disabled', false);
             var label = $("label[for='"+$(this).attr('id')+"']");
             label.removeClass( "selected" );
         });
         updateSelects();
-     }  
+     }
 
     function radioChangeEvent(){
-        if (verify()==3){ 
-            $("#step2").fadeIn().siblings().hide(); 
+        if (verify()==3){
+            $("#step2").fadeIn().siblings().hide();
 
             // Step 2 (Guidelines Recommended)
-            currentStep = 2;   
+            currentStep = 2;
             role = $('input[name=role]:checked', '#side-role').val();
             when = $('input[name=when]:checked', '#side-when').val();
             what = $('input[name=what]:checked', '#side-right').val();
-            
+
             // Load guidelines and show depending of Role, When and What selected
-            $.ajax({ 
+            $.ajax({
                'url': themePath+'json.php',
                'type': "POST",
                'data': { context : "guidelines-lvl",
@@ -392,53 +392,53 @@ jQuery(document).ready(function ($) {
                          s : when,
                          c : what },
                'dataType': "json",
-               beforeSend: function(){  
-                loaderStart(); 
+               beforeSend: function(){
+                loaderStart();
                },
                'success': function(data) {
                     dataLoaded= data;
-                    updateSelects();  
-                    results = 'Result: <b>Role</b> '+roleText+', <b>When</b> '+whenText+', <b>What</b> '+whatText;  
+                    updateSelects();
+                    results = 'Result: <b>Role</b> '+roleText+', <b>When</b> '+whenText+', <b>What</b> '+whatText;
                     $( "#step2 #result" ).html(results);
                     //Google Analytics custom events
                     ga('send', 'event', 'Role', 'interested', roleText);
                     ga('send', 'event', 'When', 'interested', whenText);
                     ga('send', 'event', 'What', 'interested', whatText);
 
-                    content = printGuidelinesToPreview(data,1); 
-                    $( "#step2 #guidelines" ).html(content).hide().fadeIn(); 
+                    content = printGuidelinesToPreview(data,1);
+                    $( "#step2 #guidelines" ).html(content).hide().fadeIn();
 
-                    //Set Colorbox to preview document 
+                    //Set Colorbox to preview document
                     setColorbox($(".preview"));
                },
-               'complete': function(data) {  
+               'complete': function(data) {
                     updateGuideSelected("check");
                     updateDataHeight();
                     loaderStop();
                }
-            });  
-        } 
-    } 
-    function searchKeyword(){  
-        allDisable();  
+            });
+        }
+    }
+    function searchKeyword(){
+        allDisable();
         var keyword = $("#search").val();
 
         // Load guidelines and show depending on keyword typed
-        $.ajax({ 
+        $.ajax({
             'url': themePath+'json.php',
             'type': "POST",
             'data': { context: "guidelines-search",
                      q : keyword },
             'dataType': "json",
-            beforeSend: function(){  
-                loaderStart(); 
+            beforeSend: function(){
+                loaderStart();
             },
             'success': function(data) {
                 dataLoaded= data;
-                content = printGuidelinesToPreview(data,2);  
+                content = printGuidelinesToPreview(data,2);
                 $("#search-results").html(content);
 
-                //Set Colorbox to preview document 
+                //Set Colorbox to preview document
                 setColorbox($(".preview"));
 
                 $("#search-content").css("display", "block");
@@ -451,15 +451,15 @@ jQuery(document).ready(function ($) {
                 //Google Analytics custom events
                 ga('send', 'event', 'Search', 'search', keyword);
            }
-        });    
-        
+        });
+
     }
     function printGuidelinesToPreview(data,type){
         var c = 0;
-        content = ""; 
-        content += '<ul>'; 
-        data.forEach(function(entry) {  
-            var typeText,icon; 
+        content = "";
+        content += '<ul>';
+        data.forEach(function(entry) {
+            var typeText,icon;
             if (entry.type == 2){
                 typeText = '(Video)';
                 icon = themePath+'images/video.png';
@@ -477,7 +477,7 @@ jQuery(document).ready(function ($) {
                 content += "    <label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>";
                 content += "    <a class='preview' href='"+downloadLink+"'><strong>Preview</strong></a>";
                 content += "    <span class='level "+entry.importance_level+"'>"+entry.importance_level+"</span>";
-                content += "</li>";   
+                content += "</li>";
             }
             //Searched
             if (type == 2){
@@ -486,56 +486,56 @@ jQuery(document).ready(function ($) {
                 content += "    <input name='check-search' class='css-checkbox' id='"+c+"' type='checkbox'>";
                 content += "    <label for='"+c+"' class='css-label'>"+entry.name+" "+typeText+"</label>";
                 content += "    <a class='preview' href='"+downloadLink+"'><strong>Preview</strong></a>";
-                content += "</li>";  
+                content += "</li>";
             }
-            
+
             c++;
         });
        if(data.length <1)content += "Results not found";
-       content += '</ul>';  
+       content += '</ul>';
        return content;
     }
 
     function printGuidelinesToDownload(){
         var content = '<ul>';
-        guideSelected.forEach(function(entry) { 
+        guideSelected.forEach(function(entry) {
             ga('send', 'event', 'Guidelines', 'downloaded', entry.name);
             var icon = themePath+'images/guide.png',
                 downloadText = ' Download',
                 className = '',
                 downloadLink = themePath+'download.php?file='+downloadPath+encodeURIComponent($.trim(entry.source));
-            // Video    
+            // Video
             if (entry.type == 2) {
                 icon = themePath+'images/video.png';
                 downloadText = ' Watch';
                 className = ' preview-video';
-                downloadLink = "https://www.youtube.com/embed/"+youtube_parser($.trim(entry.source))+"?rel=0&wmode=transparent"; 
+                downloadLink = "https://www.youtube.com/embed/"+youtube_parser($.trim(entry.source))+"?rel=0&wmode=transparent";
             }
             // Data Management Support [Full package]
-            if (entry.type == 3) { 
+            if (entry.type == 3) {
                 downloadLink = themePath+'download.php?file='+encodeURIComponent($.trim(entry.source));
             }
             content += "<li>";
-            content += "    <img src='"+icon+"'>"; 
+            content += "    <img src='"+icon+"'>";
             content += "    <a class='downloadLink "+className+"' href='"+downloadLink+"' >"+entry.name;
             content += "    <span class='download' style='float:right'><img src='"+themePath+"images/dl.png'>"+downloadText+"</span></a>";
             content += "</li>";
         });
         content += '</ul>';
-        $( "#step5 #guidelines" ).html(content);  
+        $( "#step5 #guidelines" ).html(content);
 
-        //Set Colorbox to preview document 
+        //Set Colorbox to preview document
         setColorbox($('.preview-video'));
-    }   
+    }
 
     /* This event is when the Checkbox was Selected or Unselected
        and fill a array guideSelected with new list selected      */
-    function updateGuideSelected(name){  
+    function updateGuideSelected(name){
         $("input[name^='"+name+"']").change(function() {
                 guideSelected = new Array();
-                $("input[name^='"+name+"']:checked").each(function(i) { 
+                $("input[name^='"+name+"']:checked").each(function(i) {
                     guideSelected[i] = dataLoaded[$(this).attr('id')];
-                });   
+                });
                 //console.log(guideSelected);
             });
     }
@@ -570,16 +570,16 @@ jQuery(document).ready(function ($) {
     }
 
     function setColorbox(element){
-        $(element).colorbox({iframe:true, width:"80%", height:"80%"}); 
+        $(element).colorbox({iframe:true, width:"80%", height:"80%"});
         $(element).bind('click', function(){
             var name = $(this).parent().find("label").html();
             //Google Analytics custom events
             ga('send', 'event', 'Guidelines', 'preview', name);
-        }); 
+        });
     }
 
 });
 
 function youtube_parser(input){
-    return input.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=|\/sandalsResorts#\w\/\w\/.*\/))([^\/&]{10,12})/)[1]; 
+    return input.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=|\/sandalsResorts#\w\/\w\/.*\/))([^\/&]{10,12})/)[1];
 }
