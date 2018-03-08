@@ -29,7 +29,7 @@ if(document.domain.indexOf("ccafs.cgiar.org") != -1){
 }
 
 var themePath = './themes/bartik/',
-    downloadPath = 'http://dmsp.ccafs.cgiar.org/data/',
+    downloadPath = 'https://dmsp.ccafs.cgiar.org/data/',
     currentStep = 1,
     ls = localStorage,
     dataLoaded,
