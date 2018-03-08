@@ -29,7 +29,7 @@ if(document.domain.indexOf("ccafs.cgiar.org") != -1){
 }
 
 var themePath = './themes/bartik/',
-    downloadPath = 'http://www.reading.ac.uk/ssc/resource-packs/dms/',
+    downloadPath = './data/',
     currentStep = 1, 
     ls = localStorage,
     dataLoaded,
